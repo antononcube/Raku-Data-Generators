@@ -17,6 +17,8 @@ random words, pretentious job titles.
 =end pod
 
 use Data::Generators::RandomFunctions;
+use Data::Generators::RandomVariate;
+use Data::Generators::RandomTabularDataset;
 
 unit module Data::Generators;
 
@@ -50,4 +52,13 @@ our proto random-pretentious-job-title(|) is export {*}
 
 multi random-pretentious-job-title( **@args, *%args --> List) {
     Data::Generators::RandomFunctions::RandomPretentiousJobTitle( |@args, |%args )
+}
+
+
+#===========================================================
+#| Generate random tabular dataset.
+our proto random-tabular-dataset(|) is export {*}
+
+multi random-tabular-dataset( **@args, *%args) {
+    Data::Generators::RandomTabularDataset::RandomTabularDataset( |@args, |%args )
 }
