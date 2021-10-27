@@ -10,15 +10,25 @@ sub is-positional-of-strings($vec) {
 }
 
 #============================================================
-our sub RandomTabularDataset($nrow is copy,
-                             $ncol is copy = Whatever,
-                             :$columnNames is copy = Whatever,
-                             :&columnNamesGenerator is copy = WhateverCode,
-                             :$form is copy = "wide",
-                             :$generators is copy = Whatever,
-                             :$minNumberOfValues is copy = Whatever,
-                             :$maxNumberOfValues is copy = Whatever,
-                             Bool :$row-names = False) {
+our proto RandomTabularDataset(|) is export {*}
+
+multi RandomTabularDataset(*%args) {
+    RandomTabularDataset(Whatever, Whatever, |%args)
+}
+
+multi RandomTabularDataset($nrow, *%args) {
+    RandomTabularDataset($nrow, Whatever, |%args)
+}
+
+multi RandomTabularDataset($nrow is copy,
+                           $ncol is copy = Whatever,
+                           :$columnNames is copy = Whatever,
+                           :&columnNamesGenerator is copy = WhateverCode,
+                           :$form is copy = "wide",
+                           :$generators is copy = Whatever,
+                           :$minNumberOfValues is copy = Whatever,
+                           :$maxNumberOfValues is copy = Whatever,
+                           Bool :$row-names = False) {
 
     # Process number of rows
     if $nrow.isa(Whatever) { $nrow = [1 ..^ 200].pick }
