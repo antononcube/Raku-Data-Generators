@@ -4,7 +4,7 @@ use lib './lib';
 use lib '.';
 
 use Data::Reshapers;
-use Data::RandomDataGenerators::RandomPretentiousJobTitle;
+use Data::Generators::RandomPretentiousJobTitle;
 
 say RandomPretentiousJobTitle(6, number-of-words => Whatever, language => 21).raku;
 
