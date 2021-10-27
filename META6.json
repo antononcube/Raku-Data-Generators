@@ -15,8 +15,7 @@
   "test-depends": [],
   "provides": {
     "Data::Generators": "lib/Data/Generators.rakumod",
-    "Data::Generators::RandomPretentiousJobTitle": "lib/Data/Generators/RandomPretentiousJobTitle.rakumod",
-    "Data::Generators::RandomWord": "lib/Data/Generators/RandomWord.rakumod",
+    "Data::Generators::RandomFunctions": "lib/Data/Generators/RandomFunctions.rakumod",
     "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod"
   },
   "resources": [

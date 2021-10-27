@@ -4,15 +4,12 @@ use lib './lib';
 use lib '.';
 
 use Data::Generators;
-use Data::Generators::RandomPretentiousJobTitle;
-use Data::Generators::RandomWord;
-
 
 ##===========================================================
 say random-word(12);
-say random-word(12, type => 'common');
-say random-word(12, type => 'known');
-say random-word(12, type => 'stop');
+say random-word(12, type => 'common').raku;
+say random-word(12, type => 'known').raku;
+say random-word(12, type => 'stop').raku;
 
 ##===========================================================
 say "=" x 60;

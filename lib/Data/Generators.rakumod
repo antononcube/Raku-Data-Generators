@@ -16,8 +16,7 @@ random words, pretentious job titles.
 
 =end pod
 
-use Data::Generators::RandomPretentiousJobTitle;
-use Data::Generators::RandomWord;
+use Data::Generators::RandomFunctions;
 
 unit module Data::Generators;
 
@@ -25,12 +24,12 @@ unit module Data::Generators;
 our proto random-pretentious-job-title(|) is export {*}
 
 multi random-pretentious-job-title( **@args, *%args --> List) {
-    Data::Generators::RandomPretentiousJobTitle::RandomPretentiousJobTitle( |@args, |%args )
+    Data::Generators::RandomFunctions::RandomPretentiousJobTitle( |@args, |%args )
 }
 
 #===========================================================
 our proto random-word(|) is export {*}
 
 multi random-word( **@args, *%args  --> List) {
-    Data::Generators::RandomWord::RandomWord( |@args, |%args )
+    Data::Generators::RandomFunctions::RandomWord( |@args, |%args )
 }
