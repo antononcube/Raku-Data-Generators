@@ -3,6 +3,41 @@ my Data::Generators::ResourceAccess $resources.instance;
 
 unit module Data::Generators::RandomFunctions;
 
+#============================================================
+sub is-positional-of-strings($vec) {
+    ($vec ~~ Positional) and ($vec.all ~~ Str)
+}
+
+sub reallyflat (+@list) { gather @list.deepmap: *.take }
+
+#============================================================
+our proto RandomString(|) is export {*}
+
+multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges is copy = ("a" .. "z", "A" .. "Z", "0" .. "9") --> List) {
+
+    if $size == 0 {
+        die "The first argument is expected to be a positive integer."
+    }
+
+    if $chars.isa(Whatever) { $chars = [2..20] }
+    if $chars ~~ Numeric { $chars = ($chars.Int,) }
+    if not ( $chars.isa(Array) or $chars.isa(List) ) {
+        die "The argument chars is expected to be positive integer, a list of positive integers, or Whatever."
+    }
+
+    if $ranges.isa(Range) or is-positional-of-strings($ranges) { $ranges = [$ranges,] }
+    if $ranges.isa(Whatever) { $ranges = ("a" .. "z", "A" .. "Z", "0" .. "9") }
+
+    if not ( ( $ranges.isa(Array) or $ranges.isa(List) ) and ($ranges.all ~~ Range or $ranges.all ~~ ( is-positional-of-strings($_) )) ) {
+        die "The argument ranges is expected to be a range, a list of ranges, or Whatever."
+    }
+
+    my $res = do for ^$size {
+        reallyflat($ranges).roll( $chars.pick ).join;
+    }
+
+    $res.List
+}
 
 #============================================================
 our proto RandomWord(|) is export {*}

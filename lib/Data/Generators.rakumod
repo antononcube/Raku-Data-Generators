@@ -21,6 +21,13 @@ use Data::Generators::RandomFunctions;
 unit module Data::Generators;
 
 #===========================================================
+our proto random-string(|) is export {*}
+
+multi random-string( **@args, *%args  --> List) {
+    Data::Generators::RandomFunctions::RandomString( |@args, |%args )
+}
+
+#===========================================================
 our proto random-word(|) is export {*}
 
 multi random-word( **@args, *%args  --> List) {
