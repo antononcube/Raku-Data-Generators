@@ -16,6 +16,7 @@
   "provides": {
     "Data::Generators": "lib/Data/Generators.rakumod",
     "Data::Generators::RandomFunctions": "lib/Data/Generators/RandomFunctions.rakumod",
+    "Data::Generators::RandomVariate": "lib/Data/Generators/RandomVariate.rakumod",
     "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod"
   },
   "resources": [
