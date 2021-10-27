@@ -21,6 +21,7 @@ use Data::Generators::RandomFunctions;
 unit module Data::Generators;
 
 #===========================================================
+#| Generate random strings.
 our proto random-string(|) is export {*}
 
 multi random-string( **@args, *%args  --> List) {
@@ -28,6 +29,7 @@ multi random-string( **@args, *%args  --> List) {
 }
 
 #===========================================================
+#| Generate random words.
 our proto random-word(|) is export {*}
 
 multi random-word( **@args, *%args  --> List) {
@@ -35,6 +37,7 @@ multi random-word( **@args, *%args  --> List) {
 }
 
 #===========================================================
+#| Generate random pet names.
 our proto random-pet-name(|) is export {*}
 
 multi random-pet-name( **@args, *%args --> List) {
@@ -42,6 +45,7 @@ multi random-pet-name( **@args, *%args --> List) {
 }
 
 #===========================================================
+#| Generate random pretentious job titles.
 our proto random-pretentious-job-title(|) is export {*}
 
 multi random-pretentious-job-title( **@args, *%args --> List) {
