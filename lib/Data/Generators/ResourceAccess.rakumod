@@ -117,7 +117,7 @@ class Data::Generators::ResourceAccess {
     }
 
     multi method get-random-pet-name(UInt $size, Str $species, Bool :$weighed = False --> List) {
-        if %specieToPetNames{$species.lc}:exist {
+        if %specieToPetNames{$species.lc}:exists {
             if $weighed {
                 %specieToPetNames{$species.lc}.pick($size).List;
             } else {

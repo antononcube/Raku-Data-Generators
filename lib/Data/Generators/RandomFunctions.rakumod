@@ -8,32 +8,36 @@ sub is-positional-of-strings($vec) {
     ($vec ~~ Positional) and ($vec.all ~~ Str)
 }
 
-sub reallyflat (+@list) { gather @list.deepmap: *.take }
+sub reallyflat (+@list) {
+    gather @list.deepmap: *.take
+}
 
 #============================================================
 our proto RandomString(|) is export {*}
 
-multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges is copy = ("a" .. "z", "A" .. "Z", "0" .. "9") --> List) {
+multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges
+        is copy = ("a" .. "z", "A" .. "Z", "0" .. "9") --> List) {
 
     if $size == 0 {
         die "The first argument is expected to be a positive integer."
     }
 
-    if $chars.isa(Whatever) { $chars = [2..20] }
+    if $chars.isa(Whatever) { $chars = [2 .. 20] }
     if $chars ~~ Numeric { $chars = ($chars.Int,) }
-    if not ( $chars.isa(Array) or $chars.isa(List) ) {
+    if not ($chars.isa(Array) or $chars.isa(List)) {
         die "The argument chars is expected to be positive integer, a list of positive integers, or Whatever."
     }
 
     if $ranges.isa(Range) or is-positional-of-strings($ranges) { $ranges = [$ranges,] }
     if $ranges.isa(Whatever) { $ranges = ("a" .. "z", "A" .. "Z", "0" .. "9") }
 
-    if not ( ( $ranges.isa(Array) or $ranges.isa(List) ) and ($ranges.all ~~ Range or $ranges.all ~~ ( is-positional-of-strings($_) )) ) {
+    if not (($ranges.isa(Array) or $ranges.isa(List)) and ($ranges.all ~~ Range or $ranges
+            .all ~~ (is-positional-of-strings($_)))) {
         die "The argument ranges is expected to be a range, a list of ranges, or Whatever."
     }
 
     my $res = do for ^$size {
-        reallyflat($ranges).roll( $chars.pick ).join;
+        reallyflat($ranges).roll($chars.pick).join;
     }
 
     $res.List
@@ -57,7 +61,7 @@ multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is co
 
     if $language.isa(Whatever) { $language = 'English' }
 
-    if not $language.isa(Str) and $language.lc eq 'english'  {
+    if not $language.isa(Str) and $language.lc eq 'english' {
         die "The argument language is expected to be one of 'English' or Whatever. (Only English words are supported at this time.)"
     }
 
@@ -84,8 +88,8 @@ multi RandomPetName(UInt $size = 1, :$species is copy = Whatever, Bool :$weighte
 
     my @allSpecies = <Cat Dog Goat Pig>;
 
-    if not $species.isa(Whatever) or $species.isa(Str) and $species.lc (elem) @allSpecies».lc {
-        note "The argument type is expected to be one of {@allSpecies.raku}, or Whatever. Continuing with Whatever.";
+    if not ( $species.isa(Whatever) or $species.isa(Str) and ($species.lc (elem) @allSpecies».lc) ) {
+        note "The argument species ($species) is expected to be one of { @allSpecies.raku }, or Whatever. Continuing with Whatever.";
         $species = Whatever
     }
 
@@ -149,14 +153,15 @@ my %pretentiousJobTitleWords =
         );
 
 #------------------------------------------------------------
-our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3, :$language is copy = 'English') is export {
+our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3, :$language is copy = 'English')
+        is export {
 
-    if not ( $number-of-words ~~ Int and $number-of-words > 0 or $number-of-words.isa(Whatever) ) {
+    if not ($number-of-words ~~ Int and $number-of-words > 0 or $number-of-words.isa(Whatever)) {
         note "The arugment 'number-of-words' is expected to be one of 1, 2, 3, or Whatever. Continue using 3.";
         $number-of-words = 3
     }
 
-    if not ( $language.isa(Whatever) or ( $language ~~ Str ) and %pretentiousJobTitleWords{$language.lc}:exists) {
+    if not ($language.isa(Whatever) or ($language ~~ Str) and %pretentiousJobTitleWords{$language.lc}:exists) {
         note "The argument 'language' is expected to be one of { %pretentiousJobTitleWords.keys».tc.join(', ') } or Whatever. Continuing with English.";
         $language = 'English'
     }
