@@ -18,7 +18,7 @@ is random-string(12, chars => 4, ranges => [<1 8 A>, <Y H>, "0".."9" ] ).all ~~ 
         True,
         'list of 12 strings';
 
-## 3
+## 4
 is random-string(10, chars => Whatever, ranges => Whatever ).all ~~ Str,
         True,
         'list of 10 strings with Whatever number of characters and Whatever ranges';
