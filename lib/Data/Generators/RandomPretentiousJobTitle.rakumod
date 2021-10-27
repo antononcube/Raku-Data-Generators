@@ -52,7 +52,7 @@ my %pretentiousJobTitleWords =
         );
 
 #============================================================
-sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3, :$language is copy = 'English') is export {
+our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3, :$language is copy = 'English') is export {
 
     if not ( $number-of-words ~~ Int and $number-of-words > 0 or $number-of-words.isa(Whatever) ) {
         note "The arugment 'number-of-words' is expected to be one of 1, 2, 3, or Whatever. Continue using 3.";

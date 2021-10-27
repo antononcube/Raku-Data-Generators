@@ -4,7 +4,9 @@ my Data::Generators::ResourceAccess $resources.instance;
 unit module Data::Generators::RandomWord;
 
 #============================================================
-sub RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is copy = 'English') is export {
+our proto RandomWord(|) is export {*}
+
+multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is copy = 'English' --> List) {
 
     if $size == 0 {
         die "The first argument is expected to be a positive integer."
