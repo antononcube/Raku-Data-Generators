@@ -19,7 +19,8 @@
     "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod"
   },
   "resources": [
-    "dfEnglishWords.tsv"
+    "dfEnglishWords.tsv",
+    "dfPetNameCounts.csv"
   ],
   "license": "Artistic-2.0",
   "tags": [

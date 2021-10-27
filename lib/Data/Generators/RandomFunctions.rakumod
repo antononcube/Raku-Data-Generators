@@ -15,8 +15,15 @@ multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is co
 
     if $type.isa(Whatever) { $type = 'any' }
 
-    if not $type.isa(Str) {
-        die "The argument type is expected to be one of 'any', 'common', 'known', 'stopword', or Whatever."
+    if not $type.isa(Str) and $type.lc (elem) <any common known stopword> {
+        note "The argument type is expected to be one of 'any', 'common', 'known', 'stopword', or Whatever. Continuing with 'any'.";
+        $type = 'any'
+    }
+
+    if $language.isa(Whatever) { $language = 'English' }
+
+    if not $language.isa(Str) and $language.lc eq 'english'  {
+        die "The argument language is expected to be one of 'English' or Whatever. (Only English words are supported at this time.)"
     }
 
     if $type.lc eq 'any' {
@@ -25,6 +32,32 @@ multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is co
         $resources.get-random-word($size, $type.lc);
     } elsif $type.lc (elem) <stop stopword> {
         $resources.get-random-word($size, 'stopword');
+    } else {
+        # Should not happen
+        die "Unknown type $type."
+    }
+}
+
+#============================================================
+our proto RandomPetName(|) is export {*}
+
+multi RandomPetName(UInt $size = 1, :$species is copy = Whatever, Bool :$weighted = True --> List) {
+
+    if $size == 0 {
+        die "The first argument is expected to be a positive integer."
+    }
+
+    my @allSpecies = <Cat Dog Goat Pig>;
+
+    if not $species.isa(Whatever) or $species.isa(Str) and $species.lc (elem) @allSpecies».lc {
+        note "The argument type is expected to be one of {@allSpecies.raku}, or Whatever. Continuing with Whatever.";
+        $species = Whatever
+    }
+
+    if $species.isa(Whatever) {
+        $resources.get-random-pet-name($size, Whatever, :weighted);
+    } else {
+        $resources.get-random-pet-name($size, $species, :$weighted);
     }
 }
 
@@ -131,5 +164,5 @@ our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3,
             }
 
     ## Result
-    @phrases
+    @phrases.List
 }

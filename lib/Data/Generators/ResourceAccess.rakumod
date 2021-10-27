@@ -6,7 +6,7 @@ class Data::Generators::ResourceAccess {
     my @englishWords;
     my %englishWords;
     my %typeToIndexes;
-    my Hash %langNames{Str};
+    my %specieToPetNames;
 
     ##========================================================
     ## BUILD
@@ -67,6 +67,23 @@ class Data::Generators::ResourceAccess {
                 stopword => @englishWords.grep({ $_[3] }).map({ $_[4] });
 
         #-----------------------------------------------------------
+        # Species Name Count
+        $fileName = %?RESOURCES{'dfPetNameCounts.csv'};
+
+        $text = slurp $fileName.Str;
+        my @petNames = $text.split("\n").map({ $_.split('",').List });
+        @petNames = @petNames[1..*-1];
+        @petNames = @petNames.grep({ $_.elems == 3 });
+
+        # Convert the count to integers.
+        @petNames = do for @petNames -> $row {
+            ( $row[0].substr(1,*), $row[1].substr(1,*), +$row[2])
+        }
+
+        # Make species to pet names dictionary
+        %specieToPetNames = @petNames.classify({ $_[0] }).map({ $_.key.lc => Mix($_.value.map({ $_[1] => $_[2] })) });
+
+        #-----------------------------------------------------------
         self
     }
 
@@ -89,5 +106,26 @@ class Data::Generators::ResourceAccess {
     multi method get-random-word(UInt $size, Str $type = 'known',  --> List) {
         my @inds = %typeToIndexes{$type}.pick($size);
         @englishWords[@inds].map({ $_[0] }).List
+    }
+
+    multi method get-random-pet-name(UInt $size, Whatever, Bool :$weighed = False --> List) {
+        if $weighed {
+            %specieToPetNames.map({ $_.value.pick($size) }).flat.pick($size).List;
+        } else {
+            %specieToPetNames.map({ $_.value.keys.pick($size) }).flat.pick($size).List;
+        }
+    }
+
+    multi method get-random-pet-name(UInt $size, Str $species, Bool :$weighed = False --> List) {
+        if %specieToPetNames{$species.lc}:exist {
+            if $weighed {
+                %specieToPetNames{$species.lc}.pick($size).List;
+            } else {
+                %specieToPetNames{$species.lc}.keys.pick($size).List;
+            }
+        } else {
+            warn "Unknown species $species.";
+            ()
+        }
     }
 }

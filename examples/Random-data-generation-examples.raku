@@ -6,10 +6,15 @@ use lib '.';
 use Data::Generators;
 
 ##===========================================================
-say random-word(12);
-say random-word(12, type => 'common').raku;
-say random-word(12, type => 'known').raku;
-say random-word(12, type => 'stop').raku;
+say random-pet-name(8).raku;
+say random-pet-name(8, species => 'Cat').raku;
+say random-pet-name(8, species => 'Dog').raku;
+
+##===========================================================
+say random-word(8).raku;
+say random-word(6, type => 'common').raku;
+say random-word(6, type => 'known').raku;
+say random-word(6, type => 'stop').raku;
 
 ##===========================================================
 say "=" x 60;

@@ -21,15 +21,22 @@ use Data::Generators::RandomFunctions;
 unit module Data::Generators;
 
 #===========================================================
-our proto random-pretentious-job-title(|) is export {*}
-
-multi random-pretentious-job-title( **@args, *%args --> List) {
-    Data::Generators::RandomFunctions::RandomPretentiousJobTitle( |@args, |%args )
-}
-
-#===========================================================
 our proto random-word(|) is export {*}
 
 multi random-word( **@args, *%args  --> List) {
     Data::Generators::RandomFunctions::RandomWord( |@args, |%args )
+}
+
+#===========================================================
+our proto random-pet-name(|) is export {*}
+
+multi random-pet-name( **@args, *%args --> List) {
+    Data::Generators::RandomFunctions::RandomPetName( |@args, |%args )
+}
+
+#===========================================================
+our proto random-pretentious-job-title(|) is export {*}
+
+multi random-pretentious-job-title( **@args, *%args --> List) {
+    Data::Generators::RandomFunctions::RandomPretentiousJobTitle( |@args, |%args )
 }
