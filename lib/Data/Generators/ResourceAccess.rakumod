@@ -99,29 +99,29 @@ class Data::Generators::ResourceAccess {
     }
 
     multi method get-random-word(UInt $size = 1 --> List) {
-        my @inds = [^@englishWords.elems].pick($size);
+        my @inds = [^@englishWords.elems].roll($size);
         @englishWords[@inds].map({ $_[0] }).List
     }
 
-    multi method get-random-word(UInt $size, Str $type = 'known',  --> List) {
-        my @inds = %typeToIndexes{$type}.pick($size);
+    multi method get-random-word(UInt $size, Str $type = 'known'  --> List) {
+        my @inds = %typeToIndexes{$type.lc}.cache.roll($size);
         @englishWords[@inds].map({ $_[0] }).List
     }
 
     multi method get-random-pet-name(UInt $size, Whatever, Bool :$weighed = False --> List) {
         if $weighed {
-            %specieToPetNames.map({ $_.value.pick($size) }).flat.pick($size).List;
+            %specieToPetNames.map({ $_.value.roll($size) }).flat.roll($size).List;
         } else {
-            %specieToPetNames.map({ $_.value.keys.pick($size) }).flat.pick($size).List;
+            %specieToPetNames.map({ $_.value.keys.roll($size) }).flat.roll($size).List;
         }
     }
 
     multi method get-random-pet-name(UInt $size, Str $species, Bool :$weighed = False --> List) {
         if %specieToPetNames{$species.lc}:exists {
             if $weighed {
-                %specieToPetNames{$species.lc}.pick($size).List;
+                %specieToPetNames{$species.lc}.roll($size).List;
             } else {
-                %specieToPetNames{$species.lc}.keys.pick($size).List;
+                %specieToPetNames{$species.lc}.keys.roll($size).List;
             }
         } else {
             warn "Unknown species $species.";
