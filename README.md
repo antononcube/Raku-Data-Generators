@@ -31,7 +31,7 @@ use Data::Generators;
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 ```
-# ("6400", "2246", "n87N", "54YN", "6N16", "yyYy")
+# ("1101", "N104", "Y400", "4744", "9NYN", "979y")
 ```
 
 ------
@@ -46,7 +46,7 @@ Here we generate a list with 12 random words:
 random-word(12)
 ```
 ```
-# (dun-colored tetrachlorethylene hierarchical benevolence inferential cycloid cadence Carpinaceae abiotrophy devisal Artemia forthrightness)
+# (Chou bullfinch sideroblast fixer-upper residence dare fogbank alphabetisation humanness trapshooting kimono morbid)
 ```
 
 Here we generate a table of random words of different types:
@@ -57,14 +57,14 @@ my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type
 say to-pretty-table(@dfWords);
 ```
 ```
-# +--------+-------------+---------+------------+------------------+-----------+--------+
-# |        |      2      |    4    |     0      |        3         |     5     |   1    |
-# +--------+-------------+---------+------------+------------------+-----------+--------+
-# | Any    | vasectomize |   mono  |   Sanaa    |    balsamroot    |  subgross | eyelet |
-# | Common | hybridizing |  habit  | hinterland |       hazy       | untangled | corpus |
-# | Known  |  applecart  | Bolivia | nursemaid  | four-dimensional | sixty-one | torso  |
-# | Stop   |  somewhere  |  what's |     am     |      that's      |  they're  |   f    |
-# +--------+-------------+---------+------------+------------------+-----------+--------+
+# +--------+-----------+--------------+-----------+---------------+------------+------------+
+# |        |     1     |      3       |     4     |       0       |     2      |     5      |
+# +--------+-----------+--------------+-----------+---------------+------------+------------+
+# | Any    |  dynamite | defenceless  |    SLE    |    Leibniz    |  know-all  | polemicist |
+# | Common |  ballgame | comfortingly | swaggerer | disappointing |  bagging   |   lemma    |
+# | Known  | ragpicker |    rather    |  commute  |     shamus    | Tolypeutes | expressly  |
+# | Stop   |     go    |     most     |     M     |       1       |    same    |     v      |
+# +--------+-----------+--------------+-----------+---------------+------------+------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -88,7 +88,7 @@ srand(32);
 random-pet-name(6).raku
 ```
 ```
-# ("Ossa", "Lofa", "Margot", "Yoji", "Professor Nibblesworth", "Yoji")
+# ("Millie", "Marly", "Mazie Blue", "Guinness", "Kassy", "Guinness")
 ```
 
 The named argument `species` can be used to specify specie of the random pet names. 
@@ -101,15 +101,15 @@ my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6
 say to-pretty-table(@dfPetNames);
 ```
 ```
-# +------+---------+------------+----------+---------+------------+---------------+
-# |      |    4    |     5      |    2     |    0    |     1      |       3       |
-# +------+---------+------------+----------+---------+------------+---------------+
-# | Any  |  Natsu  |    Fran    | Guinness |  Crayon |   Natsu    |     Natsu     |
-# | Cat  |  Noobie |    Miso    |  Hippo   |   Todd  |  Brownie   |  No No Buddy  |
-# | Dog  | Tiffany | Tiny Buddy |  Teddie  | BirdDog | Jessabella | Mrs Bojangles |
-# | Goat |  Teddy  |   Molly    |  Heidi   | Schmidt |   Aggie    |      Finn     |
-# | Pig  |  Millie |  Guinness  | Atticus  |  Millie |  Guinness  |    Atticus    |
-# +------+---------+------------+----------+---------+------------+---------------+
+# +------+----------+---------+-----------+---------+---------+-----------------+
+# |      |    4     |    3    |     2     |    5    |    1    |        0        |
+# +------+----------+---------+-----------+---------+---------+-----------------+
+# | Any  |   Kiki   |   Kiki  |   Moppet  |  Kikki  |   Kiki  |       Moji      |
+# | Cat  |  Marge   | Tribeca | Cornflake |  Althea | Onigiri |     Panthera    |
+# | Dog  |  Geely   |  Pelusa |   Inyri   |   Pepo  | Martine |       Pym       |
+# | Goat |  Molly   | Schmidt |   Linda   |  Sassy  |  Trixie | Brussels Sprout |
+# | Pig  | Guinness |  Millie |   Millie  | Atticus | Atticus |     Guinness    |
+# +------+----------+---------+-----------+---------+---------+-----------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -122,7 +122,7 @@ srand(32);
 say ‌‌random-pet-name(6, :weighted).raku
 ```
 ```
-# ("Emi Chan", "Atticus", "Cherie", "Slink", "Jody", "TOPI")
+# ("Guinness", "Fiona", "Liza", "Guinness", "Nico", "Mingeow")
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -151,16 +151,17 @@ Here we generate pretentious job titles using different languages and number of 
 
 ```raku
 my $res = random-pretentious-job-title(12, number-of-words => Whatever, language => Whatever);
-say ‌‌to-pretty-table($res.rotor(4));
+say ‌‌to-pretty-table($res.rotor(3));
 ```
 ```
-# +----------------+------------------------------------+----------------------------------+---------------------------------+
-# |       0        |                 1                  |                2                 |                3                |
-# +----------------+------------------------------------+----------------------------------+---------------------------------+
-# |    Designer    | Вътрешен Консултант на Комуникации |     Chief Mobility Engineer      |            Executive            |
-# |   Консултант   |             Посредник              |       Operations Assistant       |     Разработчик на Отчетност    |
-# | Агент на Данни |          Web Orchestrator          | Регионален Техник на Изследвания | Глобален Сътрудник по Сигурност |
-# +----------------+------------------------------------+----------------------------------+---------------------------------+
+# +----------------------+------------------------------------+---------------------------------+
+# |          0           |                 1                  |                2                |
+# +----------------------+------------------------------------+---------------------------------+
+# |       Designer       | Вътрешен Консултант на Комуникации |     Chief Mobility Engineer     |
+# |      Executive       |             Консултант             |            Посредник            |
+# | Operations Assistant |      Разработчик на Отчетност      |          Агент на Данни         |
+# |   Web Orchestrator   |  Регионален Техник на Изследвания  | Глобален Сътрудник по Сигурност |
+# +----------------------+------------------------------------+---------------------------------+
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -171,7 +172,11 @@ say ‌‌to-pretty-table($res.rotor(4));
 
 ## TODO
 
-*TBD...*
+1. [ ] Random tabular datasets generation
+
+2. [ ] Random reals vectors generation
+
+3. [ ] Random reals vectors generation according to distribution specs
 
 ------
 
