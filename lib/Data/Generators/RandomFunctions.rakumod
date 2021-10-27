@@ -86,14 +86,14 @@ multi RandomPetName(UInt $size = 1, :$species is copy = Whatever, Bool :$weighte
         die "The first argument is expected to be a positive integer."
     }
 
-    my @allSpecies = <Cat Dog Goat Pig>;
+    my @allSpecies = <Any Cat Dog Goat Pig>;
 
     if not ( $species.isa(Whatever) or $species.isa(Str) and ($species.lc (elem) @allSpecies».lc) ) {
         note "The argument species ($species) is expected to be one of { @allSpecies.raku }, or Whatever. Continuing with Whatever.";
         $species = Whatever
     }
 
-    if $species.isa(Whatever) {
+    if $species.isa(Whatever) or $species.lc eq 'any'  {
         $resources.get-random-pet-name($size, Whatever, :weighted);
     } else {
         $resources.get-random-pet-name($size, $species, :$weighted);
