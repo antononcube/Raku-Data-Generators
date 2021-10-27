@@ -1,0 +1,33 @@
+{
+  "name": "Data::Generators",
+  "description": "Random data generation functions: strings, words, numbers, vectors, and datasets.",
+  "version": "0.1.5",
+  "perl": "6.d",
+  "authors": [
+    "Anton Antonov"
+  ],
+  "auth": "github:antononcube",
+  "depends": [
+    "Text::CSV",
+    "Pretty::Table"
+  ],
+  "build-depends": [],
+  "test-depends": [],
+  "provides": {
+    "Data::Generators": "lib/Data/Generators.rakumod",
+    "Data::Generators::RandomPretentiousJobTitle": "lib/Data/Generators/RandomPretentiousJobTitle.rakumod",
+    "Data::Generators::RandomWord": "lib/Data/Generators/RandomWord.rakumod"
+  },
+  "resources": [
+    "dfEnglishWords.csv",
+    "dfPetNamesCounts.csv"
+  ],
+  "license": "Artistic-2.0",
+  "tags": [
+    "data",
+    "dataset",
+    "random"
+  ],
+  "api": "1",
+  "source-url": "https://github.com/antononcube/Raku-Data-Generators.git"
+}
