@@ -122,7 +122,7 @@ our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3,
     }
 
     if not ( $language.isa(Whatever) or ( $language ~~ Str ) and %pretentiousJobTitleWords{$language.lc}:exists) {
-        note "The argument 'language' is expected to be one of { %pretentiousJobTitleWords.keys».tc.join(', ') } or Whatever. Continue with English.";
+        note "The argument 'language' is expected to be one of { %pretentiousJobTitleWords.keys».tc.join(', ') } or Whatever. Continuing with English.";
         $language = 'English'
     }
 
