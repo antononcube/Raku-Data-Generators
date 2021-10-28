@@ -21,8 +21,7 @@ multi RandomTabularDataset($nrow, *%args) {
 }
 
 multi RandomTabularDataset($nrow is copy,
-                           $ncol is copy = Whatever,
-                           :$columnNames is copy = Whatever,
+                           $colSpec is copy = Whatever,
                            :&columnNamesGenerator is copy = WhateverCode,
                            :$form is copy = "wide",
                            :$generators is copy = Whatever,
@@ -31,21 +30,28 @@ multi RandomTabularDataset($nrow is copy,
                            Bool :$row-names = False) {
 
     # Process number of rows
-    if $nrow.isa(Whatever) { $nrow = [1 ..^ 200].pick }
+    if $nrow.isa(Whatever) {
+        $nrow = RandomVariate(NormalDistribution.new(mean => 12, sd => 10), 1)[0].Int;
+        $nrow = $nrow <= 0 ?? 1 - $nrow !! $nrow;
+    }
     if $nrow ~~ Numeric { $nrow .= Int }
     if not $nrow ~~ Int and $nrow > 0 {
         die "The argument nrow is expected to be positive integer or Whatever."
     }
 
     # Process number of columns
+    my $ncol = Whatever;
     my $localColumnNames = Whatever;
-    if $columnNames.isa(Whatever) {
-        if $ncol.isa(Whatever) { $ncol = [1 ..^ 30].pick }
-    } elsif is-positional-of-strings($columnNames) {
-        $localColumnNames = $columnNames;
+    if $colSpec.isa(Whatever) {
+        $ncol = RandomVariate(NormalDistribution.new(mean => 6, sd => 10), 1)[0].Int;
+        $ncol = $ncol <= 0 ?? 1 - $ncol !! $ncol;
+    } elsif is-positional-of-strings($colSpec) {
+        $localColumnNames = $colSpec;
         $ncol = $localColumnNames.elems;
+    } elsif $colSpec ~~ Numeric and $colSpec.Int > 0 {
+        $ncol = $colSpec.Int;
     } else {
-        die "The argument columnNames is expected to be a character vector or Whatever."
+        die "The second, columns specifictions argument is expected to be a positive interger, a list of strings, or Whatever."
     }
 
     # Column names generator
