@@ -8,7 +8,6 @@
   ],
   "auth": "github:antononcube",
   "depends": [
-    "Text::CSV",
     "Pretty::Table"
   ],
   "build-depends": [],
