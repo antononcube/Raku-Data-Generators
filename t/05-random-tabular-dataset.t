@@ -1,15 +1,14 @@
-use Test;
-
 use lib './lib';
 use lib '.';
 
 use Data::Generators;
 
-#sub is-array-of-hashes($tbl) { $tbl ~~ Array and ([and] $tbl.map({ $_ ~~ Hash }) ) }
+use Test;
+
 sub is-array-of-hashes($tbl) { $tbl ~~ Array and $tbl.all ~~ Hash }
 sub is-array-of-key-hash-pairs($tbl) { $tbl ~~ Array and $tbl.all ~~ Pair and ([and] $tbl.map({ $_.value ~~ Hash })) }
 
-plan 7;
+plan 8;
 
 ## 1
 ok random-tabular-dataset(), 'simple call 1';
@@ -37,5 +36,10 @@ is is-array-of-hashes( random-tabular-dataset(10, 5) ),
 is is-array-of-hashes(random-tabular-dataset(4, 7, column-names-generator => { random-word($_, type => 'Stop') })),
         True,
         'columns count spec and column names generator';
+
+## 8
+is is-array-of-key-hash-pairs(random-tabular-dataset(4, 7):row-names),
+        True,
+        'columns count spec and row names';
 
 done-testing;
