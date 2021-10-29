@@ -8,7 +8,6 @@
   ],
   "auth": "github:antononcube",
   "depends": [
-    "Pretty::Table",
     "Data::Reshapers"
   ],
   "build-depends": [],
