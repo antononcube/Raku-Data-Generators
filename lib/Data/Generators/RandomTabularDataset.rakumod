@@ -22,12 +22,12 @@ multi RandomTabularDataset($nrow, *%args) {
 
 multi RandomTabularDataset($nrow is copy,
                            $colSpec is copy = Whatever,
-                           :&columnNamesGenerator is copy = WhateverCode,
+                           :&column-names-generator is copy = WhateverCode,
                            :$form is copy = "wide",
                            :$generators is copy = Whatever,
-                           :$minNumberOfValues is copy = Whatever,
-                           :$maxNumberOfValues is copy = Whatever,
-                           Bool :$row-names = False) {
+                           :$min-number-of-values is copy = Whatever,
+                           :$max-number-of-values is copy = Whatever,
+                           Bool :$row-names = False --> Array) {
 
     # Process number of rows
     if $nrow.isa(Whatever) {
@@ -51,15 +51,15 @@ multi RandomTabularDataset($nrow is copy,
     } elsif $colSpec ~~ Numeric and $colSpec.Int > 0 {
         $ncol = $colSpec.Int;
     } else {
-        die "The second, columns specifictions argument is expected to be a positive interger, a list of strings, or Whatever."
+        die "The second, columns specifiction argument is expected to be a positive interger, a list of strings, or Whatever."
     }
 
     # Column names generator
     if $localColumnNames.isa(Whatever) {
-        if &columnNamesGenerator.isa(WhateverCode) {
+        if &column-names-generator.isa(WhateverCode) {
             $localColumnNames = RandomWord($ncol, type => 'Common')
         } else {
-            $localColumnNames = &columnNamesGenerator($ncol)
+            $localColumnNames = &column-names-generator($ncol)
         }
     }
 
@@ -67,21 +67,21 @@ multi RandomTabularDataset($nrow is copy,
 
 
     ## Max Number Of Values
-    if $maxNumberOfValues.isa(Whatever) {
-        $maxNumberOfValues = $nrow * $ncol
+    if $max-number-of-values.isa(Whatever) {
+        $max-number-of-values = $nrow * $ncol
     }
 
-    if not $maxNumberOfValues ~~ Numeric and $maxNumberOfValues > 0 {
+    if not $max-number-of-values ~~ Numeric and $max-number-of-values > 0 {
         die "The argument maxNumberOfValues is expected to be a non-negative integer or Whatever."
     }
 
     ## Min Number Of Values
-    if $maxNumberOfValues.isa(Whatever) {
-        $maxNumberOfValues = $nrow * $ncol
+    if $min-number-of-values.isa(Whatever) {
+        $min-number-of-values = $nrow * $ncol
     }
 
-    if not $maxNumberOfValues ~~ Numeric and $maxNumberOfValues > 0 {
-        die "The argument maxNumberOfValues is expected to be a non-negative integer or Whatever."
+    if not $min-number-of-values ~~ Numeric and $min-number-of-values > 0 {
+        die "The argument minNumberOfValues is expected to be a non-negative integer or Whatever."
     }
 
     ## Form
@@ -95,7 +95,7 @@ multi RandomTabularDataset($nrow is copy,
     $form = $form.lc;
 
     # Generate random values
-    my @dfRes =
+    my @dfRes is Array =
             do for $localColumnNames.List -> $cn {
                 my $rcol =
                         rand > 0.5 ??
@@ -104,14 +104,17 @@ multi RandomTabularDataset($nrow is copy,
                 $cn => $rcol
             };
 
+    # The generation above above was done per column,
+    # so with transpose we get row-centric representation.
     @dfRes = transpose(@dfRes);
 
     ## Result
-    if not $row-names {
-        # No row names
-        @dfRes.map({ $_.value })
-    } else {
+    if $row-names {
         # Row names
         @dfRes
+    } else {
+        # No row names
+        # This assumes that Data::Reshapers::transpose returns an array of key-to-hash pairs.
+        @dfRes.map({ $_.value }).Array
     }
 }
