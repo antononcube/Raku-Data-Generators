@@ -54,6 +54,17 @@ multi random-pretentious-job-title( **@args, *%args --> List) {
     Data::Generators::RandomFunctions::RandomPretentiousJobTitle( |@args, |%args )
 }
 
+#===========================================================
+#| Gives a pseudorandom variate from the distribution specification.
+our proto random-variate(|) is export {*}
+
+multi random-variate( **@args, *%args --> List) {
+    Data::Generators::RandomVariate::RandomVariate( |@args, |%args )
+}
+
+#===========================================================
+constant \NormalDistribution := Data::Generators::RandomVariate::NormalDistribution;
+constant \UniformDistribution := Data::Generators::RandomVariate::UniformDistribution;
 
 #===========================================================
 #| Generate random tabular dataset.
