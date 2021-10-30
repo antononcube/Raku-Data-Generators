@@ -31,7 +31,7 @@ use Data::Generators;
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 ```
-# ("Y7y3", "43n4", "N9Y6", "603n", "701Y", "7631")
+# ("y65N", "44n8", "1835", "5967", "8nnY", "y69Y")
 ```
 
 ------
@@ -46,7 +46,7 @@ Here we generate a list with 12 random words:
 random-word(12)
 ```
 ```
-# (wily Monterrey Skagerak Duse barrelled rumor rum forty-third Dermoptera maltster Schoolcraft homunculus)
+# (Ajax preconceived cybersex grad retreated Bastille barbu alms Jansenism cachou jack-o'-lantern vasovesiculitis)
 ```
 
 Here we generate a table of random words of different types:
@@ -57,14 +57,14 @@ my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type
 say to-pretty-table(@dfWords);
 ```
 ```
-# +--------+--------------+----------------+----------------+-----------------+-------------+--------------+
-# |        |      3       |       0        |       1        |        4        |      2      |      5       |
-# +--------+--------------+----------------+----------------+-----------------+-------------+--------------+
-# | Any    |   tangibly   |   Phaeophyta   |   encephalon   | cross-pollinate | gallbladder | off-Broadway |
-# | Common |     yam      |    waltzer     |      swot      |    procedural   |    family   |   esteemed   |
-# | Known  | noncombining | smooth-shelled | neocolonialism |   overreaching  |   bistroic  |  disprover   |
-# | Stop   |     are      |    yourself    |     doing      |      while      |  everything |    always    |
-# +--------+--------------+----------------+----------------+-----------------+-------------+--------------+
+# +--------+--------------+---------------+------------+--------------+-------------+--------+
+# |        |      1       |       4       |     3      |      5       |      2      |   0    |
+# +--------+--------------+---------------+------------+--------------+-------------+--------+
+# | Any    | phagocytosis | interoperable |  fermium   |   topsoil    |   deceased  | chirr  |
+# | Common |     jag      |  bullfighter  | solidarity |   wriggle    |    arouse   | paddle |
+# | Known  |  comestible  |    insolate   |  sapropel  | Ambrosiaceae | disinclined |  Pomo  |
+# | Stop   |    when's    |      well     |   we've    |     this     |    always   |  thus  |
+# +--------+--------------+---------------+------------+--------------+-------------+--------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -88,7 +88,7 @@ srand(32);
 random-pet-name(6).raku
 ```
 ```
-# ("Shimano", "Guanyin", "Truffle", "Finnegan", "Fiona", "Finnegan")
+# ("Phossy", "Fiona", "Guinness", "Hobie", "Guinness", "Hobie")
 ```
 
 The named argument `species` can be used to specify specie of the random pet names. 
@@ -101,15 +101,15 @@ my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6
 say to-pretty-table(@dfPetNames);
 ```
 ```
-# +------+---------+------------+------------+-----------+----------+------------------------------+
-# |      |    4    |     2      |     3      |     1     |    5     |              0               |
-# +------+---------+------------+------------+-----------+----------+------------------------------+
-# | Any  | Atticus |   Millie   |  Santino   |  Atticus  | Tuppence |           Guinness           |
-# | Cat  |  Kanga  | Wooly Bear |   Rylee    |  Mahalia  |  Citra   | Felix Felicis the Invincible |
-# | Dog  |  Keita  |   Saffy    | Browne Lei | Frankford |  Bewley  |          Emmie Lou           |
-# | Goat |  Frosty |   Linda    |    Tati    |  Estelle  | Winnipeg |             Lula             |
-# | Pig  |  Millie |   Millie   |  Guinness  |  Guinness | Atticus  |            Millie            |
-# +------+---------+------------+------------+-----------+----------+------------------------------+
+# +------+-------------+--------+--------------+---------------+----------+--------------+
+# |      |      1      |   0    |      3       |       5       |    4     |      2       |
+# +------+-------------+--------+--------------+---------------+----------+--------------+
+# | Any  |   Sullivan  |  Beep  |     Nick     |     Sassy     |   Asa    |    Bubby     |
+# | Cat  | J P Patches | Clouds | Bloemfontein | Baby Girl Kit |   Deb0   | Mother Jones |
+# | Dog  |   Starfox   | Rockyt |   Evander    |      Olly     |   Pops   |    Bodri     |
+# | Goat |    Margot   | Linda  |   Schmidt    |     Moppet    | Winnipeg |   Grayson    |
+# | Pig  |   Guinness  | Millie |   Guinness   |    Atticus    |  Millie  |    Millie    |
+# +------+-------------+--------+--------------+---------------+----------+--------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -122,7 +122,7 @@ srand(32);
 say ‌‌random-pet-name(6, :weighted).raku
 ```
 ```
-# ("Seigfried", "Guinness", "Leena", "Poet", "Cutter", "Sammy Sandwich")
+# ("Minx E Pinklefish", "Quinten", "Gavin", "Damocles", "Lula", "Lula")
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -158,14 +158,14 @@ my $res = random-pretentious-job-title(12, number-of-words => Whatever, language
 say ‌‌to-pretty-table($res.rotor(3));
 ```
 ```
-# +-------------------------+-----------------------------+-------------------+
-# |            0            |              1              |         2         |
-# +-------------------------+-----------------------------+-------------------+
-# |  Optimization Associate |         Разработчик         |     Проектант     |
-# |    Стратег на Пазари    |   Functionality Architect   |     Проектант     |
-# |         Designer        | Продуцент по Взаимодействия | Tactics Associate |
-# | Изпълнител по Прилагане |           Producer          |      Директор     |
-# +-------------------------+-----------------------------+-------------------+
+# +--------------------------+---------------------------------+---------------------------------+
+# |            0             |                1                |                2                |
+# +--------------------------+---------------------------------+---------------------------------+
+# |  Плановик по Отчетност   |     Product Data Technician     |           Координатор           |
+# |      Representative      |       Посредник по Тактики      |            Architect            |
+# | Супервайзор по Парадигми | Динамичен Техник по Креативност |             Асистент            |
+# | Консултант по Брандиране |   Forward Security Strategist   | National Communications Planner |
+# +--------------------------+---------------------------------+---------------------------------+
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -179,30 +179,55 @@ It is, more-or-less, based on the Mathematica implementation
 
 ## Random reals
 
-This module provides the function `random-variate` that can be used to generate list of real numbers
+This module provides the function `random-variate` that can be used to generate lists of real numbers
 using distribution specifications.
 
+Here are examples:
 
 ```perl6
-say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5);
+say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
+```
+```
+# (0.9333223924249852 -0.2593453912975026 -1.2293404131959242 -0.8629735815862949 0.253054780914651)
+```
+
+```perl6
+say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
+```
+```
+# (0.912962008366543 -1.4262369021629255 -1.9644365475088528 1.508698427016814 0.6925171872211898)
+```
+
+```perl6
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 ```
 ```
-# (-13.466696350435114 -3.111138101582986 -21.247001944906305 -21.944304322628078 -10.974630024828294)
-# (10.855215562606944 47.22657266404291 33.471243161398974 2.955369198643181 49.942812257264976)
+# (31.014656143678515 13.701938196039467 28.513605047388047 45.21666865589838 58.35777047270862)
 ```
+
+**Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
 
 **Remark:** The signature design follows Mathematica's function 
 [`RandomVariate`](https://reference.wolfram.com/language/ref/RandomVariate.html).
 
-**Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
+Here is an example of 2D array generation:
+
+```perl6
+say random-variate(NormalDistribution.new, [3,4]);
+```
+```
+# [[0.6798357358973023 -0.7164338759583558 -1.707017522338361 -0.011712077286877743]
+#  [-0.22406650929385863 -0.9791420337555385 -1.9618519572126158 1.1602797891392422]
+#  [2.1835371401598787 -0.2197735309990484 -0.9849483011770795 -0.36601570847393833]]
+```
 
 ------
 
 ## Random tabular dataset
 
-The function `random-tabular-dataset` can be used make tabular *datasets* --
-i.e. array of arrays of pairs.
+The function `random-tabular-dataset` can be used generate tabular *datasets*.
+
+**Remark:** In this module a *dataset* is (usually) an array of arrays of pairs.
 
 Here are basic calls:
 
@@ -215,24 +240,26 @@ random-tabular-dataset(Whatever, 4);
 random-tabular-dataset(Whatever, <Col1 Col2 Col3>):!row-names;
 ```
 
-Here is example of a generated displayed with `to-pretty-table` from 
-[`Data::Reshapers`](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV):
+Here is example of a generated tabular dataset that column names that are cat pet names:
 
 ```perl6
 my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet-name($_, species => 'Cat') });
 say to-pretty-table(@dfRand);
 ```
 ```
-# +---------------+--------------------+--------------+
-# |     Mystic    |      Birgitta      |  Snowbelle   |
-# +---------------+--------------------+--------------+
-# | well-mannered | 148.48346874595433 | phagocytosis |
-# |   alfilaria   | 111.96827462410418 | conscription |
-# |     Gibbs     | 109.27365413469518 | long-snouted |
-# |   stalactite  | 103.06860304957846 |  embrittle   |
-# |    ayapana    | 99.20717938118923  |   mercury    |
-# +---------------+--------------------+--------------+
+# +---------------+---------------------+-----------------+
+# |     Fenway    |      Cheddar Jo     |      Becks      |
+# +---------------+---------------------+-----------------+
+# |    Issachar   |  1.7500175355924807 |     ungarbed    |
+# |     lupus     |  1.2138238106460244 | Gymnosporangium |
+# |     launce    | 0.14299699937767568 |  unreasoningly  |
+# |   promethium  | -1.8751486787541933 |     propene     |
+# | steatocystoma |  1.5677561083608873 |    fortemente   |
+# +---------------+---------------------+-----------------+
 ```
+
+The display function `to-pretty-table` is from
+[`Data::Reshapers`](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV).
 
 **Remark:** At this point only
 [*wide format*](https://en.wikipedia.org/wiki/Wide_and_narrow_data)
