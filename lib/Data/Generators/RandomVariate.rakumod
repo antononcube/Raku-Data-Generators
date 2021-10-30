@@ -29,7 +29,6 @@ multi RandomVariate($dist ,
                     @size where { $_.all ~~ Numeric and [and]($_.map({ $_ > 0 })) and $_.elems == 2}) {
     my @res = RandomVariate( $dist, [*] @size).List;
     my @res2[@size[0];@size[1]] = @res.rotor(@size[1]);
-    note @res2;
     @res2
 }
 
