@@ -46,10 +46,11 @@ class Data::Generators::ResourceAccess {
         #say "Number of calls to .make $numberOfMakeCalls";
 
         #-----------------------------------------------------------
-        my $fileName = %?RESOURCES{'dfEnglishWords.tsv'};
+        my $fileName = %?RESOURCES{'dfEnglishWords.csv'};
 
         my $text = slurp $fileName.Str;
-        @englishWords = $text.split("\n").map({ $_.split(' ') });
+        @englishWords = $text.split("\n").map({ $_.split(',') });
+        @englishWords = @englishWords[1..*-1];
 
         # Convert the logical fields into Booleans.
         my $k = 0;
