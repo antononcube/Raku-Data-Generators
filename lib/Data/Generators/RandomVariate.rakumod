@@ -8,6 +8,8 @@ unit module Data::Generators::RandomVariate;
 class NormalDistribution is export {
     has Numeric $.mean = 0;
     has Numeric $.sd = 1;
+    submethod BUILD(:µ(:$!mean), :σ(:$!sd)) { }
+    method new() { self.bless(:mean(0), :sd(1)) }
 }
 
 class UniformDistribution is export {
