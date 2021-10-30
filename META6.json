@@ -1,6 +1,6 @@
 {
   "name": "Data::Generators",
-  "description": "Random data generation functions: strings, words, numbers, vectors, and datasets.",
+  "description": "Random data generation functions: strings, words, numbers, vectors, pet names, job titles, and tabular datasets.",
   "version": "0.1.0",
   "perl": "6.d",
   "authors": [
@@ -25,9 +25,21 @@
   ],
   "license": "Artistic-2.0",
   "tags": [
+    "data generators",
     "data",
     "dataset",
-    "random"
+    "generation",
+    "job titles",
+    "pet names",
+    "random data",
+    "random tables",
+    "random tabular data",
+    "random variate",
+    "random variates",
+    "random",
+    "statistical distributions",
+    "strings",
+    "words"
   ],
   "api": "1",
   "source-url": "https://github.com/antononcube/Raku-Data-Generators.git"
