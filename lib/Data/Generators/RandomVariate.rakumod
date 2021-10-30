@@ -22,7 +22,16 @@ class UniformDistribution is export {
 #============================================================
 
 #| Gives a pseudorandom variate from the distribution $dist.
-our proto RandomVariate( $dist, UInt $size ) is export {*}
+our proto RandomVariate( $dist, $size ) is export {*}
+
+#------------------------------------------------------------
+multi RandomVariate($dist ,
+                    @size where { $_.all ~~ Numeric and [and]($_.map({ $_ > 0 })) and $_.elems == 2}) {
+    my @res = RandomVariate( $dist, [*] @size).List;
+    my @res2[@size[0];@size[1]] = @res.rotor(@size[1]);
+    note @res2;
+    @res2
+}
 
 #------------------------------------------------------------
 sub rnorm(Numeric $µ, Numeric $σ) {
