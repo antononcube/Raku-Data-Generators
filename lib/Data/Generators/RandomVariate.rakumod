@@ -5,17 +5,21 @@ unit module Data::Generators::RandomVariate;
 # Distributions
 #============================================================
 
+#| Normal distribution class
 class NormalDistribution is export {
-    has Numeric $.mean = 0;
-    has Numeric $.sd = 1;
+    has Numeric $.mean = 0; #= Mean of the Normal distribution
+    has Numeric $.sd = 1; #= Standard Deviation of the Normal distribution
     submethod BUILD(:µ(:$!mean), :σ(:$!sd)) { }
     method new() { self.bless(:mean(0), :sd(1)) }
 }
+#= Normal distribution objects are specified with mean and standard deviation.
 
+#| Uniform distribution class
 class UniformDistribution is export {
-    has Numeric $.min = 0;
-    has Numeric $.max = 1;
+    has Numeric $.min = 0; #= Min boundary of the Uniform distribution
+    has Numeric $.max = 1; #= Max boundary of the Uniform distribution
 }
+#= Uniform distribution objects are specified with min and max boundaries.
 
 #============================================================
 # RandomVariate
