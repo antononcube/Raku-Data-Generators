@@ -9,6 +9,10 @@ sub is-positional-of-strings($vec) {
     ($vec ~~ Positional) and ($vec.all ~~ Str)
 }
 
+multi convert-to-hash-of-hashes(@tbl --> Hash) {
+    @tbl.map({ $_.key => ($_.value.keys».Str.List Z=> $_.value.List).Hash }).Hash;
+}
+
 #============================================================
 our proto RandomTabularDataset(|) is export {*}
 
@@ -106,15 +110,20 @@ multi RandomTabularDataset($nrow is copy,
 
     # The generation above above was done per column,
     # so with transpose we get row-centric representation.
-    @dfRes = transpose(@dfRes);
+    my %hash-of-hashes = convert-to-hash-of-hashes(@dfRes);
+
+    # Transpose the hash of hashes
+    my %dfRes2;
+    for %hash-of-hashes.values.first.keys X %hash-of-hashes.keys -> ($new-key, $current-key) {
+        %dfRes2{$new-key}{$current-key} = %hash-of-hashes{$current-key}{$new-key};
+    }
 
     ## Result
     if $row-names {
         # Row names
-        @dfRes
+        %dfRes2.pairs.Array
     } else {
         # No row names
-        # This assumes that Data::Reshapers::transpose returns an array of key-to-hash pairs.
-        @dfRes.map({ $_.value }).Array
+        %dfRes2.map({ $_.value }).Array
     }
 }
