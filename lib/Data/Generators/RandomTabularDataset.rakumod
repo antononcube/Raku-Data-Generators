@@ -55,7 +55,7 @@ multi RandomTabularDataset($nrow is copy,
     } elsif $colSpec ~~ Numeric and $colSpec.Int > 0 {
         $ncol = $colSpec.Int;
     } else {
-        die "The second, columns specifiction argument is expected to be a positive interger, a list of strings, or Whatever."
+        die "The second, columns specification argument is expected to be a positive integer, a list of strings, or Whatever."
     }
 
     # Column names generator
