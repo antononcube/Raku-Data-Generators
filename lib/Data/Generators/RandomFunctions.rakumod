@@ -157,7 +157,7 @@ our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3,
         is export {
 
     if not ($number-of-words ~~ Int and $number-of-words > 0 or $number-of-words.isa(Whatever)) {
-        note "The arugment 'number-of-words' is expected to be one of 1, 2, 3, or Whatever. Continue using 3.";
+        note "The argument 'number-of-words' is expected to be one of 1, 2, 3, or Whatever. Continue using 3.";
         $number-of-words = 3
     }
 
@@ -184,7 +184,6 @@ our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3,
                     |%jobTitleWords<uno>.pick(1),
                     |%jobTitleWords<zwei>.pick(1),
                     |%jobTitleWords<trois>.pick(1)
-
                 ];
 
                 @res = @res[(3 - $n) .. 2];
