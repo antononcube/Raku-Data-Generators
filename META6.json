@@ -7,7 +7,9 @@
     "Anton Antonov"
   ],
   "auth": "github:antononcube",
-  "depends": [],
+  "depends": [
+    "Data::Reshapers"
+  ],
   "build-depends": [],
   "test-depends": [],
   "provides": {
