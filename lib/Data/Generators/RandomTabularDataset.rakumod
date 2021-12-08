@@ -76,9 +76,9 @@ multi RandomTabularDataset($nrow is copy,
         } elsif $r < 0.5 {
             %defaultGenerators{$cn} = &RandomString
         } elsif $r < 0.8 {
-            %defaultGenerators{$cn} = -> { RandomVariate(NormalDistribution.new(mean => 12, sd => 10), $_) }
+            %defaultGenerators{$cn} = { RandomVariate(NormalDistribution.new(mean => 12, sd => 10), $_) }
         } else {
-            %defaultGenerators{$cn} = -> { RandomVariate(UniformDistribution.new(min => 0, max => 100), $_) }
+            %defaultGenerators{$cn} = { RandomVariate(UniformDistribution.new(min => 0, max => 100), $_) }
         }
     }
 
@@ -95,7 +95,7 @@ multi RandomTabularDataset($nrow is copy,
             if $g ~~ Callable {
                 $g
             } elsif $g ~~ Positional {
-                -> { $g.roll($_) }
+                { $g.roll($_).Array }
             } else {
                 die $msgWrongGenerators
             }
@@ -109,11 +109,12 @@ multi RandomTabularDataset($nrow is copy,
 
     } elsif $generators ~~ Map {
 
+        %localGenerators = %defaultGenerators;
         for $generators.kv -> $k, $g {
             if $g ~~ Callable {
                 %localGenerators{$k} = $g
             } elsif $g ~~ Positional {
-                %localGenerators{$k} = -> { $g.roll($_) }
+                %localGenerators{$k} = { $g.roll($_).Array }
             } else {
                 die $msgWrongGenerators
             }
