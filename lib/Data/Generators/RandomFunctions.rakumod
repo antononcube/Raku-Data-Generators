@@ -25,7 +25,7 @@ multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges
     if $chars.isa(Whatever) { $chars = [2 .. 20] }
     if $chars ~~ Numeric { $chars = ($chars.Int,) }
     if not ($chars.isa(Array) or $chars.isa(List)) {
-        die "The argument chars is expected to be positive integer, a list of positive integers, or Whatever."
+        die "The argument 'chars' is expected to be a positive integer, a list of positive integers, or Whatever."
     }
 
     if $ranges.isa(Range) or is-positional-of-strings($ranges) { $ranges = [$ranges,] }
@@ -33,7 +33,7 @@ multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges
 
     if not (($ranges.isa(Array) or $ranges.isa(List)) and ($ranges.all ~~ Range or $ranges
             .all ~~ (is-positional-of-strings($_)))) {
-        die "The argument ranges is expected to be a range, a list of ranges, or Whatever."
+        die "The argument 'ranges' is expected to be a range, a list of ranges, or Whatever."
     }
 
     my $res = do for ^$size {
@@ -55,14 +55,14 @@ multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is co
     if $type.isa(Whatever) { $type = 'any' }
 
     if not $type.isa(Str) and $type.lc (elem) <any common known stopword> {
-        note "The argument type is expected to be one of 'any', 'common', 'known', 'stopword', or Whatever. Continuing with 'any'.";
+        note "The argument 'type' is expected to be one of 'any', 'common', 'known', 'stopword', or Whatever. Continuing with 'any'.";
         $type = 'any'
     }
 
     if $language.isa(Whatever) { $language = 'English' }
 
     if not $language.isa(Str) and $language.lc eq 'english' {
-        die "The argument language is expected to be one of 'English' or Whatever. (Only English words are supported at this time.)"
+        die "The argument 'language' is expected to be one of 'English' or Whatever. (Only English words are supported at this time.)"
     }
 
     if $type.lc eq 'any' {
@@ -89,7 +89,7 @@ multi RandomPetName(UInt $size = 1, :$species is copy = Whatever, Bool :$weighte
     my @allSpecies = <Any Cat Dog Goat Pig>;
 
     if not ( $species.isa(Whatever) or $species.isa(Str) and ($species.lc (elem) @allSpecies».lc) ) {
-        note "The argument species ($species) is expected to be one of { @allSpecies.raku }, or Whatever. Continuing with Whatever.";
+        note "The argument 'species' is expected to be one of { @allSpecies.raku }, or Whatever. Continuing with Whatever.";
         $species = Whatever
     }
 
@@ -162,7 +162,7 @@ our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3,
     }
 
     if not ($language.isa(Whatever) or ($language ~~ Str) and %pretentiousJobTitleWords{$language.lc}:exists) {
-        note "The argument 'language' is expected to be one of { %pretentiousJobTitleWords.keys».tc.join(', ') } or Whatever. Continuing with English.";
+        note "The argument 'language' is expected to be one of { %pretentiousJobTitleWords.keys».tc.join(', ') } or Whatever. Continuing with 'English'.";
         $language = 'English'
     }
 
