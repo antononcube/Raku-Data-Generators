@@ -1,15 +1,13 @@
 {
   "name": "Data::Generators",
   "description": "Random data generation functions: strings, words, numbers, vectors, pet names, job titles, and tabular datasets.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "perl": "6.d",
   "authors": [
     "Anton Antonov"
   ],
   "auth": "github:antononcube",
-  "depends": [
-    "Data::Reshapers"
-  ],
+  "depends": [],
   "build-depends": [],
   "test-depends": [],
   "provides": {
