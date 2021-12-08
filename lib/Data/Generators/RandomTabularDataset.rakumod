@@ -119,6 +119,9 @@ multi RandomTabularDataset($nrow is copy,
                 die $msgWrongGenerators
             }
         }
+    } elsif $generators ~~ Callable {
+
+        %localGenerators = [|$localColumnNames] Z=> [$generators xx $localColumnNames.elems];
 
     } else {
         die $msgWrongGenerators
