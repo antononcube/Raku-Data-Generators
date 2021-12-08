@@ -1,6 +1,5 @@
 use Data::Generators::RandomVariate;
 use Data::Generators::RandomFunctions;
-use Data::Reshapers;
 
 unit module Data::Generators::RandomTabularDataset;
 
@@ -40,7 +39,7 @@ multi RandomTabularDataset($nrow is copy,
     }
     if $nrow ~~ Numeric { $nrow .= Int }
     if not $nrow ~~ Int and $nrow > 0 {
-        die "The argument nrow is expected to be positive integer or Whatever."
+        die "The argument 'nrow' is expected to be a positive integer or Whatever."
     }
 
     # Process number of columns
@@ -76,7 +75,7 @@ multi RandomTabularDataset($nrow is copy,
     }
 
     if not $max-number-of-values ~~ Numeric and $max-number-of-values > 0 {
-        die "The argument maxNumberOfValues is expected to be a non-negative integer or Whatever."
+        die "The argument 'maxNumberOfValues' is expected to be a non-negative integer or Whatever."
     }
 
     ## Min Number Of Values
@@ -85,14 +84,14 @@ multi RandomTabularDataset($nrow is copy,
     }
 
     if not $min-number-of-values ~~ Numeric and $min-number-of-values > 0 {
-        die "The argument minNumberOfValues is expected to be a non-negative integer or Whatever."
+        die "The argument 'minNumberOfValues' is expected to be a non-negative integer or Whatever."
     }
 
     ## Form
     if $form.isa(Whatever) { $form = Mix(long => 0.3, wide => 0.7).pick }
 
     if not $form ~~ Str and $form.lc (elem) <Long Wide>.lc {
-        warn "The argument form is expected to be NULL or one of 'Long' or 'Wide'. Continuing using 'Wide'.";
+        warn "The argument 'form' is expected to be Whatever or one of 'Long' or 'Wide'. Continuing using 'Wide'.";
         $form = "wide"
     }
 
