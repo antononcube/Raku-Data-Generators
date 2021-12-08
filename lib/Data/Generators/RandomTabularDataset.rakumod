@@ -8,7 +8,7 @@ sub is-positional-of-strings($vec) {
     ($vec ~~ Positional) and ($vec.all ~~ Str)
 }
 
-multi convert-to-hash-of-hashes(@tbl --> Hash) {
+sub convert-to-hash-of-hashes(@tbl --> Hash) {
     @tbl.map({ $_.key => ($_.value.keys».Str.List Z=> $_.value.List).Hash }).Hash;
 }
 
@@ -67,7 +67,61 @@ multi RandomTabularDataset($nrow is copy,
     }
 
     # Generators
+    my %defaultGenerators;
+    for |$localColumnNames -> $cn {
+        my $r = rand;
 
+        if $r < 0.3 {
+            %defaultGenerators{$cn} = &RandomWord
+        } elsif $r < 0.5 {
+            %defaultGenerators{$cn} = &RandomString
+        } elsif $r < 0.8 {
+            %defaultGenerators{$cn} = -> { RandomVariate(NormalDistribution.new(mean => 12, sd => 10), $_) }
+        } else {
+            %defaultGenerators{$cn} = -> { RandomVariate(UniformDistribution.new(min => 0, max => 100), $_) }
+        }
+    }
+
+    my %localGenerators;
+    my $msgWrongGenerators = "Unknown type of generators specification.";
+
+    if $generators.isa(Whatever) {
+
+        %localGenerators = %defaultGenerators
+
+    } elsif $generators ~~ Positional {
+
+        my @extGenerators = do for |$generators -> $g {
+            if $g ~~ Callable {
+                $g
+            } elsif $g ~~ Positional {
+                -> { $g.roll($_) }
+            } else {
+                die $msgWrongGenerators
+            }
+        }
+
+        while @extGenerators.elems < $localColumnNames.elems {
+            @extGenerators = [|@extGenerators, |@extGenerators]
+        }
+
+        %localGenerators = [|$localColumnNames] Z=> @extGenerators[^$localColumnNames.elems]
+
+    } elsif $generators ~~ Map {
+
+        for $generators.kv -> $k, $g {
+            if $g ~~ Callable {
+                %localGenerators{$k} = $g
+            } elsif $g ~~ Positional {
+                %localGenerators{$k} = -> { $g.roll($_) }
+            } else {
+                die $msgWrongGenerators
+            }
+        }
+
+    } else {
+        die $msgWrongGenerators
+    }
 
     ## Max Number Of Values
     if $max-number-of-values.isa(Whatever) {
@@ -99,11 +153,8 @@ multi RandomTabularDataset($nrow is copy,
 
     # Generate random values
     my @dfRes is Array =
-            do for $localColumnNames.List -> $cn {
-                my $rcol =
-                        rand > 0.5 ??
-                        RandomWord($nrow) !!
-                        RandomVariate(NormalDistribution.new(mean => 100, sd => 20), $nrow);
+            do for |$localColumnNames -> $cn {
+                my $rcol = %localGenerators{$cn}($nrow);
                 $cn => $rcol
             };
 
