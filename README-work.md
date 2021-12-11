@@ -29,9 +29,6 @@ Here we generate a vector of random strings with length 4 and characters that be
 use Data::Generators;
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
-```
-# ("115y", "y9Yn", "n7N9", "16YN", "1083", "58Y0")
-```
 
 ------
 
@@ -44,9 +41,6 @@ Here we generate a list with 12 random words:
 ```raku
 random-word(12)
 ```
-```
-# (service smooth-bodied Oniscidae scurf corkage commensally Lozal witchery convection chickweed hueless anthropometrical)
-```
 
 Here we generate a table of random words of different types:
 
@@ -54,16 +48,6 @@ Here we generate a table of random words of different types:
 use Data::Reshapers;
 my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type => $wt) };
 say to-pretty-table(@dfWords);
-```
-```
-# +--------+------------+--------------+-----------+---------------+------------+---------------+
-# |        |     2      |      3       |     0     |       5       |     4      |       1       |
-# +--------+------------+--------------+-----------+---------------+------------+---------------+
-# | Any    | Wykehamist |  euthanasia  |  Estronol | supplementary |    a.m.    |     tacit     |
-# | Common |  stutter   | studiousness |   loggia  |    rhinitis   | roundabout | circumstances |
-# | Known  |  Goldwyn   |  commotion   | Tocharian |     stolid    | doctorfish |     fulfil    |
-# | Stop   |   how's    |   between    |     i     |     he'll     |   whole    |     hasn't    |
-# +--------+------------+--------------+-----------+---------------+------------+---------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -86,9 +70,6 @@ The following command generates a list of six random pet names:
 srand(32);
 random-pet-name(6).raku
 ```
-```
-# ("Margot", "Millie", "Roberta", "Tati", "Chewie", "Tati")
-```
 
 The named argument `species` can be used to specify specie of the random pet names. 
 (According to the specie-name relationships in [DG1].)
@@ -99,17 +80,6 @@ Here we generate a table of random pet names of different species:
 my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6, species => $wt) };
 say to-pretty-table(@dfPetNames);
 ```
-```
-# +------+----------+------------------+-----------------------+----------+-----------+-----------+
-# |      |    4     |        5         |           2           |    0     |     3     |     1     |
-# +------+----------+------------------+-----------------------+----------+-----------+-----------+
-# | Any  | Guinness | Sister Bertrille |        Roswell        |  Tanner  |  Guinness |  Atticus  |
-# | Cat  | Nibbles  |       male       | The Little Muffin Man |   Ink    | Schmeeber | Safi-Sana |
-# | Dog  |  Yummy   |      Abita       |         Sonoma        |  Peeve   |    Hook   |   Merfy   |
-# | Goat |  Frosty  |       Arya       |         Pepina        |  Tacoma  |   Darcy   |   Piper   |
-# | Pig  | Guinness |     Atticus      |        Guinness       | Guinness |  Atticus  |   Millie  |
-# +------+----------+------------------+-----------------------+----------+-----------+-----------+
-```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
 
@@ -119,9 +89,6 @@ based on known real-life number of occurrences:
 ```raku
 srand(32);
 say ‌‌random-pet-name(6, :weighted).raku
-```
-```
-# ("Tati", "Miss Scarlett", "Millie", "Professor Nibblesworth", "Atticus", "Atticus")
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -141,9 +108,6 @@ The following command generates a list of six random pretentious job titles:
 ```raku
 random-pretentious-job-title(6).raku
 ```
-```
-# ("International Paradigm Manager", "National Security Planner", "Forward Response Associate", "Global Marketing Executive", "Interactive Tactics Strategist", "Dynamic Marketing Representative")
-```
 
 The named argument `number-of-words` can be used to control the number of words in the generated job titles.
 
@@ -155,16 +119,6 @@ Here we generate pretentious job titles using different languages and number of 
 ```raku
 my $res = random-pretentious-job-title(12, number-of-words => Whatever, language => Whatever);
 say ‌‌to-pretty-table($res.rotor(3));
-```
-```
-# +-------------------------------+-----------------------------------+---------------------------+
-# |               0               |                 1                 |             2             |
-# +-------------------------------+-----------------------------------+---------------------------+
-# | Областен Асистент на Интранет | Вътрешен Консултант на Показатели |    Lead Group Designer    |
-# |        Data Coordinator       |               Техник              | Старши Проектант по Екипи |
-# |   Lead Security Coordinator   |             Synergist             |   Стратег по Комуникации  |
-# |           Проектант           |   Национален Инженер по Фактори   |          Дизайнер         |
-# +-------------------------------+-----------------------------------+---------------------------+
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -186,22 +140,13 @@ Here are examples:
 ```raku
 say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
 ```
-```
-# (-18.615180334983382 -14.777307898313193 11.744540271606233 32.83415351542184 23.05439201645865)
-```
 
 ```raku
 say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
 ```
-```
-# (35.82804554696579 -12.643547444336193 16.320377789979375 27.16893715675326 14.117125819449708)
-```
 
 ```raku
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
-```
-```
-# (27.66534628863628 15.022852723841478 41.15611113824118 54.085283581723125 57.46240753137406)
 ```
 
 **Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
@@ -213,11 +158,6 @@ Here is an example of 2D array generation:
 
 ```raku
 say random-variate(NormalDistribution.new, [3,4]);
-```
-```
-# [[-0.4479067963939533 0.28167926816285005 -1.075347558796815 1.3360794891272738]
-#  [1.4424534618996863 -1.0817181852485276 1.1124463316112607 0.8958722847013001]
-#  [0.9971898647548 0.5300761587505801 -0.19123738083454592 -0.04397620670389424]]
 ```
 
 ------
@@ -251,17 +191,6 @@ Here is example of a generated tabular dataset that column names that are cat pe
 ```raku
 my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet-name($_, species => 'Cat') });
 say to-pretty-table(@dfRand);
-```
-```
-# +----------+--------------------+----------------+
-# |  Winton  |      Liliquoi      |    Cheddar     |
-# +----------+--------------------+----------------+
-# |  Praia   | 19.859813619203255 |    musingly    |
-# | schlock  | 21.238698325857193 |    prudery     |
-# |  Dacca   | 21.52325074237404  | oleaginousness |
-# |  drably  | 22.069553581961273 |   underside    |
-# | complain | 12.188987647044241 |  latticework   |
-# +----------+--------------------+----------------+
 ```
 
 The display function `to-pretty-table` is from
