@@ -181,7 +181,7 @@ multi RandomTabularDataset($nrow is copy,
         # If it does, it can always be revered to just:
         #   %dfRes2.pairs.Array
         my Str $nd = ceiling(log10(%dfRes2.elems)).Str;
-        %dfRes2.pairs.Array.map({ $_.key.Str.fmt('%0' ~ $nd ~ 'd') => $_.value }).Array
+        %dfRes2.pairs.Array.map({ $_.key.Str.fmt('%0' ~ $nd ~ 'd') => $_.value }).sort({ $_.key }).Array
 
     } else {
         # No row names
