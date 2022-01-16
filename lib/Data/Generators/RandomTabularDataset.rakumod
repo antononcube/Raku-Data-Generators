@@ -175,7 +175,14 @@ multi RandomTabularDataset($nrow is copy,
     ## Result
     if $row-names {
         # Row names
-        %dfRes2.pairs.Array
+
+        # It is assumed that the row names are just integers and that the
+        # following 0-padding does not introduce a significant performance penalty.
+        # If it does, it can always be revered to just:
+        #   %dfRes2.pairs.Array
+        my Str $nd = ceiling(log10(%dfRes2.elems)).Str;
+        %dfRes2.pairs.Array.map({ $_.key.Str.fmt('%0' ~ $nd ~ 'd') => $_.value }).Array
+
     } else {
         # No row names
         %dfRes2.map({ $_.value }).Array
