@@ -15,8 +15,10 @@ sub reallyflat (+@list) {
 #============================================================
 our proto RandomString(|) is export {*}
 
-multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges
-        is copy = ("a" .. "z", "A" .. "Z", "0" .. "9") --> List) {
+multi RandomString(UInt $size = 1,
+                   :$chars is copy = Whatever,
+                   :$ranges is copy = ("a" .. "z", "A" .. "Z", "0" .. "9")
+        --> List) {
 
     if $size == 0 {
         die "The first argument is expected to be a positive integer."
@@ -31,8 +33,8 @@ multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges
     if $ranges.isa(Range) or is-positional-of-strings($ranges) { $ranges = [$ranges,] }
     if $ranges.isa(Whatever) { $ranges = ("a" .. "z", "A" .. "Z", "0" .. "9") }
 
-    if not (($ranges.isa(Array) or $ranges.isa(List)) and ($ranges.all ~~ Range or $ranges
-            .all ~~ (is-positional-of-strings($_)))) {
+    if not (($ranges.isa(Array) or $ranges.isa(List)) and
+            ($ranges.all ~~ Range or $ranges.all ~~ (is-positional-of-strings($_)))) {
         die "The argument 'ranges' is expected to be a range, a list of ranges, or Whatever."
     }
 
@@ -46,7 +48,11 @@ multi RandomString(UInt $size = 1, :$chars is copy = Whatever, :$ranges
 #============================================================
 our proto RandomWord(|) is export {*}
 
-multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is copy = 'English' --> List) {
+multi RandomWord(UInt $size = 1,
+                 :$type is copy = Whatever,
+                 Str :$language is copy = 'English',
+                 :&method is copy = &roll
+        --> List) {
 
     if $size == 0 {
         die "The first argument is expected to be a positive integer."
@@ -65,12 +71,14 @@ multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is co
         die "The argument 'language' is expected to be one of 'English' or Whatever. (Only English words are supported at this time.)"
     }
 
+    if &method.isa(WhateverCode) || &method.isa(Whatever) { &method = &roll }
+
     if $type.lc eq 'any' {
-        $resources.get-random-word($size);
+        return $resources.get-random-word($size, :&method);
     } elsif $type.lc (elem) <known common> {
-        $resources.get-random-word($size, $type.lc);
+        return $resources.get-random-word($size, $type.lc, :&method);
     } elsif $type.lc (elem) <stop stopword> {
-        $resources.get-random-word($size, 'stopword');
+        return $resources.get-random-word($size, 'stopword', :&method);
     } else {
         # Should not happen
         die "Unknown type $type."
@@ -80,7 +88,11 @@ multi RandomWord(UInt $size = 1, :$type is copy = Whatever, Str :$language is co
 #============================================================
 our proto RandomPetName(|) is export {*}
 
-multi RandomPetName(UInt $size = 1, :$species is copy = Whatever, Bool :$weighted = True --> List) {
+multi RandomPetName(UInt $size = 1,
+                    :$species is copy = Whatever,
+                    Bool :$weighted = True,
+                    :&method is copy = &roll
+        --> List) {
 
     if $size == 0 {
         die "The first argument is expected to be a positive integer."
@@ -93,10 +105,12 @@ multi RandomPetName(UInt $size = 1, :$species is copy = Whatever, Bool :$weighte
         $species = Whatever
     }
 
+    if &method.isa(WhateverCode) || &method.isa(Whatever) { &method = &roll }
+
     if $species.isa(Whatever) or $species.lc eq 'any'  {
-        $resources.get-random-pet-name($size, Whatever, :weighted);
+        return $resources.get-random-pet-name($size, Whatever, :weighted, :&method);
     } else {
-        $resources.get-random-pet-name($size, $species, :$weighted);
+        return $resources.get-random-pet-name($size, $species, :$weighted, :&method);
     }
 }
 

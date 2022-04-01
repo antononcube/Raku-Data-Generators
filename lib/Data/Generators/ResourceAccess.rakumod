@@ -99,30 +99,40 @@ class Data::Generators::ResourceAccess {
         %englishWords{$word}
     }
 
-    multi method get-random-word(UInt $size = 1 --> List) {
-        my @inds = [^@englishWords.elems].roll($size);
+    multi method get-random-word(UInt $size = 1,
+                                 :&method = &roll
+            --> List) {
+        my @inds = &method($size, [^@englishWords.elems]);
         @englishWords[@inds].map({ $_[0] }).List
     }
 
-    multi method get-random-word(UInt $size, Str $type = 'known'  --> List) {
-        my @inds = %typeToIndexes{$type.lc}.cache.roll($size);
+    multi method get-random-word(UInt $size, Str $type = 'known',
+                                 :&method = &roll
+            --> List) {
+        my @inds = &method($size, %typeToIndexes{$type.lc}.cache);
         @englishWords[@inds].map({ $_[0] }).List
     }
 
-    multi method get-random-pet-name(UInt $size, Whatever, Bool :$weighed = False --> List) {
+    multi method get-random-pet-name(UInt $size, Whatever,
+                                     Bool :$weighed = False,
+                                     :&method = &roll
+            --> List) {
         if $weighed {
-            %specieToPetNames.map({ $_.value.roll($size) }).flat.roll($size).List;
+            &method($size, %specieToPetNames.map({ &method($size, $_.value) }).flat).List;
         } else {
-            %specieToPetNames.map({ $_.value.keys.roll($size) }).flat.roll($size).List;
+            &method($size, %specieToPetNames.map({ &method($size, $_.value.keys) }).flat).List;
         }
     }
 
-    multi method get-random-pet-name(UInt $size, Str $species, Bool :$weighed = False --> List) {
+    multi method get-random-pet-name(UInt $size, Str $species,
+                                     Bool :$weighed = False,
+                                     :&method = &roll
+            --> List) {
         if %specieToPetNames{$species.lc}:exists {
             if $weighed {
-                %specieToPetNames{$species.lc}.roll($size).List;
+                &method($size, %specieToPetNames{$species.lc}).List;
             } else {
-                %specieToPetNames{$species.lc}.keys.roll($size).List;
+                &method($size, %specieToPetNames{$species.lc}.keys).List;
             }
         } else {
             warn "Unknown species $species.";
