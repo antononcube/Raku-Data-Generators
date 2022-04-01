@@ -2,7 +2,7 @@ use Data::Generators;
 
 use Test;
 
-plan 8;
+plan 10;
 
 ## 1
 ok random-word(8), 'simple call 1';
@@ -39,5 +39,13 @@ is random-word(100, type => Whatever).all ~~ Str,
 is random-word(100, type => Whatever, method => &pick).all ~~ Str,
         True,
         'list of picked 100 Whatever words';
+
+## 9
+dies-ok { random-word(0) },
+        'Zero number of words';
+
+## 10
+dies-ok { random-word(-3) },
+        'Negative number of words';
 
 done-testing;
