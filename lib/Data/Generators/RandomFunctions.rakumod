@@ -48,14 +48,14 @@ multi RandomString(UInt $size = 1,
 #============================================================
 our proto RandomWord(|) is export {*}
 
-multi RandomWord(UInt $size = 1,
+multi RandomWord($size = 1,
                  :$type is copy = Whatever,
                  Str :$language is copy = 'English',
-                 :&method is copy = &roll
+                 :&method is copy = WhateverCode
         --> List) {
 
-    if $size == 0 {
-        die "The first argument is expected to be a positive integer."
+    if !( $size.isa(Whatever) || $size ~~ Int && $size > 0 ) {
+        die "The first argument is expected to be a positive integer or Whatever."
     }
 
     if $type.isa(Whatever) { $type = 'any' }
@@ -71,7 +71,9 @@ multi RandomWord(UInt $size = 1,
         die "The argument 'language' is expected to be one of 'English' or Whatever. (Only English words are supported at this time.)"
     }
 
-    if &method.isa(WhateverCode) || &method.isa(Whatever) { &method = &roll }
+    if &method.isa(WhateverCode) || &method.isa(Whatever) {
+        &method = $size.isa(Whatever) ?? &pick !! &roll;
+    }
 
     if $type.lc eq 'any' {
         return $resources.get-random-word($size, :&method);
@@ -88,14 +90,14 @@ multi RandomWord(UInt $size = 1,
 #============================================================
 our proto RandomPetName(|) is export {*}
 
-multi RandomPetName(UInt $size = 1,
+multi RandomPetName($size = 1,
                     :$species is copy = Whatever,
                     Bool :$weighted = True,
-                    :&method is copy = &roll
+                    :&method is copy = WhateverCode
         --> List) {
 
-    if $size == 0 {
-        die "The first argument is expected to be a positive integer."
+    if !( $size.isa(Whatever) || $size ~~ Int && $size > 0 ) {
+        die "The first argument is expected to be a positive integer or Whatever."
     }
 
     my @allSpecies = <Any Cat Dog Goat Pig>;
@@ -105,7 +107,9 @@ multi RandomPetName(UInt $size = 1,
         $species = Whatever
     }
 
-    if &method.isa(WhateverCode) || &method.isa(Whatever) { &method = &roll }
+    if &method.isa(WhateverCode) || &method.isa(Whatever) {
+        &method = $size.isa(Whatever) ?? &pick !! &roll;
+    }
 
     if $species.isa(Whatever) or $species.lc eq 'any'  {
         return $resources.get-random-pet-name($size, Whatever, :weighted, :&method);

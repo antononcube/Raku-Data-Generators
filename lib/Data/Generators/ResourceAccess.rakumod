@@ -99,21 +99,23 @@ class Data::Generators::ResourceAccess {
         %englishWords{$word}
     }
 
-    multi method get-random-word(UInt $size = 1,
+    multi method get-random-word($size where $size ~~ UInt || $size.isa(Whatever),
                                  :&method = &roll
             --> List) {
         my @inds = &method($size, [^@englishWords.elems]);
         @englishWords[@inds].map({ $_[0] }).List
     }
 
-    multi method get-random-word(UInt $size, Str $type = 'known',
+    multi method get-random-word($size where * ~~ UInt || *.isa(Whatever),
+                                 Str $type = 'known',
                                  :&method = &roll
             --> List) {
         my @inds = &method($size, %typeToIndexes{$type.lc}.cache);
         @englishWords[@inds].map({ $_[0] }).List
     }
 
-    multi method get-random-pet-name(UInt $size, Whatever,
+    multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
+                                     Whatever,
                                      Bool :$weighed = False,
                                      :&method = &roll
             --> List) {
@@ -124,7 +126,8 @@ class Data::Generators::ResourceAccess {
         }
     }
 
-    multi method get-random-pet-name(UInt $size, Str $species,
+    multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
+                                     Str $species,
                                      Bool :$weighed = False,
                                      :&method = &roll
             --> List) {
