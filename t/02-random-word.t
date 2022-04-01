@@ -1,6 +1,3 @@
-use lib './lib';
-use lib '.';
-
 use Data::Generators;
 
 use Test;
@@ -27,7 +24,6 @@ is random-word(12, type => 'Any').all ~~ Str,
 is random-word(100, type => 'common').all ~~ Str,
         True,
         'list of 100 common words';
-
 
 ## 6
 is random-word(100, type => 'stop').all ~~ Str,

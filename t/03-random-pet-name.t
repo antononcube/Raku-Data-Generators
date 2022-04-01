@@ -1,6 +1,3 @@
-use lib './lib';
-use lib '.';
-
 use Data::Generators;
 
 use Test;
