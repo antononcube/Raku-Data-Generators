@@ -2,7 +2,7 @@ use Data::Generators;
 
 use Test;
 
-plan 10;
+plan 12;
 
 ## 1
 ok random-word(8), 'simple call 1';
@@ -47,5 +47,13 @@ dies-ok { random-word(0) },
 ## 10
 dies-ok { random-word(-3) },
         'Negative number of words';
+
+## 11
+is random-word(Whatever).elems ≥ 84_996, True,
+        'Whatever number of words';
+
+## 12
+is random-word(Whatever, method => WhateverCode).elems ≥ 84_996, True,
+        'Whatever number of words with WhateverCode method';
 
 done-testing;

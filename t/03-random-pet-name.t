@@ -1,7 +1,7 @@
 use Data::Generators;
 
 use Test;
-plan 10;
+plan 12;
 
 ## 1
 ok random-pet-name(8), 'simple call 1';
@@ -42,10 +42,19 @@ is random-pet-name(100, species => Whatever, method => &pick).all ~~ Str,
 
 ## 9
 dies-ok { random-pet-name(0) },
-        'Zero number of words';
+        'Zero number of pet names';
 
 ## 10
 dies-ok { random-pet-name(-3) },
-        'Negative number of words';
+        'Negative number of pet names';
+
+## 11
+is random-pet-name(Whatever).elems ≥ 20_000, True,
+        'Whatever number of pet names';
+
+## 12
+is random-pet-name(Whatever, method => WhateverCode).elems ≥ 20_000, True,
+        'Whatever number of pet names with WhateverCode method';
+
 
 done-testing;
