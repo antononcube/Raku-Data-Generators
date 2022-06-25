@@ -1,0 +1,38 @@
+use Test;
+
+use lib '.';
+use lib './lib';
+
+use Data::Generators;
+
+plan 7;
+
+## 1
+isa-ok random-real(), Numeric,
+        'No arguments';
+
+## 2
+isa-ok random-real(10), Numeric,
+        'Upper bound argument';
+
+## 3
+isa-ok random-real((-2, 10)), Numeric,
+        'Lower and upper bound arguments';
+
+## 4
+isa-ok random-real((-2, 10), 12), List,
+        'Lower and upper bound arguments with UInt size gives a vector';
+
+## 5
+isa-ok random-real(3, 12), List,
+        'Upper bound arguments with UInt size gives a vector';
+
+## 6
+isa-ok random-real(1, [4, 3]), Array,
+        'Upper bound with shape size gives Array';
+
+## 7
+is random-real((-2, 12), [4, 3]).shape eqv (4, 3), True,
+        'Upper bound with shape size gives Array';
+
+done-testing;
