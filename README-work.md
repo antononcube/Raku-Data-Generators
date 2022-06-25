@@ -3,7 +3,7 @@
 [![SparkyCI](http://sparrowhub.io:2222/project/gh-antononcube-Raku-Data-Generators/badge)](http://sparrowhub.io:2222)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
-This Raku package has functions for generating random strings, words, pet names, vectors, and
+This Raku package has functions for generating random strings, words, pet names, vectors, arrays, and
 (tabular) datasets. 
 
 ### Motivation
@@ -24,10 +24,16 @@ say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 
 The function `random-string` generates random strings.
 
+Here is a random string:
+
+```perl6
+use Data::Generators;
+random-string
+```
+
 Here we generate a vector of random strings with length 4 and characters that belong to specified ranges:
 
 ```raku
-use Data::Generators;
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 
@@ -36,6 +42,12 @@ say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ## Random words
 
 The function `random-word` generates random words.
+
+Here is a random word:
+
+```perl6
+random-word
+```
 
 Here we generate a list with 12 random words:
 
@@ -65,6 +77,12 @@ The function `random-pet-name` generates random pet names.
 The pet names are taken from publicly available data of pet license registrations in
 the years 2015–2020 in Seattle, WA, USA. See [DG1].
 
+Here is a random pet name:
+
+```perl6
+random-pet-name
+```
+
 The following command generates a list of six random pet names:
 
 ```raku
@@ -89,7 +107,7 @@ based on known real-life number of occurrences:
 
 ```raku
 srand(32);
-say ‌‌random-pet-name(6, :weighted).raku
+say random-pet-name(6, :weighted).raku
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -103,6 +121,12 @@ The weights used correspond to the counts from [DG1].
 ## Random pretentious job titles
 
 The function `random-pretentious-job-title` generates random pretentious job titles.
+
+Here is a random pretentious job title:
+
+```perl6
+random-pretentious-job-title
+```
 
 The following command generates a list of six random pretentious job titles:
 
@@ -133,6 +157,42 @@ It is, more-or-less, based on the Mathematica implementation
 
 ## Random reals
 
+This module provides the function `random-real` that can be used to generate lists of real numbers
+using the uniform distribution.
+
+Here is a random real:
+
+```raku
+say random-real(); 
+```
+
+Here is a random real between 0 and 20:
+
+```raku
+say random-real(20); 
+```
+
+Here are six random reals between -2 and 12:
+
+```raku
+say random-real([-2,12], 6);
+```
+
+Here is a 4-by-3 array of random reals between -3 and 3:
+
+```raku
+say random-real([-3,3], [4,3]);
+```
+
+
+**Remark:** The signature design follows Mathematica's function
+[`RandomReal`](https://reference.wolfram.com/language/ref/RandomVariate.html).
+
+
+------
+
+## Random variates
+
 This module provides the function `random-variate` that can be used to generate lists of real numbers
 using distribution specifications.
 
@@ -152,7 +212,7 @@ say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 
 **Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
 
-**Remark:** The signature design follows Mathematica's function 
+**Remark:** The signature design follows Mathematica's function
 [`RandomVariate`](https://reference.wolfram.com/language/ref/RandomVariate.html).
 
 Here is an example of 2D array generation:
@@ -209,36 +269,39 @@ datasets are generated. (The long format implementation is high in my TOOD list.
 
 ## TODO
 
-1. [ ] Random tabular datasets generation
-    - [X] Row spec
-    - [X] Column spec that takes columns count and column names
-    - [X] Column names generator
-    - [X] Wide form implementation only
-    - [X] Generators of column values  
-      - [X] Column-generator hash
-      - [X] List of generators
-      - [X] Single generator
-      - [X] Turn "generators" that are lists into sampling pure functions
-    - [ ] Long form implementation
-    - [ ] Max number of values
-    - [ ] Min number of values
-    - [ ] Form (long or wide)
-    - [X] Row names (automatic)
+1. [ ] TODO Random tabular datasets generation
+    - [X] DONE Row spec
+    - [X] DONE Column spec that takes columns count and column names
+    - [X] DONE Column names generator
+    - [X] DONE Wide form implementation only
+    - [X] DONE Generators of column values  
+      - [X] DONE Column-generator hash
+      - [X] DONE List of generators
+      - [X] DONE Single generator
+      - [X] DONE Turn "generators" that are lists into sampling pure functions
+    - [ ] TODO Long form implementation
+    - [ ] TODO Max number of values
+    - [ ] TODO Min number of values
+    - [ ] TODO Form (long or wide)
+    - [X] DONE Row names (automatic)
     
-2. [X] Random reals vectors generation
+2. [X] DONE Random reals vectors generation
 
-3. [ ] Figuring out how to handle and indicate missing values
+3. [ ] TODO Figuring out how to handle and indicate missing values
    
-4. [ ] Random reals vectors generation according to distribution specs
-    - [X] Uniform distribution
-    - [X] Normal distribution
-    - [ ] Poisson distribution
-    - [ ] Skew-normal distribution
-    - [ ] Triangular distribution
+4. [ ] TODO Random reals vectors generation according to distribution specs
+    - [X] DONE Uniform distribution
+    - [X] DONE Normal distribution
+    - [ ] TODO Poisson distribution
+    - [ ] TODO Skew-normal distribution
+    - [ ] TODO Triangular distribution
+    
+5. [X] DONE `RandomReal`-like implementation 
+    - See `random-real`.
 
-5. [ ] Selection between `roll` and `pick` for:
-    - [ ] `RandomWord`  
-    - [ ] `RandomPetName`
+6. [ ] TODO Selection between `roll` and `pick` for:
+    - [ ] TODO `RandomWord`  
+    - [ ] TODO `RandomPetName`
 
 ------
 
