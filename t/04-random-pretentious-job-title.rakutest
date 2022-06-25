@@ -1,8 +1,12 @@
-use Data::Generators;
-
 use Test;
 
-plan 4;
+use lib '.';
+use lib './lib';
+
+use Data::Generators;
+
+
+plan 5;
 
 ## 1
 ok random-pretentious-job-title(8), 'simple call 1';
@@ -19,5 +23,10 @@ is random-pretentious-job-title(12, number-of-words => 2, language => 'Bulgarian
 is random-pretentious-job-title(10, number-of-words => Whatever, language => Whatever ).all ~~ Str,
         True,
         'list of 10 job titles with Whatever number of words and Whatever language';
+
+## 5
+isa-ok random-pretentious-job-title(language => Whatever),
+        Str,
+        'No size argument gives a string';
 
 done-testing;

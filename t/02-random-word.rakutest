@@ -1,8 +1,11 @@
-use Data::Generators;
-
 use Test;
 
-plan 12;
+use lib '.';
+use lib './lib';
+
+use Data::Generators;
+
+plan 15;
 
 ## 1
 ok random-word(8), 'simple call 1';
@@ -55,5 +58,17 @@ is random-word(Whatever).elems ≥ 84_996, True,
 ## 12
 is random-word(Whatever, method => WhateverCode).elems ≥ 84_996, True,
         'Whatever number of words with WhateverCode method';
+
+## 13
+is random-word(Inf, method => WhateverCode).elems ≥ 84_996, True,
+        'Inf number of words with WhateverCode method';
+
+## 14
+isa-ok random-word(), Str,
+        'No size argument gives a string';
+
+## 15
+isa-ok random-word(type => 'common', method => &pick), Str,
+        'No size argument with options gives a string';
 
 done-testing;

@@ -1,3 +1,8 @@
+use Test;
+
+use lib '.';
+use lib './lib';
+
 use Data::Generators;
 
 sub mean(@x) {
@@ -7,9 +12,7 @@ sub sd(@x) {
     sqrt([+]((@x X- mean(@x)) X** 2) / @x.elems)
 }
 
-use Test;
-
-plan 8;
+plan 9;
 
 ## 1
 is random-variate(NormalDistribution.new(:mean(10), :sd(20)), 12).all ~~ Numeric,
@@ -51,5 +54,9 @@ my $res8 = random-variate(NormalDistribution.new, [4, 3]);
 is ($res8 ~~ Array and $res8.shape eqv (4, 3)),
         True,
         'Normal distribution for 2D array';
+
+## 9
+isa-ok random-variate(UniformDistribution.new(:min(10), :max(20))), Numeric,
+        'No size argument gives a number';
 
 done-testing;
