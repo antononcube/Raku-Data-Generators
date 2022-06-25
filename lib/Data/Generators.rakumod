@@ -26,7 +26,7 @@ unit module Data::Generators;
 #| Generate random strings.
 our proto random-string(|) is export {*}
 
-multi random-string( **@args, *%args  --> List) {
+multi random-string( **@args, *%args) {
     Data::Generators::RandomFunctions::RandomString( |@args, |%args )
 }
 
@@ -34,7 +34,7 @@ multi random-string( **@args, *%args  --> List) {
 #| Generate random words.
 our proto random-word(|) is export {*}
 
-multi random-word( **@args, *%args  --> List) {
+multi random-word( **@args, *%args) {
     Data::Generators::RandomFunctions::RandomWord( |@args, |%args )
 }
 
@@ -42,7 +42,7 @@ multi random-word( **@args, *%args  --> List) {
 #| Generate random pet names.
 our proto random-pet-name(|) is export {*}
 
-multi random-pet-name( **@args, *%args --> List) {
+multi random-pet-name( **@args, *%args) {
     Data::Generators::RandomFunctions::RandomPetName( |@args, |%args )
 }
 
@@ -50,7 +50,7 @@ multi random-pet-name( **@args, *%args --> List) {
 #| Generate random pretentious job titles.
 our proto random-pretentious-job-title(|) is export {*}
 
-multi random-pretentious-job-title( **@args, *%args --> List) {
+multi random-pretentious-job-title( **@args, *%args) {
     Data::Generators::RandomFunctions::RandomPretentiousJobTitle( |@args, |%args )
 }
 
@@ -58,7 +58,7 @@ multi random-pretentious-job-title( **@args, *%args --> List) {
 #| Gives a pseudorandom variate from the distribution specification.
 our proto random-variate(|) is export {*}
 
-multi random-variate( **@args, *%args --> List) {
+multi random-variate( **@args, *%args) {
     Data::Generators::RandomVariate::RandomVariate( |@args, |%args )
 }
 
