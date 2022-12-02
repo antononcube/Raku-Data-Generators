@@ -131,11 +131,6 @@ class Data::Generators::ResourceAccess {
             return @res;
         }
         if $weighted {
-            # Instead of joining all name-to-count hashes into one hash,
-            # we sample each of them separately. Not a faithful way of sampling.
-            #return %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).map({ $_.value.roll($size) }).flat.roll($size).List;
-            #return %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).deepmap({ .roll($size) }).values.flat.roll($size).List;
-            #return %specieToPetNames<cat>.roll($size).List;
             return $petNameToCount.roll($size).List;
         } else {
             return &method($size, $petNameToCount.keys).List;
