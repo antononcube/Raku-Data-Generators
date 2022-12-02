@@ -31,7 +31,7 @@ use Data::Generators;
 random-string
 ```
 ```
-# Yb7AIaqxM
+# b8GoL
 ```
 
 Here we generate a vector of random strings with length 4 and characters that belong to specified ranges:
@@ -40,7 +40,7 @@ Here we generate a vector of random strings with length 4 and characters that be
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 ```
-# ("nnNy", "Y304", "81Y5", "799n", "y92y", "2292")
+# ("3809", "6N1N", "n20Y", "9818", "70n4", "n803")
 ```
 
 ------
@@ -55,7 +55,7 @@ Here is a random word:
 random-word
 ```
 ```
-# hosiery
+# paunchy
 ```
 
 Here we generate a list with 12 random words:
@@ -64,7 +64,7 @@ Here we generate a list with 12 random words:
 random-word(12)
 ```
 ```
-# (Paul vandal ergotropism unbeholden silviculture three-fold sporophyl nonadaptive untying photometrically hourglass-shaped informality)
+# (competitor nonvolatile wryly pontifex lycaenid pintail raging disappoint medicinally licentiousness fathom deerstalker)
 ```
 
 Here we generate a table of random words of different types:
@@ -75,14 +75,14 @@ my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type
 say to-pretty-table(@dfWords);
 ```
 ```
-# +--------+---------------+-------------+-----------+---------------+---------------+-------------+
-# |        |       1       |      5      |     2     |       3       |       4       |      0      |
-# +--------+---------------+-------------+-----------+---------------+---------------+-------------+
-# | Any    | cannibalistic |  jacklight  |  sit-down |   Sarcophaga  |   foreshore   | unprovoking |
-# | Common | ventriloquism |   deathly   |  pinched  |      hazy     |  exhilaration |   seizure   |
-# | Known  |   Charleroi   | educational | reassured | pervasiveness | osteomyelitis | popularizer |
-# | Stop   |       up      |    three    |    we'd   |    someone    |       N       |    become   |
-# +--------+---------------+-------------+-----------+---------------+---------------+-------------+
+# +--------+----------------+-----------+--------------------+----------+-------------+------------+
+# |        |       1        |     3     |         4          |    0     |      5      |     2      |
+# +--------+----------------+-----------+--------------------+----------+-------------+------------+
+# | Any    |   superable    |   adduct  | Saint-John's-bread | inweave  | offenseless | well-known |
+# | Common | reconstruction |  quelled  |      primacy       | quarrel  |    warty    | quadrangle |
+# | Known  |     roble      | herbalist |       jihad        | outdated |   turnout   | emanation  |
+# | Stop   |       an       |    many   |      seeming       |   not    |   doesn't   |  further   |
+# +--------+----------------+-----------+--------------------+----------+-------------+------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -116,7 +116,7 @@ Here is a random pet name:
 random-pet-name
 ```
 ```
-# Bengal Billy
+# Mia
 ```
 
 The following command generates a list of six random pet names:
@@ -126,7 +126,7 @@ srand(32);
 random-pet-name(6).raku
 ```
 ```
-# ("Annie", "Pippa", "Bastet", "Amos", "Dobby", "Otis")
+# ("Sakura", "Rosie", "Butch", "Juno", "Jack", "Lucky Joe")
 ```
 
 The named argument `species` can be used to specify specie of the random pet names. 
@@ -139,15 +139,15 @@ my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6
 say to-pretty-table(@dfPetNames);
 ```
 ```
-# +------+----------+----------+----------+----------+--------+-----------+
-# |      |    1     |    5     |    3     |    0     |   4    |     2     |
-# +------+----------+----------+----------+----------+--------+-----------+
-# | Any  |  Astro   |  Wilder  | Jezebell |   Kiki   | Lillie |   Junior  |
-# | Cat  |   Poet   |   Mimi   |  Dinah   |  Buddy   | Tsuki  | Mish Mish |
-# | Dog  |  Tilly   | Gremlin  |   Hank   |  Rusty   | Lattie |   Oscar   |
-# | Goat | Phyllis  |   Arya   | Grayson  | Winnipeg | Olive  |   Pepina  |
-# | Pig  | Guinness | Guinness | Atticus  | Atticus  | Millie |   Millie  |
-# +------+----------+----------+----------+----------+--------+-----------+
+# +------+------------+--------+----------+---------+----------+----------+
+# |      |     5      |   1    |    3     |    0    |    2     |    4     |
+# +------+------------+--------+----------+---------+----------+----------+
+# | Any  |   Sasha    | Rolie  |  Isaac   |   Ayla  | Midnight |  Bilbo   |
+# | Cat  | Poppy Seed | Mollee | Hermione |  Tilly  | Charlie  |  Hermey  |
+# | Dog  |   Lacey    | Shadow |   Xena   |  Sasha  |  Leela   |  Maxie   |
+# | Goat |  Winnipeg  |  Lula  |  Linda   | Phyllis |  Sassy   |   Arya   |
+# | Pig  |  Guinness  | Millie |  Millie  |  Millie |  Millie  | Guinness |
+# +------+------------+--------+----------+---------+----------+----------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -160,7 +160,7 @@ srand(32);
 say random-pet-name(6, :weighted).raku
 ```
 ```
-# ("Randall", "Holly", "Darwin", "Dobby", "Grace", "Randall")
+# ("Milo", "Django", "Kiera", "Remi Wintour", "Sakura", "Rosie")
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -191,7 +191,7 @@ Here is a random pretentious job title:
 random-pretentious-job-title
 ```
 ```
-# Human Infrastructure Representative
+# Global Tactics Officer
 ```
 
 The following command generates a list of six random pretentious job titles:
@@ -200,7 +200,7 @@ The following command generates a list of six random pretentious job titles:
 random-pretentious-job-title(6).raku
 ```
 ```
-# ("Human Quality Agent", "Principal Optimization Analyst", "Corporate Tactics Orchestrator", "Regional Functionality Liason", "Senior Identity Strategist", "Dynamic Assurance Assistant")
+# ("Dynamic Configuration Assistant", "Customer Paradigm Consultant", "Dynamic Metrics Orchestrator", "Corporate Integration Liason", "Lead Factors Planner", "Internal Infrastructure Orchestrator")
 ```
 
 The named argument `number-of-words` can be used to control the number of words in the generated job titles.
@@ -215,14 +215,14 @@ my $res = random-pretentious-job-title(12, number-of-words => Whatever, language
 say ‌‌to-pretty-table($res.rotor(3));
 ```
 ```
-# +---------------------------------+-------------------------+------------------------+
-# |                0                |            1            |           2            |
-# +---------------------------------+-------------------------+------------------------+
-# |             Producer            | Lead Intranet Executive |      Координатор       |
-# |      Functionality Engineer     |  Проектант на Сигурност | Консултант на Фактори  |
-# |       Team Representative       |        Developer        |   Ideation Associate   |
-# | Международен Синергист на Екипи |         Директор        | Специалист по Интранет |
-# +---------------------------------+-------------------------+------------------------+
+# +-----------------------+---------------------------------+------------------------+
+# |           0           |                1                |           2            |
+# +-----------------------+---------------------------------+------------------------+
+# |       Associate       |           Facilitator           |   Solutions Planner    |
+# |  Инженер по Отговори  |      Functionality Engineer     | Проектант на Сигурност |
+# | Консултант на Фактори |       Team Representative       |       Developer        |
+# |   Ideation Associate  | Международен Синергист на Екипи |        Директор        |
+# +-----------------------+---------------------------------+------------------------+
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -245,7 +245,7 @@ Here is a random real:
 say random-real(); 
 ```
 ```
-# 0.823311567452858
+# 0.9716856978053211
 ```
 
 Here is a random real between 0 and 20:
@@ -254,7 +254,7 @@ Here is a random real between 0 and 20:
 say random-real(20); 
 ```
 ```
-# 8.49801870321288
+# 3.6560991452680636
 ```
 
 Here are six random reals between -2 and 12:
@@ -263,7 +263,7 @@ Here are six random reals between -2 and 12:
 say random-real([-2,12], 6);
 ```
 ```
-# (10.525298125517176 -0.160159274007879 2.672814688202422 5.527668440349444 4.3512488041464525 4.305349381763433)
+# (4.487327134878258 7.24396064493283 4.335366288703926 0.7274527157480799 1.1610012779782908 4.209077109332537)
 ```
 
 Here is a 4-by-3 array of random reals between -3 and 3:
@@ -272,10 +272,10 @@ Here is a 4-by-3 array of random reals between -3 and 3:
 say random-real([-3,3], [4,3]);
 ```
 ```
-# [[-1.7993126138777786 0.551660370629194 -0.5016917629847013]
-#  [-0.06086236254033972 0.1693377003888683 -2.5669006814424993]
-#  [-1.1093996028708428 -2.194031366393758 1.4803083229587681]
-#  [-0.020162563090070584 1.3918098727256725 -2.346036020994049]]
+# [[2.3456827624455796 1.211610170085196 1.2154224776343723]
+#  [-0.6001512765795969 2.1083429736973525 0.003666225776507659]
+#  [-2.999605183797774 -1.7792500324033755 0.35511117994116237]
+#  [-0.31777833103604314 -2.200688319175871 2.0764346644911855]]
 ```
 
 
@@ -296,21 +296,21 @@ Here are examples:
 say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
 ```
 ```
-# (16.81658436103202 5.817180544875238 -40.8144632769038 -13.680598925164187 2.3382868588201617)
+# (1.5361159008155685 48.9608536164365 -10.143915989821487 29.211835362955828 -3.3874436230947698)
 ```
 
 ```perl6
 say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
 ```
 ```
-# (16.86266456205295 12.016016900230937 17.41122530373141 1.740154482109375 -0.14707388517859066)
+# (3.458954986958796 1.325219423487571 9.178917445625153 21.495702892542845 -17.485588393485173)
 ```
 
 ```perl6
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 ```
 ```
-# (36.144915868256405 22.28269373774428 14.309270075186895 19.765186450466164 20.918533285852693)
+# (33.66071105322739 3.056977956006511 7.189165514877061 24.664339577273235 57.021358346513956)
 ```
 
 **Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
@@ -324,9 +324,9 @@ Here is an example of 2D array generation:
 say random-variate(NormalDistribution.new, [3,4]);
 ```
 ```
-# [[0.47118518345990706 -0.77214220582723 -1.5856914640909907 0.479642411665097]
-#  [0.2233627474776211 -0.8156297626961373 3.03387546449567 -0.9457975686791236]
-#  [-0.7116595366808489 0.8286687955423618 0.5090917888621337 1.9829419352124724]]
+# [[-1.362412861209989 0.0021731911912484044 -1.4929303574028636 0.28678297441314793]
+#  [-0.40152611847354835 0.7217405261312951 0.47118518345990706 -0.77214220582723]
+#  [-1.5856914640909907 0.479642411665097 0.2233627474776211 -0.8156297626961373]]
 ```
 
 ------
@@ -362,15 +362,15 @@ my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet
 say to-pretty-table(@dfRand);
 ```
 ```
-# +-----------+-----------------+------------------+
-# |    Lars   |     Chester     |      Leeloo      |
-# +-----------+-----------------+------------------+
-# | 18.679104 |     H3obRqu0    |    qUZ0v3biEZ    |
-# | 13.072346 | phy3foFyXHLSv3g |     3d6HEk8      |
-# |  1.246342 | UdM4YfN4G5ZYP0r | 3z7mI1EsfS1gagCw |
-# | 10.252623 |       UqR       |        Bc        |
-# | 11.023103 |     fxVH24KW    |     qnQHIFS      |
-# +-----------+-----------------+------------------+
+# +-----------+-----------+-----------+
+# |    Rudy   |    Finn   |    Arlo   |
+# +-----------+-----------+-----------+
+# | 63.094711 | 24.948158 | 30.453565 |
+# | 70.918013 |  9.676955 | 35.066645 |
+# | 92.131223 | 18.315310 |  0.909908 |
+# | 23.151258 |  1.712041 | 24.321017 |
+# | 85.557734 |  5.530377 | 18.753154 |
+# +-----------+-----------+-----------+
 ```
 
 The display function `to-pretty-table` is from
@@ -418,9 +418,9 @@ datasets are generated. (The long format implementation is high in my TOOD list.
 5. [X] DONE `RandomReal`-like implementation 
     - See `random-real`.
 
-6. [ ] TODO Selection between `roll` and `pick` for:
-    - [ ] TODO `RandomWord`  
-    - [ ] TODO `RandomPetName`
+6. [X] DONE Selection between `roll` and `pick` for:
+    - [X] DONE `RandomWord`  
+    - [X] DONE `RandomPetName`
 
 ------
 

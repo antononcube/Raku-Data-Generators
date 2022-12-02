@@ -1,6 +1,6 @@
 # Raku Data::Generators
 
-[![SparkyCI](http://sparrowhub.io:2222/project/gh-antononcube-Raku-Data-Generators/badge)](http://sparrowhub.io:2222)
+[![SparkyCI](http://ci.sparrowhub.io:/project/gh-antononcube-Raku-Data-Generators/badge)](http://ci.sparrowhub.io)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
 This Raku package has functions for generating random strings, words, pet names, vectors, arrays, and
@@ -314,9 +314,9 @@ datasets are generated. (The long format implementation is high in my TOOD list.
 5. [X] DONE `RandomReal`-like implementation 
     - See `random-real`.
 
-6. [ ] TODO Selection between `roll` and `pick` for:
-    - [ ] TODO `RandomWord`  
-    - [ ] TODO `RandomPetName`
+6. [X] DONE Selection between `roll` and `pick` for:
+    - [X] DONE `RandomWord`  
+    - [X] DONE `RandomPetName`
 
 ------
 
