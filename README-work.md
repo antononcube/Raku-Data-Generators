@@ -33,7 +33,7 @@ random-string
 
 Here we generate a vector of random strings with length 4 and characters that belong to specified ranges:
 
-```raku
+```perl6
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 
@@ -51,13 +51,13 @@ random-word
 
 Here we generate a list with 12 random words:
 
-```raku
+```perl6
 random-word(12)
 ```
 
 Here we generate a table of random words of different types:
 
-```raku
+```perl6
 use Data::Reshapers;
 my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type => $wt) };
 say to-pretty-table(@dfWords);
@@ -67,6 +67,14 @@ say to-pretty-table(@dfWords);
 
 **Remark:** The function `to-pretty-table` is from the package 
 [Data::Reshapers](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV).
+
+All word data can be retrieved with the resources object:
+
+```perl6
+my $ra = Data::Generators::ResourceAccess.instance();
+$ra.get-word-data().elems;
+```
+
 
 ------
 
@@ -85,7 +93,7 @@ random-pet-name
 
 The following command generates a list of six random pet names:
 
-```raku
+```perl6
 srand(32);
 random-pet-name(6).raku
 ```
@@ -95,7 +103,7 @@ The named argument `species` can be used to specify specie of the random pet nam
 
 Here we generate a table of random pet names of different species:
 
-```raku
+```perl6
 my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6, species => $wt) };
 say to-pretty-table(@dfPetNames);
 ```
@@ -105,7 +113,7 @@ say to-pretty-table(@dfPetNames);
 The named argument (adverb) `weighted` can be used to specify random pet name choice 
 based on known real-life number of occurrences:
 
-```raku
+```perl6
 srand(32);
 say random-pet-name(6, :weighted).raku
 ```
@@ -115,6 +123,13 @@ The weights used correspond to the counts from [DG1].
 **Remark:** The implementation of `random-pet-name` is based on the Mathematica implementation
 [`RandomPetName`](https://resources.wolframcloud.com/FunctionRepository/resources/RandomPetName),
 [AAf1].
+
+All pet data can be retrieved with the resources object:
+
+```perl6
+my $ra = Data::Generators::ResourceAccess.instance();
+$ra.get-pet-data()>>.elems
+```
 
 ------
 
@@ -130,7 +145,7 @@ random-pretentious-job-title
 
 The following command generates a list of six random pretentious job titles:
 
-```raku
+```perl6
 random-pretentious-job-title(6).raku
 ```
 
@@ -141,7 +156,7 @@ At this point, only Bulgarian and English are supported.
 
 Here we generate pretentious job titles using different languages and number of words per title:
 
-```raku
+```perl6
 my $res = random-pretentious-job-title(12, number-of-words => Whatever, language => Whatever);
 say ‌‌to-pretty-table($res.rotor(3));
 ```
@@ -162,25 +177,25 @@ using the uniform distribution.
 
 Here is a random real:
 
-```raku
+```perl6
 say random-real(); 
 ```
 
 Here is a random real between 0 and 20:
 
-```raku
+```perl6
 say random-real(20); 
 ```
 
 Here are six random reals between -2 and 12:
 
-```raku
+```perl6
 say random-real([-2,12], 6);
 ```
 
 Here is a 4-by-3 array of random reals between -3 and 3:
 
-```raku
+```perl6
 say random-real([-3,3], [4,3]);
 ```
 
@@ -198,15 +213,15 @@ using distribution specifications.
 
 Here are examples:
 
-```raku
+```perl6
 say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
 ```
 
-```raku
+```perl6
 say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
 ```
 
-```raku
+```perl6
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 ```
 
@@ -217,7 +232,7 @@ say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 
 Here is an example of 2D array generation:
 
-```raku
+```perl6
 say random-variate(NormalDistribution.new, [3,4]);
 ```
 
@@ -249,7 +264,7 @@ random-tabular-dataset(Whatever, <Col1 Col2 Col3>):!row-names;
 
 Here is example of a generated tabular dataset that column names that are cat pet names:
 
-```raku
+```perl6
 my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet-name($_, species => 'Cat') });
 say to-pretty-table(@dfRand);
 ```
