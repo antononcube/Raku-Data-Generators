@@ -116,11 +116,13 @@ class Data::Generators::ResourceAccess {
 
     multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
                                      Whatever,
-                                     Bool :$weighed = False,
+                                     Bool :$weighted = False,
                                      :&method = &roll
             --> List) {
-        if $weighed {
-            &method($size, %specieToPetNames.map({ &method($size, $_.value) }).flat).List;
+        if $weighted {
+            # Instead of joining all name-to-count hashes into one hash,
+            # we sample each of them separately. Not a faithful way of sampling.
+            roll($size, %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).map({ $_.value.roll(ceiling($size/2)) }).flat).List;
         } else {
             &method($size, %specieToPetNames.map({ &method($size, $_.value.keys) }).flat).List;
         }
@@ -128,12 +130,12 @@ class Data::Generators::ResourceAccess {
 
     multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
                                      Str $species,
-                                     Bool :$weighed = False,
+                                     Bool :$weighted = False,
                                      :&method = &roll
             --> List) {
         if %specieToPetNames{$species.lc}:exists {
-            if $weighed {
-                &method($size, %specieToPetNames{$species.lc}).List;
+            if $weighted {
+                %specieToPetNames{$species.lc}.roll($size).List;
             } else {
                 &method($size, %specieToPetNames{$species.lc}.keys).List;
             }
