@@ -126,10 +126,12 @@ class Data::Generators::ResourceAccess {
                                      Bool :$weighted = False,
                                      :&method = &roll
             --> List) {
+
         if $size.isa(Whatever) {
             my @res = |%specieToPetNames.map({ $_.value.keys.pick(*) }).flat;
             return @res;
         }
+
         if $weighted {
             return $petNameToCount.roll($size).List;
         } else {
