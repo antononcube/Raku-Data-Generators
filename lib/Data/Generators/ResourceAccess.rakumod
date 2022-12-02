@@ -7,6 +7,7 @@ class Data::Generators::ResourceAccess {
     my %englishWords;
     my %typeToIndexes;
     my %specieToPetNames;
+    my $petNameToCount;
 
     ##========================================================
     ## BUILD
@@ -82,7 +83,9 @@ class Data::Generators::ResourceAccess {
         }
 
         # Make species to pet names dictionary
-        %specieToPetNames = @petNames.classify({ $_[0] }).map({ $_.key.lc => Mix($_.value.map({ $_[1] => $_[2] })) });
+        %specieToPetNames = @petNames.classify({ $_[0] }).map({ $_.key.lc => Bag($_.value.map({ $_[1] => $_[2] })) });
+
+        $petNameToCount = Bag([(+)] %specieToPetNames.values);
 
         #-----------------------------------------------------------
         self
@@ -114,26 +117,36 @@ class Data::Generators::ResourceAccess {
         @englishWords[@inds].map({ $_[0] }).List
     }
 
+    multi method get-pet-data() {
+        %specieToPetNames
+    }
+
     multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
                                      Whatever,
-                                     Bool :$weighed = False,
+                                     Bool :$weighted = False,
                                      :&method = &roll
             --> List) {
-        if $weighed {
-            &method($size, %specieToPetNames.map({ &method($size, $_.value) }).flat).List;
+
+        if $size.isa(Whatever) {
+            my @res = |%specieToPetNames.map({ $_.value.keys.pick(*) }).flat;
+            return @res;
+        }
+
+        if $weighted {
+            return $petNameToCount.roll($size).List;
         } else {
-            &method($size, %specieToPetNames.map({ &method($size, $_.value.keys) }).flat).List;
+            return &method($size, $petNameToCount.keys).List;
         }
     }
 
     multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
                                      Str $species,
-                                     Bool :$weighed = False,
+                                     Bool :$weighted = False,
                                      :&method = &roll
             --> List) {
         if %specieToPetNames{$species.lc}:exists {
-            if $weighed {
-                &method($size, %specieToPetNames{$species.lc}).List;
+            if $weighted {
+                %specieToPetNames{$species.lc}.roll($size).List;
             } else {
                 &method($size, %specieToPetNames{$species.lc}.keys).List;
             }

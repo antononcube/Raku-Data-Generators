@@ -1,8 +1,9 @@
 # Raku Data::Generators
 
+[![SparkyCI](http://sparrowhub.io:2222/project/gh-antononcube-Raku-Data-Generators/badge)](http://sparrowhub.io:2222)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
-This Raku package has functions for generating random strings, words, pet names, vectors, and
+This Raku package has functions for generating random strings, words, pet names, vectors, arrays, and
 (tabular) datasets. 
 
 ### Motivation
@@ -23,10 +24,16 @@ say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 
 The function `random-string` generates random strings.
 
+Here is a random string:
+
+```perl6
+use Data::Generators;
+random-string
+```
+
 Here we generate a vector of random strings with length 4 and characters that belong to specified ranges:
 
-```raku
-use Data::Generators;
+```perl6
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 
@@ -36,15 +43,21 @@ say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 
 The function `random-word` generates random words.
 
+Here is a random word:
+
+```perl6
+random-word
+```
+
 Here we generate a list with 12 random words:
 
-```raku
+```perl6
 random-word(12)
 ```
 
 Here we generate a table of random words of different types:
 
-```raku
+```perl6
 use Data::Reshapers;
 my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type => $wt) };
 say to-pretty-table(@dfWords);
@@ -55,6 +68,14 @@ say to-pretty-table(@dfWords);
 **Remark:** The function `to-pretty-table` is from the package 
 [Data::Reshapers](https://modules.raku.org/dist/Data::Reshapers:cpan:ANTONOV).
 
+All word data can be retrieved with the resources object:
+
+```perl6
+my $ra = Data::Generators::ResourceAccess.instance();
+$ra.get-word-data().elems;
+```
+
+
 ------
 
 ## Random pet names
@@ -64,9 +85,15 @@ The function `random-pet-name` generates random pet names.
 The pet names are taken from publicly available data of pet license registrations in
 the years 2015–2020 in Seattle, WA, USA. See [DG1].
 
+Here is a random pet name:
+
+```perl6
+random-pet-name
+```
+
 The following command generates a list of six random pet names:
 
-```raku
+```perl6
 srand(32);
 random-pet-name(6).raku
 ```
@@ -76,7 +103,7 @@ The named argument `species` can be used to specify specie of the random pet nam
 
 Here we generate a table of random pet names of different species:
 
-```raku
+```perl6
 my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6, species => $wt) };
 say to-pretty-table(@dfPetNames);
 ```
@@ -86,9 +113,9 @@ say to-pretty-table(@dfPetNames);
 The named argument (adverb) `weighted` can be used to specify random pet name choice 
 based on known real-life number of occurrences:
 
-```raku
+```perl6
 srand(32);
-say ‌‌random-pet-name(6, :weighted).raku
+say random-pet-name(6, :weighted).raku
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -97,15 +124,28 @@ The weights used correspond to the counts from [DG1].
 [`RandomPetName`](https://resources.wolframcloud.com/FunctionRepository/resources/RandomPetName),
 [AAf1].
 
+All pet data can be retrieved with the resources object:
+
+```perl6
+my $ra = Data::Generators::ResourceAccess.instance();
+$ra.get-pet-data()>>.elems
+```
+
 ------
 
 ## Random pretentious job titles
 
 The function `random-pretentious-job-title` generates random pretentious job titles.
 
+Here is a random pretentious job title:
+
+```perl6
+random-pretentious-job-title
+```
+
 The following command generates a list of six random pretentious job titles:
 
-```raku
+```perl6
 random-pretentious-job-title(6).raku
 ```
 
@@ -116,7 +156,7 @@ At this point, only Bulgarian and English are supported.
 
 Here we generate pretentious job titles using different languages and number of words per title:
 
-```raku
+```perl6
 my $res = random-pretentious-job-title(12, number-of-words => Whatever, language => Whatever);
 say ‌‌to-pretty-table($res.rotor(3));
 ```
@@ -132,31 +172,67 @@ It is, more-or-less, based on the Mathematica implementation
 
 ## Random reals
 
+This module provides the function `random-real` that can be used to generate lists of real numbers
+using the uniform distribution.
+
+Here is a random real:
+
+```perl6
+say random-real(); 
+```
+
+Here is a random real between 0 and 20:
+
+```perl6
+say random-real(20); 
+```
+
+Here are six random reals between -2 and 12:
+
+```perl6
+say random-real([-2,12], 6);
+```
+
+Here is a 4-by-3 array of random reals between -3 and 3:
+
+```perl6
+say random-real([-3,3], [4,3]);
+```
+
+
+**Remark:** The signature design follows Mathematica's function
+[`RandomReal`](https://reference.wolfram.com/language/ref/RandomVariate.html).
+
+
+------
+
+## Random variates
+
 This module provides the function `random-variate` that can be used to generate lists of real numbers
 using distribution specifications.
 
 Here are examples:
 
-```raku
+```perl6
 say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
 ```
 
-```raku
+```perl6
 say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
 ```
 
-```raku
+```perl6
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 ```
 
 **Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
 
-**Remark:** The signature design follows Mathematica's function 
+**Remark:** The signature design follows Mathematica's function
 [`RandomVariate`](https://reference.wolfram.com/language/ref/RandomVariate.html).
 
 Here is an example of 2D array generation:
 
-```raku
+```perl6
 say random-variate(NormalDistribution.new, [3,4]);
 ```
 
@@ -188,7 +264,7 @@ random-tabular-dataset(Whatever, <Col1 Col2 Col3>):!row-names;
 
 Here is example of a generated tabular dataset that column names that are cat pet names:
 
-```raku
+```perl6
 my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet-name($_, species => 'Cat') });
 say to-pretty-table(@dfRand);
 ```
@@ -208,36 +284,39 @@ datasets are generated. (The long format implementation is high in my TOOD list.
 
 ## TODO
 
-1. [ ] Random tabular datasets generation
-    - [X] Row spec
-    - [X] Column spec that takes columns count and column names
-    - [X] Column names generator
-    - [X] Wide form implementation only
-    - [X] Generators of column values  
-      - [X] Column-generator hash
-      - [X] List of generators
-      - [X] Single generator
-      - [X] Turn "generators" that are lists into sampling pure functions
-    - [ ] Long form implementation
-    - [ ] Max number of values
-    - [ ] Min number of values
-    - [ ] Form (long or wide)
-    - [X] Row names (automatic)
+1. [ ] TODO Random tabular datasets generation
+    - [X] DONE Row spec
+    - [X] DONE Column spec that takes columns count and column names
+    - [X] DONE Column names generator
+    - [X] DONE Wide form implementation only
+    - [X] DONE Generators of column values  
+      - [X] DONE Column-generator hash
+      - [X] DONE List of generators
+      - [X] DONE Single generator
+      - [X] DONE Turn "generators" that are lists into sampling pure functions
+    - [ ] TODO Long form implementation
+    - [ ] TODO Max number of values
+    - [ ] TODO Min number of values
+    - [ ] TODO Form (long or wide)
+    - [X] DONE Row names (automatic)
     
-2. [X] Random reals vectors generation
+2. [X] DONE Random reals vectors generation
 
-3. [ ] Figuring out how to handle and indicate missing values
+3. [ ] TODO Figuring out how to handle and indicate missing values
    
-4. [ ] Random reals vectors generation according to distribution specs
-    - [X] Uniform distribution
-    - [X] Normal distribution
-    - [ ] Poisson distribution
-    - [ ] Skew-normal distribution
-    - [ ] Triangular distribution
+4. [ ] TODO Random reals vectors generation according to distribution specs
+    - [X] DONE Uniform distribution
+    - [X] DONE Normal distribution
+    - [ ] TODO Poisson distribution
+    - [ ] TODO Skew-normal distribution
+    - [ ] TODO Triangular distribution
+    
+5. [X] DONE `RandomReal`-like implementation 
+    - See `random-real`.
 
-5. [ ] Selection between `roll` and `pick` for:
-    - [ ] `RandomWord`  
-    - [ ] `RandomPetName`
+6. [ ] TODO Selection between `roll` and `pick` for:
+    - [ ] TODO `RandomWord`  
+    - [ ] TODO `RandomPetName`
 
 ------
 

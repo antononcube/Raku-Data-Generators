@@ -1,7 +1,11 @@
+use Test;
+
+use lib '.';
+use lib './lib';
+
 use Data::Generators;
 
-use Test;
-plan 12;
+plan 15;
 
 ## 1
 ok random-pet-name(8), 'simple call 1';
@@ -56,5 +60,16 @@ is random-pet-name(Whatever).elems ≥ 20_000, True,
 is random-pet-name(Whatever, method => WhateverCode).elems ≥ 20_000, True,
         'Whatever number of pet names with WhateverCode method';
 
+## 13
+is random-pet-name(Inf, method => WhateverCode).elems ≥ 20_000, True,
+        'Inf number of pet names with WhateverCode method';
+
+## 14
+isa-ok random-pet-name(), Str,
+        'No size argument gives a string';
+
+## 15
+isa-ok random-pet-name(species => 'Cat'), Str,
+        'No size argument with options gives a string';
 
 done-testing;

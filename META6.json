@@ -1,12 +1,12 @@
 {
   "name": "Data::Generators",
-  "description": "Random data generation functions: strings, words, numbers, vectors, pet names, job titles, and tabular datasets.",
-  "version": "0.1.2",
+  "description": "Random data generation functions: strings, words, numbers, pet names, job titles, vectors, arrays, and tabular datasets.",
+  "version": "0.1.6",
   "perl": "6.d",
   "authors": [
     "Anton Antonov"
   ],
-  "auth": "github:antononcube",
+  "auth": "zef:antononcube",
   "depends": [],
   "build-depends": [],
   "test-depends": [],
@@ -28,6 +28,8 @@
     "dataset",
     "generation",
     "job titles",
+    "normal distribution",
+    "pet name",
     "pet names",
     "random data",
     "random tables",
@@ -36,7 +38,10 @@
     "random variates",
     "random",
     "statistical distributions",
+    "string",
     "strings",
+    "tabular",
+    "uniform distribution",
     "words"
   ],
   "api": "1",

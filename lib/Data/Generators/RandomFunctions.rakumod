@@ -15,6 +15,12 @@ sub reallyflat (+@list) {
 #============================================================
 our proto RandomString(|) is export {*}
 
+multi RandomString(:$chars is copy = Whatever,
+                   :$ranges is copy = ("a" .. "z", "A" .. "Z", "0" .. "9")
+        --> Str) {
+    return RandomString(1, :$chars, :$ranges)[0];
+}
+
 multi RandomString(UInt $size = 1,
                    :$chars is copy = Whatever,
                    :$ranges is copy = ("a" .. "z", "A" .. "Z", "0" .. "9")
@@ -48,14 +54,23 @@ multi RandomString(UInt $size = 1,
 #============================================================
 our proto RandomWord(|) is export {*}
 
-multi RandomWord($size = 1,
+multi RandomWord(:$type is copy = Whatever,
+                 Str :$language is copy = 'English',
+                 :&method is copy = WhateverCode
+        --> Str) {
+    return RandomWord(1, :$type, :$language, :&method)[0];
+}
+
+multi RandomWord($size is copy = 1,
                  :$type is copy = Whatever,
                  Str :$language is copy = 'English',
                  :&method is copy = WhateverCode
         --> List) {
 
-    if !( $size.isa(Whatever) || $size ~~ Int && $size > 0 ) {
-        die "The first argument is expected to be a positive integer or Whatever."
+    if $size ~~ Inf { $size = Whatever; }
+
+    if !($size.isa(Whatever) || $size ~~ Int && $size > 0) {
+        die "The first argument is expected to be a positive integer, Inf, or Whatever."
     }
 
     if $type.isa(Whatever) { $type = 'any' }
@@ -90,19 +105,28 @@ multi RandomWord($size = 1,
 #============================================================
 our proto RandomPetName(|) is export {*}
 
-multi RandomPetName($size = 1,
+multi RandomPetName(:$species is copy = Whatever,
+                    Bool :$weighted = True,
+                    :&method is copy = WhateverCode
+        --> Str) {
+    return RandomPetName(1, :$species, :$weighted, :&method)[0];
+}
+
+multi RandomPetName($size is copy = 1,
                     :$species is copy = Whatever,
                     Bool :$weighted = True,
                     :&method is copy = WhateverCode
         --> List) {
 
-    if !( $size.isa(Whatever) || $size ~~ Int && $size > 0 ) {
-        die "The first argument is expected to be a positive integer or Whatever."
+    if $size ~~ Inf { $size = Whatever; }
+
+    if !($size.isa(Whatever) || $size ~~ Int && $size > 0) {
+        die "The first argument is expected to be a positive integer, Inf, or Whatever."
     }
 
     my @allSpecies = <Any Cat Dog Goat Pig>;
 
-    if not ( $species.isa(Whatever) or $species.isa(Str) and ($species.lc (elem) @allSpecies».lc) ) {
+    if not ($species.isa(Whatever) or $species.isa(Str) and ($species.lc (elem) @allSpecies».lc)) {
         note "The argument 'species' is expected to be one of { @allSpecies.raku }, or Whatever. Continuing with Whatever.";
         $species = Whatever
     }
@@ -111,8 +135,8 @@ multi RandomPetName($size = 1,
         &method = $size.isa(Whatever) ?? &pick !! &roll;
     }
 
-    if $species.isa(Whatever) or $species.lc eq 'any'  {
-        return $resources.get-random-pet-name($size, Whatever, :weighted, :&method);
+    if $species.isa(Whatever) or $species.lc eq 'any' {
+        return $resources.get-random-pet-name($size, Whatever, :$weighted, :&method);
     } else {
         return $resources.get-random-pet-name($size, $species, :$weighted, :&method);
     }
@@ -171,8 +195,19 @@ my %pretentiousJobTitleWords =
         );
 
 #------------------------------------------------------------
-our sub RandomPretentiousJobTitle(UInt $size = 1, :$number-of-words is copy = 3, :$language is copy = 'English')
-        is export {
+our proto RandomPretentiousJobTitle(|)
+        is export {*}
+
+multi RandomPretentiousJobTitle(:$number-of-words is copy = 3,
+                                :$language is copy = 'English'
+        -->Str) {
+    return RandomPretentiousJobTitle(1, :$number-of-words, :$language)[0];
+}
+
+multi RandomPretentiousJobTitle(UInt $size = 1,
+                                :$number-of-words is copy = 3,
+                                :$language is copy = 'English'
+        -->List) {
 
     if not ($number-of-words ~~ Int and $number-of-words > 0 or $number-of-words.isa(Whatever)) {
         note "The argument 'number-of-words' is expected to be one of 1, 2, 3, or Whatever. Continue using 3.";
