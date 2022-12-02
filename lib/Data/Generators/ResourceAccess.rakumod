@@ -7,6 +7,7 @@ class Data::Generators::ResourceAccess {
     my %englishWords;
     my %typeToIndexes;
     my %specieToPetNames;
+    my $petNameToCount;
 
     ##========================================================
     ## BUILD
@@ -82,7 +83,9 @@ class Data::Generators::ResourceAccess {
         }
 
         # Make species to pet names dictionary
-        %specieToPetNames = @petNames.classify({ $_[0] }).map({ $_.key.lc => Mix($_.value.map({ $_[1] => $_[2] })) });
+        %specieToPetNames = @petNames.classify({ $_[0] }).map({ $_.key.lc => Bag($_.value.map({ $_[1] => $_[2] })) });
+
+        $petNameToCount = Bag([(+)] %specieToPetNames.values);
 
         #-----------------------------------------------------------
         self
@@ -130,9 +133,12 @@ class Data::Generators::ResourceAccess {
         if $weighted {
             # Instead of joining all name-to-count hashes into one hash,
             # we sample each of them separately. Not a faithful way of sampling.
-            return roll($size, %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).map({ $_.value.roll($size) }).flat).List;
+            #return %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).map({ $_.value.roll($size) }).flat.roll($size).List;
+            #return %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).deepmap({ .roll($size) }).values.flat.roll($size).List;
+            #return %specieToPetNames<cat>.roll($size).List;
+            return $petNameToCount.roll($size).List;
         } else {
-            return &method($size, %specieToPetNames.map({ &method($size, $_.value.keys) }).flat).List;
+            return &method($size, $petNameToCount.keys).List;
         }
     }
 
