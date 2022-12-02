@@ -136,7 +136,7 @@ multi RandomPetName($size is copy = 1,
     }
 
     if $species.isa(Whatever) or $species.lc eq 'any' {
-        return $resources.get-random-pet-name($size, Whatever, :weighted, :&method);
+        return $resources.get-random-pet-name($size, Whatever, :$weighted, :&method);
     } else {
         return $resources.get-random-pet-name($size, $species, :$weighted, :&method);
     }
