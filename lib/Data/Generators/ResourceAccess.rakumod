@@ -119,12 +119,16 @@ class Data::Generators::ResourceAccess {
                                      Bool :$weighted = False,
                                      :&method = &roll
             --> List) {
+        if $size.isa(Whatever) {
+            my @res = |%specieToPetNames.map({ $_.value.keys.pick(*) }).flat;
+            return @res;
+        }
         if $weighted {
             # Instead of joining all name-to-count hashes into one hash,
             # we sample each of them separately. Not a faithful way of sampling.
-            roll($size, %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).map({ $_.value.roll(ceiling($size/2)) }).flat).List;
+            return roll($size, %specieToPetNames.grep({ $_.key.lc ∈ <cat dog> }).map({ $_.value.roll($size) }).flat).List;
         } else {
-            &method($size, %specieToPetNames.map({ &method($size, $_.value.keys) }).flat).List;
+            return &method($size, %specieToPetNames.map({ &method($size, $_.value.keys) }).flat).List;
         }
     }
 
