@@ -114,6 +114,10 @@ class Data::Generators::ResourceAccess {
         @englishWords[@inds].map({ $_[0] }).List
     }
 
+    multi method get-pet-data() {
+        %specieToPetNames
+    }
+
     multi method get-random-pet-name($size where $size ~~ UInt || $size.isa(Whatever),
                                      Whatever,
                                      Bool :$weighted = False,
