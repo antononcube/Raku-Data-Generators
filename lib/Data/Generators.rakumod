@@ -109,6 +109,9 @@ our proto random-date-time(|) is export {*}
 constant $minDateTime = DateTime.new(year => 1900, month => 1, day => 1);
 constant $maxDateTime = DateTime.new(year => 2100, month => 1, day => 1);
 
+multi random-date-time(DateTime $max) {
+    return random-date-time(min => $minDateTime, :$max, size => Whatever);
+}
 
 multi random-date-time((DateTime $min, DateTime $max)) {
     return random-date-time(:$min, :$max, size => Whatever);
@@ -128,7 +131,7 @@ multi random-date-time(DateTime :$min = $minDateTime, DateTime :$max = $maxDateT
             return random-date-time(:$min, :$max, size => 1)[0];
         }
         when $_ ~~ Int && $_ > 0 {
-            return (($max - $min).rand xx $size).map({ DateTime.new($_) }).List;
+            return (($max - $min).rand xx $size).map({ DateTime.new($_ + $min) }).List;
         }
         default {
             die 'The argument size is expected to be a positive integer or Whatever.';
