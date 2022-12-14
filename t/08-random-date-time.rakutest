@@ -1,0 +1,34 @@
+use Test;
+
+use lib '.';
+use lib './lib';
+
+use Data::Generators;
+
+plan 6;
+
+## 1
+isa-ok random-date-time(), DateTime,
+        'No arguments';
+
+## 2
+isa-ok random-date-time(DateTime.new('2020-02-23')), DateTime,
+        'Upper bound argument';
+
+## 3
+isa-ok random-date-time((DateTime.new('2020-02-23'), DateTime.new('2022-02-23'))), DateTime,
+        'Lower and upper bound arguments';
+
+## 4
+isa-ok random-date-time((DateTime.new('2020-02-23'), now.DateTime), 12), List,
+        'Lower and upper bound arguments with UInt size gives a vector';
+
+## 5
+isa-ok random-date-time(now.DateTime, 12), List,
+        'Upper bound arguments with UInt size gives a vector';
+
+## 6
+isa-ok random-date-time(min => now.DateTime, max => DateTime.new('2000-01-01'), size => 12), List,
+        'Option-specs of lower and upper bounds with shape size gives Array';
+
+done-testing;
