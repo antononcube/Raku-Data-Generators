@@ -94,6 +94,48 @@ multi random-real((Numeric $min, Numeric $max), @size) {
     return Data::Generators::RandomVariate::RandomVariate(UniformDistribution.new(:$min, :$max), @size);
 }
 
+multi random-real(Numeric :$min = 0, Numeric :$max = 1) {
+    return random-real(($min, $max));
+}
+
+multi random-real(Numeric :$min = 0, Numeric :$max = 1, :$size = 1) {
+    return random-real(($min, $max), $size);
+}
+
+#===========================================================
+#| Generates a random date-time or a list of random date-times.
+our proto random-date-time(|) is export {*}
+
+constant $minDateTime = DateTime.new(year => 1900, month => 1, day => 1);
+constant $maxDateTime = DateTime.new(year => 2100, month => 1, day => 1);
+
+
+multi random-date-time((DateTime $min, DateTime $max)) {
+    return random-date-time(:$min, :$max, size => Whatever);
+}
+
+multi random-date-time((DateTime $min = $minDateTime, DateTime $max = $maxDateTime), UInt $size = 1) {
+    return random-date-time(:$min, :$max, :$size);
+}
+
+multi random-date-time(DateTime $max = $maxDateTime, $size = Whatever) {
+    return random-date-time(min => $minDateTime, :$max, :$size);
+}
+
+multi random-date-time(DateTime :$min = $minDateTime, DateTime :$max = $maxDateTime, :$size = Whatever) {
+    given $size {
+        when $_.isa(Whatever) {
+            return random-date-time(:$min, :$max, size => 1)[0];
+        }
+        when $_ ~~ Int && $_ > 0 {
+            return (($max - $min).rand xx $size).map({ DateTime.new($_) }).List;
+        }
+        default {
+            die 'The argument size is expected to be a positive integer or Whatever.';
+        }
+    }
+}
+
 #===========================================================
 #| Generate random tabular dataset.
 our proto random-tabular-dataset(|) is export {*}
