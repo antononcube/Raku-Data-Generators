@@ -5,7 +5,7 @@ use lib './lib';
 
 use Data::Generators;
 
-plan 7;
+plan 8;
 
 ## 1
 isa-ok random-real(), Numeric,
@@ -33,6 +33,10 @@ isa-ok random-real(1, [4, 3]), Array,
 
 ## 7
 is random-real((-2, 12), [4, 3]).shape eqv (4, 3), True,
-        'Upper bound with shape size gives Array';
+        'Lower and upper bounds with shape size gives Array';
+
+## 8
+is random-real(min=>-2, max=>12, size=>[4, 3]).shape eqv (4, 3), True,
+        'Option-specs of lower and upper bounds with shape size gives Array';
 
 done-testing;
