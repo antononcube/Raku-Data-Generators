@@ -1,5 +1,9 @@
 # Raku Data::Generators
 
+[![Actions Status](https://github.com/antononcube/Raku-Data-Generators/actions/workflows/linux.yml/badge.svg)](https://github.com/antononcube/Raku-Data-Generators/actions) 
+[![Actions Status](https://github.com/antononcube/Raku-Data-Generators/actions/workflows/macos.yml/badge.svg)](https://github.com/antononcube/Raku-Data-Generators/actions) 
+[![Actions Status](https://github.com/antononcube/Raku-Data-Generators/actions/workflows/windows.yml/badge.svg)](https://github.com/antononcube/Raku-Data-Generators/actions)
+
 [![SparkyCI](http://ci.sparrowhub.io:/project/gh-antononcube-Raku-Data-Generators/badge)](http://ci.sparrowhub.io)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
@@ -31,7 +35,7 @@ use Data::Generators;
 random-string
 ```
 ```
-# b8GoL
+# PWHH9azzayhU4kFqGg
 ```
 
 Here we generate a vector of random strings with length 4 and characters that belong to specified ranges:
@@ -40,7 +44,7 @@ Here we generate a vector of random strings with length 4 and characters that be
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 ```
-# ("3809", "6N1N", "n20Y", "9818", "70n4", "n803")
+# ("y5Y7", "n75y", "2N1Y", "y782", "y143", "y523")
 ```
 
 ------
@@ -55,7 +59,7 @@ Here is a random word:
 random-word
 ```
 ```
-# paunchy
+# gearstick
 ```
 
 Here we generate a list with 12 random words:
@@ -64,7 +68,7 @@ Here we generate a list with 12 random words:
 random-word(12)
 ```
 ```
-# (competitor nonvolatile wryly pontifex lycaenid pintail raging disappoint medicinally licentiousness fathom deerstalker)
+# (silky-haired Berlin horsemint Ariadne shlimazel oddments eater vain magneto camelia totaliser gelded)
 ```
 
 Here we generate a table of random words of different types:
@@ -75,14 +79,14 @@ my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type
 say to-pretty-table(@dfWords);
 ```
 ```
-# +--------+----------------+-----------+--------------------+----------+-------------+------------+
-# |        |       1        |     3     |         4          |    0     |      5      |     2      |
-# +--------+----------------+-----------+--------------------+----------+-------------+------------+
-# | Any    |   superable    |   adduct  | Saint-John's-bread | inweave  | offenseless | well-known |
-# | Common | reconstruction |  quelled  |      primacy       | quarrel  |    warty    | quadrangle |
-# | Known  |     roble      | herbalist |       jihad        | outdated |   turnout   | emanation  |
-# | Stop   |       an       |    many   |      seeming       |   not    |   doesn't   |  further   |
-# +--------+----------------+-----------+--------------------+----------+-------------+------------+
+# +--------+---------+--------------+-------------+---------------+-----------+------------+
+# |        |    4    |      5       |      0      |       2       |     1     |     3      |
+# +--------+---------+--------------+-------------+---------------+-----------+------------+
+# | Any    | portage |   copycat    | ladder-back |      p.m.     |  hahnium  |  Vanellus  |
+# | Common |  galoot | youthfulness |    woman    | dependability | subsidize |  paganism  |
+# | Known  |   lad   |  marketable  |   diarchy   |     kotow     |   tract   | diflunisal |
+# | Stop   |    go   |     side     |     even    |      ever     |    but    |   since    |
+# +--------+---------+--------------+-------------+---------------+-----------+------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -116,7 +120,7 @@ Here is a random pet name:
 random-pet-name
 ```
 ```
-# Mia
+# Prunella
 ```
 
 The following command generates a list of six random pet names:
@@ -126,7 +130,7 @@ srand(32);
 random-pet-name(6).raku
 ```
 ```
-# ("Sakura", "Rosie", "Butch", "Juno", "Jack", "Lucky Joe")
+# ("Tazman", "Bosun", "Sophie", "Belle", "Lily Bell", "Koda")
 ```
 
 The named argument `species` can be used to specify specie of the random pet names. 
@@ -139,15 +143,15 @@ my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6
 say to-pretty-table(@dfPetNames);
 ```
 ```
-# +------+------------+--------+----------+---------+----------+----------+
-# |      |     5      |   1    |    3     |    0    |    2     |    4     |
-# +------+------------+--------+----------+---------+----------+----------+
-# | Any  |   Sasha    | Rolie  |  Isaac   |   Ayla  | Midnight |  Bilbo   |
-# | Cat  | Poppy Seed | Mollee | Hermione |  Tilly  | Charlie  |  Hermey  |
-# | Dog  |   Lacey    | Shadow |   Xena   |  Sasha  |  Leela   |  Maxie   |
-# | Goat |  Winnipeg  |  Lula  |  Linda   | Phyllis |  Sassy   |   Arya   |
-# | Pig  |  Guinness  | Millie |  Millie  |  Millie |  Millie  | Guinness |
-# +------+------------+--------+----------+---------+----------+----------+
+# +------+---------+----------+----------+---------+--------+----------+
+# |      |    0    |    1     |    4     |    3    |   5    |    2     |
+# +------+---------+----------+----------+---------+--------+----------+
+# | Any  |   Zoe   | Precious |  Tucker  |   Andy  | Honey  |   Tee    |
+# | Cat  |  Petra  |   Moe    | Snickers |  Bella  | Storm  |   Boo    |
+# | Dog  |  Logan  |  Renoir  |  Bodie   |  Snoopy |  Odin  |   Lupe   |
+# | Goat |  Linda  |  Aggie   |  Sassy   |   Arya  | Grace  |  Margot  |
+# | Pig  | Atticus | Guinness | Guinness | Atticus | Millie | Guinness |
+# +------+---------+----------+----------+---------+--------+----------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -160,7 +164,7 @@ srand(32);
 say random-pet-name(6, :weighted).raku
 ```
 ```
-# ("Milo", "Django", "Kiera", "Remi Wintour", "Sakura", "Rosie")
+# ("Smokey", "Sasha", "Bailey", "Scout", "Tazman", "Bosun")
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -191,7 +195,7 @@ Here is a random pretentious job title:
 random-pretentious-job-title
 ```
 ```
-# Global Tactics Officer
+# Corporate Security Representative
 ```
 
 The following command generates a list of six random pretentious job titles:
@@ -200,7 +204,7 @@ The following command generates a list of six random pretentious job titles:
 random-pretentious-job-title(6).raku
 ```
 ```
-# ("Dynamic Configuration Assistant", "Customer Paradigm Consultant", "Dynamic Metrics Orchestrator", "Corporate Integration Liason", "Lead Factors Planner", "Internal Infrastructure Orchestrator")
+# ("Product Marketing Engineer", "Lead Resonance Developer", "Dynamic Factors Executive", "Customer Infrastructure Assistant", "Relational Functionality Coordinator", "Global Creative Coordinator")
 ```
 
 The named argument `number-of-words` can be used to control the number of words in the generated job titles.
@@ -215,14 +219,14 @@ my $res = random-pretentious-job-title(12, number-of-words => Whatever, language
 say ‌‌to-pretty-table($res.rotor(3));
 ```
 ```
-# +-----------------------+---------------------------------+------------------------+
-# |           0           |                1                |           2            |
-# +-----------------------+---------------------------------+------------------------+
-# |       Associate       |           Facilitator           |   Solutions Planner    |
-# |  Инженер по Отговори  |      Functionality Engineer     | Проектант на Сигурност |
-# | Консултант на Фактори |       Team Representative       |       Developer        |
-# |   Ideation Associate  | Международен Синергист на Екипи |        Директор        |
-# +-----------------------+---------------------------------+------------------------+
+# +-------------------------------+---------------------------+--------------------------------------------+
+# |               0               |             1             |                     2                      |
+# +-------------------------------+---------------------------+--------------------------------------------+
+# |    Implementation Director    |          Producer         |                 Synergist                  |
+# | Вътрешен Супервайзор на Мрежи | Клиентов Архитект по Идеи |             Markets Executive              |
+# |         Representative        |   Супервайзор на Пазари   | Продукционен Супервайзор по Взаимодействия |
+# |            Designer           |      Usability Agent      |            Плановик на Операции            |
+# +-------------------------------+---------------------------+--------------------------------------------+
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -245,7 +249,7 @@ Here is a random real:
 say random-real(); 
 ```
 ```
-# 0.9716856978053211
+# 0.8282274897974294
 ```
 
 Here is a random real between 0 and 20:
@@ -254,7 +258,7 @@ Here is a random real between 0 and 20:
 say random-real(20); 
 ```
 ```
-# 3.6560991452680636
+# 2.6717214626314023
 ```
 
 Here are six random reals between -2 and 12:
@@ -263,7 +267,7 @@ Here are six random reals between -2 and 12:
 say random-real([-2,12], 6);
 ```
 ```
-# (4.487327134878258 7.24396064493283 4.335366288703926 0.7274527157480799 1.1610012779782908 4.209077109332537)
+# (-1.8834241515716836 3.8887615227122936 4.421996646763659 5.029791447935309 3.9707069201305067 8.70101978531368)
 ```
 
 Here is a 4-by-3 array of random reals between -3 and 3:
@@ -272,10 +276,10 @@ Here is a 4-by-3 array of random reals between -3 and 3:
 say random-real([-3,3], [4,3]);
 ```
 ```
-# [[2.3456827624455796 1.211610170085196 1.2154224776343723]
-#  [-0.6001512765795969 2.1083429736973525 0.003666225776507659]
-#  [-2.999605183797774 -1.7792500324033755 0.35511117994116237]
-#  [-0.31777833103604314 -2.200688319175871 2.0764346644911855]]
+# [[-0.12337305314623048 0.4655041255645993 -2.7557647476130733]
+#  [0.7974770319715407 -1.832995933031438 0.3202246318412625]
+#  [2.9875532284614845 1.5320938449458374 0.5738933740914449]
+#  [-2.5329028582275743 -2.856925201204403 1.0881020860532775]]
 ```
 
 
@@ -296,21 +300,21 @@ Here are examples:
 say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
 ```
 ```
-# (1.5361159008155685 48.9608536164365 -10.143915989821487 29.211835362955828 -3.3874436230947698)
+# (-1.2890591546034695 -4.240194172291787 24.23729249700557 25.565384231319698 -31.42583501249206)
 ```
 
 ```perl6
 say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
 ```
 ```
-# (3.458954986958796 1.325219423487571 9.178917445625153 21.495702892542845 -17.485588393485173)
+# (-24.970978206594808 27.580548932592283 4.293480947834469 53.78806606685142 -6.920372212762544)
 ```
 
 ```perl6
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 ```
 ```
-# (33.66071105322739 3.056977956006511 7.189165514877061 24.664339577273235 57.021358346513956)
+# (49.4643635316776 56.74438883327643 35.769505371993986 21.8746551426201 33.80521073809191)
 ```
 
 **Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
@@ -324,9 +328,9 @@ Here is an example of 2D array generation:
 say random-variate(NormalDistribution.new, [3,4]);
 ```
 ```
-# [[-1.362412861209989 0.0021731911912484044 -1.4929303574028636 0.28678297441314793]
-#  [-0.40152611847354835 0.7217405261312951 0.47118518345990706 -0.77214220582723]
-#  [-1.5856914640909907 0.479642411665097 0.2233627474776211 -0.8156297626961373]]
+# [[-0.9171177150791677 0.010110377561891041 -0.7919263061829 0.83195200985803]
+#  [-1.146863429854802 1.5201366101091918 -0.8916210526664188 1.369183790426792]
+#  [-0.18450834272269118 -0.6844365153485313 -0.05756503431295109 -1.0883632144060866]]
 ```
 
 ------
@@ -362,15 +366,15 @@ my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet
 say to-pretty-table(@dfRand);
 ```
 ```
-# +-----------+-----------+-----------+
-# |    Rudy   |    Finn   |    Arlo   |
-# +-----------+-----------+-----------+
-# | 63.094711 | 24.948158 | 30.453565 |
-# | 70.918013 |  9.676955 | 35.066645 |
-# | 92.131223 | 18.315310 |  0.909908 |
-# | 23.151258 |  1.712041 | 24.321017 |
-# | 85.557734 |  5.530377 | 18.753154 |
-# +-----------+-----------+-----------+
+# +-----------+----------------------+------------+
+# |  Chester  |        Marco         |    Skyy    |
+# +-----------+----------------------+------------+
+# | 39.290338 |        71Oi4         | Fouquieria |
+# | 56.088575 |      FVNy6HE7C       |   snuff    |
+# | 74.031581 | 3DKXzOZHOXamW7N4nTHm | raiseable  |
+# | 10.407102 |        gKQMh         |  perform   |
+# | 67.762760 |         Haw          | penetrator |
+# +-----------+----------------------+------------+
 ```
 
 The display function `to-pretty-table` is from
