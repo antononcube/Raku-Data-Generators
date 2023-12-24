@@ -5,6 +5,12 @@ unit module Data::Generators::RandomVariate;
 # Distributions
 #============================================================
 
+#| Bernoulli distribution class
+class BernoulliDistribution is export {
+    has Numeric $.p = 0.5; #= Get value 1 with probability p
+}
+#= Bernoulli distribution objects are specified with probability parameter.
+
 #| Normal distribution class
 class NormalDistribution is export {
     has Numeric $.mean = 0; #= Mean of the Normal distribution
@@ -46,11 +52,18 @@ sub rnorm(Numeric $µ, Numeric $σ) {
 }
 
 multi RandomVariate($dist, UInt $size --> List) {
-    if $dist ~~ NormalDistribution {
-        (rnorm($dist.mean, $dist.sd) xx $size).List
-    } elsif $dist ~~ UniformDistribution {
-        (($dist.min..$dist.max).rand xx $size).List
-    } else {
-        die "Unknown random variate class."
+    given $dist {
+        when BernoulliDistribution {
+            (rand xx $size).map({ $_ ≤ $dist.p ?? 1 !! 0}).List
+        }
+        when NormalDistribution {
+            (rnorm($_.mean, $_.sd) xx $size).List
+        }
+        when UniformDistribution {
+            (($_.min .. $_.max).rand xx $size).List
+        }
+        default {
+            die "Unknown random variate class."
+        }
     }
 }
