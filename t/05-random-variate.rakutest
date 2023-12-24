@@ -12,7 +12,7 @@ sub sd(@x) {
     sqrt([+]((@x X- mean(@x)) X** 2) / @x.elems)
 }
 
-plan 9;
+plan *;
 
 ## 1
 is random-variate(NormalDistribution.new(:mean(10), :sd(20)), 12).all ~~ Numeric,
@@ -58,5 +58,18 @@ is ($res8 ~~ Array and $res8.shape eqv (4, 3)),
 ## 9
 isa-ok random-variate(UniformDistribution.new(:min(10), :max(20))), Numeric,
         'No size argument gives a number';
+
+## 10
+is random-variate(BernoulliDistribution.new, 12).all ~~ Numeric,
+        True,
+        'Bernoulli distribution default argument';
+
+## 11
+isa-ok random-variate(BernoulliDistribution.new(:p(0.1))), Numeric,
+        'No size argument gives a number';
+
+## 12
+my @sample12 = random-variate(BernoulliDistribution.new(:p(0.4)), 10**4);
+is-approx mean(@sample12), 0.4, 0.01;
 
 done-testing;
