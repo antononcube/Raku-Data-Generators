@@ -1,5 +1,6 @@
-
 unit module Data::Generators::RandomVariate;
+
+use Data::Generators::Utilities;
 
 #============================================================
 # Distributions
@@ -47,10 +48,6 @@ multi RandomVariate($dist ,
 }
 
 #------------------------------------------------------------
-sub rnorm(Numeric $µ, Numeric $σ) {
-    sqrt( -2 * log(rand)) * cos(2 * π * rand) * $σ + $µ;
-}
-
 multi RandomVariate($dist, UInt $size --> List) {
     given $dist {
         when BernoulliDistribution {

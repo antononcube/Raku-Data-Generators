@@ -15,7 +15,8 @@
     "Data::Generators::RandomFunctions": "lib/Data/Generators/RandomFunctions.rakumod",
     "Data::Generators::RandomTabularDataset": "lib/Data/Generators/RandomTabularDataset.rakumod",
     "Data::Generators::RandomVariate": "lib/Data/Generators/RandomVariate.rakumod",
-    "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod"
+    "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod",
+    "Data::Generators::Utilities": "lib/Data/Generators/Utilities.rakumod"
   },
   "resources": [
     "dfEnglishWords.csv",
