@@ -35,7 +35,7 @@ use Data::Generators;
 random-string
 ```
 ```
-# PWHH9azzayhU4kFqGg
+# rNa0FuC75aoA
 ```
 
 Here we generate a vector of random strings with length 4 and characters that belong to specified ranges:
@@ -44,7 +44,7 @@ Here we generate a vector of random strings with length 4 and characters that be
 say random-string(6, chars => 4, ranges => [ <y n Y N>, "0".."9" ] ).raku;
 ```
 ```
-# ("y5Y7", "n75y", "2N1Y", "y782", "y143", "y523")
+# ("333N", "5N1y", "n0Y7", "7085", "6502", "y0Y7")
 ```
 
 ------
@@ -59,7 +59,7 @@ Here is a random word:
 random-word
 ```
 ```
-# gearstick
+# psychopathy
 ```
 
 Here we generate a list with 12 random words:
@@ -68,7 +68,7 @@ Here we generate a list with 12 random words:
 random-word(12)
 ```
 ```
-# (silky-haired Berlin horsemint Ariadne shlimazel oddments eater vain magneto camelia totaliser gelded)
+# (drive-in joyless opportunistic kalian fertilize barium Malawian dingy reprobate wannabe penitential compaction)
 ```
 
 Here we generate a table of random words of different types:
@@ -79,14 +79,14 @@ my @dfWords = do for <Any Common Known Stop> -> $wt { $wt => random-word(6, type
 say to-pretty-table(@dfWords);
 ```
 ```
-# +--------+---------+--------------+-------------+---------------+-----------+------------+
-# |        |    4    |      5       |      0      |       2       |     1     |     3      |
-# +--------+---------+--------------+-------------+---------------+-----------+------------+
-# | Any    | portage |   copycat    | ladder-back |      p.m.     |  hahnium  |  Vanellus  |
-# | Common |  galoot | youthfulness |    woman    | dependability | subsidize |  paganism  |
-# | Known  |   lad   |  marketable  |   diarchy   |     kotow     |   tract   | diflunisal |
-# | Stop   |    go   |     side     |     even    |      ever     |    but    |   since    |
-# +--------+---------+--------------+-------------+---------------+-----------+------------+
+# +--------+---------------+---------+-----------+----------------+-------------+--------------+
+# |        |       4       |    0    |     2     |       3        |      5      |      1       |
+# +--------+---------------+---------+-----------+----------------+-------------+--------------+
+# | Any    | Anoectochilus |  coltan | parhelion |  heartburning  | therewithal | columniation |
+# | Common |    explicit   | beastly |   cycle   | overindulgence |  extenuate  |   anaphora   |
+# | Known  |   spiritism   | talaria |  feeling  |     grapy      |     guru    |    epigon    |
+# | Stop   |       a       |   i've  |     0     |   shouldn't    |      X      |     few      |
+# +--------+---------------+---------+-----------+----------------+-------------+--------------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -120,7 +120,7 @@ Here is a random pet name:
 random-pet-name
 ```
 ```
-# Prunella
+# Murphy
 ```
 
 The following command generates a list of six random pet names:
@@ -130,7 +130,7 @@ srand(32);
 random-pet-name(6).raku
 ```
 ```
-# ("Tazman", "Bosun", "Sophie", "Belle", "Lily Bell", "Koda")
+# ("Zoe", "Bandit", "Cody", "Barb", "Barack", "Cooper")
 ```
 
 The named argument `species` can be used to specify specie of the random pet names. 
@@ -143,15 +143,15 @@ my @dfPetNames = do for <Any Cat Dog Goat Pig> -> $wt { $wt => random-pet-name(6
 say to-pretty-table(@dfPetNames);
 ```
 ```
-# +------+---------+----------+----------+---------+--------+----------+
-# |      |    0    |    1     |    4     |    3    |   5    |    2     |
-# +------+---------+----------+----------+---------+--------+----------+
-# | Any  |   Zoe   | Precious |  Tucker  |   Andy  | Honey  |   Tee    |
-# | Cat  |  Petra  |   Moe    | Snickers |  Bella  | Storm  |   Boo    |
-# | Dog  |  Logan  |  Renoir  |  Bodie   |  Snoopy |  Odin  |   Lupe   |
-# | Goat |  Linda  |  Aggie   |  Sassy   |   Arya  | Grace  |  Margot  |
-# | Pig  | Atticus | Guinness | Guinness | Atticus | Millie | Guinness |
-# +------+---------+----------+----------+---------+--------+----------+
+# +------+----------+------------------+----------+---------+----------+---------+
+# |      |    0     |        1         |    2     |    4    |    5     |    3    |
+# +------+----------+------------------+----------+---------+----------+---------+
+# | Any  | Hamilton | Tyson Zeus Brown | Georgia  |   Ivy   |  Mochi   |  Ellla  |
+# | Cat  |   Ace    |      Felix       |   Dean   | Georgia | Little B |   Lulu  |
+# | Dog  |  Louis   |      Wiley       |   Moya   |   Cleo  | Barkley  |  Buster |
+# | Goat | Grayson  |     Junebug      | Winnipeg |   Lula  | Abelard  |  Grace  |
+# | Pig  | Atticus  |     Atticus      |  Millie  | Atticus | Atticus  | Atticus |
+# +------+----------+------------------+----------+---------+----------+---------+
 ```
 
 **Remark:** `Whatever` can be used instead of `'Any'`.
@@ -164,7 +164,7 @@ srand(32);
 say random-pet-name(6, :weighted).raku
 ```
 ```
-# ("Smokey", "Sasha", "Bailey", "Scout", "Tazman", "Bosun")
+# ("Claire", "Ilsa", "Tinkerbelle", "Remy", "Zoe", "Bandit")
 ```
 
 The weights used correspond to the counts from [DG1].
@@ -195,7 +195,7 @@ Here is a random pretentious job title:
 random-pretentious-job-title
 ```
 ```
-# Corporate Security Representative
+# Direct Functionality Director
 ```
 
 The following command generates a list of six random pretentious job titles:
@@ -204,7 +204,7 @@ The following command generates a list of six random pretentious job titles:
 random-pretentious-job-title(6).raku
 ```
 ```
-# ("Product Marketing Engineer", "Lead Resonance Developer", "Dynamic Factors Executive", "Customer Infrastructure Assistant", "Relational Functionality Coordinator", "Global Creative Coordinator")
+# ("Central Data Agent", "National Team Executive", "Corporate Infrastructure Associate", "Global Accountability Agent", "National Metrics Agent", "Future Mobility Planner")
 ```
 
 The named argument `number-of-words` can be used to control the number of words in the generated job titles.
@@ -216,17 +216,17 @@ Here we generate pretentious job titles using different languages and number of 
 
 ```perl6
 my $res = random-pretentious-job-title(12, number-of-words => Whatever, language => Whatever);
-say ‌‌to-pretty-table($res.rotor(3));
+say to-pretty-table($res.rotor(3));
 ```
 ```
-# +-------------------------------+---------------------------+--------------------------------------------+
-# |               0               |             1             |                     2                      |
-# +-------------------------------+---------------------------+--------------------------------------------+
-# |    Implementation Director    |          Producer         |                 Synergist                  |
-# | Вътрешен Супервайзор на Мрежи | Клиентов Архитект по Идеи |             Markets Executive              |
-# |         Representative        |   Супервайзор на Пазари   | Продукционен Супервайзор по Взаимодействия |
-# |            Designer           |      Usability Agent      |            Плановик на Операции            |
-# +-------------------------------+---------------------------+--------------------------------------------+
+# +---------------------------+----------------------------------+----------------------------------+
+# |             0             |                1                 |                2                 |
+# +---------------------------+----------------------------------+----------------------------------+
+# |         Specialist        |          Администратор           |        Response Executive        |
+# |   Optimization Designer   |     Супервайзор по Маркетинг     | Interactive Applications Manager |
+# | Future Response Associate |         Brand Technician         |      Посредник на Качество       |
+# |   Identity Administrator  | Глобален Специалист на Отчетност |       Integration Designer       |
+# +---------------------------+----------------------------------+----------------------------------+
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -249,7 +249,7 @@ Here is a random real:
 say random-real(); 
 ```
 ```
-# 0.8282274897974294
+# 0.6148375015300324
 ```
 
 Here is a random real between 0 and 20:
@@ -258,7 +258,7 @@ Here is a random real between 0 and 20:
 say random-real(20); 
 ```
 ```
-# 2.6717214626314023
+# 13.957487542046149
 ```
 
 Here are six random reals between -2 and 12:
@@ -267,7 +267,7 @@ Here are six random reals between -2 and 12:
 say random-real([-2,12], 6);
 ```
 ```
-# (-1.8834241515716836 3.8887615227122936 4.421996646763659 5.029791447935309 3.9707069201305067 8.70101978531368)
+# (-1.4191627349160865 0.7985910676295189 2.5735598216113056 8.655772458122875 -0.23141703578666983 3.2473529322039427)
 ```
 
 Here is a 4-by-3 array of random reals between -3 and 3:
@@ -276,10 +276,10 @@ Here is a 4-by-3 array of random reals between -3 and 3:
 say random-real([-3,3], [4,3]);
 ```
 ```
-# [[-0.12337305314623048 0.4655041255645993 -2.7557647476130733]
-#  [0.7974770319715407 -1.832995933031438 0.3202246318412625]
-#  [2.9875532284614845 1.5320938449458374 0.5738933740914449]
-#  [-2.5329028582275743 -2.856925201204403 1.0881020860532775]]
+# [[-0.7777530943688706 2.633038558227515 0.9960527665422672]
+#  [0.5438581449111846 0.8538444340370224 -1.2232218597405276]
+#  [0.24844626265222436 1.6176949918194392 -2.9106836929578517]
+#  [-1.1519301602208225 -2.168108140257122 1.575345624009456]]
 ```
 
 
@@ -297,24 +297,31 @@ using distribution specifications.
 Here are examples:
 
 ```perl6
-say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
+say random-variate(BernoulliDistribution.new(:p(0.3)), 1000).BagHash.Hash; 
 ```
 ```
-# (-1.2890591546034695 -4.240194172291787 24.23729249700557 25.565384231319698 -31.42583501249206)
+# {0 => 683, 1 => 317}
+```
+
+```perl6
+say random-variate(BinomialDistribution.new(:n(10), :p(0.2)), 10); 
+```
+```
+# (2 2 4 1 2 2 4 2 1 2)
 ```
 
 ```perl6
 say random-variate(NormalDistribution.new( µ => 10, σ => 20), 5); 
 ```
 ```
-# (-24.970978206594808 27.580548932592283 4.293480947834469 53.78806606685142 -6.920372212762544)
+# (-1.0372379191539256 15.88117685892444 2.3800289134125467 -16.077914554672056 21.434725308461598)
 ```
 
 ```perl6
 say random-variate(UniformDistribution.new(:min(2), :max(60)), 5);
 ```
 ```
-# (49.4643635316776 56.74438883327643 35.769505371993986 21.8746551426201 33.80521073809191)
+# (33.12620384207506 54.54682825992015 44.703052532365824 18.662929703538268 16.99790622594807)
 ```
 
 **Remark:** Only Normal distribution and Uniform distribution are implemented at this point.
@@ -328,9 +335,9 @@ Here is an example of 2D array generation:
 say random-variate(NormalDistribution.new, [3,4]);
 ```
 ```
-# [[-0.9171177150791677 0.010110377561891041 -0.7919263061829 0.83195200985803]
-#  [-1.146863429854802 1.5201366101091918 -0.8916210526664188 1.369183790426792]
-#  [-0.18450834272269118 -0.6844365153485313 -0.05756503431295109 -1.0883632144060866]]
+# [[1.730441181600127 0.3420465932875971 -0.6275231817898077 0.7933012580974133]
+#  [0.7546145800662779 -0.1414053357058038 0.06128413616858158 -0.48630656184266835]
+#  [-0.8339285130645827 -3.0312240538258073 0.18147829328498447 1.1150963106600722]]
 ```
 
 ------
@@ -366,15 +373,15 @@ my @dfRand = random-tabular-dataset(5, 3, column-names-generator => { random-pet
 say to-pretty-table(@dfRand);
 ```
 ```
-# +-----------+----------------------+------------+
-# |  Chester  |        Marco         |    Skyy    |
-# +-----------+----------------------+------------+
-# | 39.290338 |        71Oi4         | Fouquieria |
-# | 56.088575 |      FVNy6HE7C       |   snuff    |
-# | 74.031581 | 3DKXzOZHOXamW7N4nTHm | raiseable  |
-# | 10.407102 |        gKQMh         |  perform   |
-# | 67.762760 |         Haw          | penetrator |
-# +-----------+----------------------+------------+
+# +-----------+-----------+---------------+
+# |   Tonks   |   Bailey  |    Skipper    |
+# +-----------+-----------+---------------+
+# | -0.425523 | 14.708426 |   extirpate   |
+# | 25.249457 |  4.334753 |    humanize   |
+# | 23.518357 |  9.309680 |    eccyesis   |
+# |  5.089616 | 20.839470 |   prevailing  |
+# | 17.328699 | 11.818831 | irreligionist |
+# +-----------+-----------+---------------+
 ```
 
 The display function `to-pretty-table` is from

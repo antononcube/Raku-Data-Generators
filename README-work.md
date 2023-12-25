@@ -162,7 +162,7 @@ Here we generate pretentious job titles using different languages and number of 
 
 ```perl6
 my $res = random-pretentious-job-title(12, number-of-words => Whatever, language => Whatever);
-say ‌‌to-pretty-table($res.rotor(3));
+say to-pretty-table($res.rotor(3));
 ```
 
 **Remark:** `Whatever` can be used as values for the named arguments `number-of-words` and `language`.
@@ -218,7 +218,11 @@ using distribution specifications.
 Here are examples:
 
 ```perl6
-say random-variate(NormalDistribution.new(:mean(10), :sd(20)), 5); 
+say random-variate(BernoulliDistribution.new(:p(0.3)), 1000).BagHash.Hash; 
+```
+
+```perl6
+say random-variate(BinomialDistribution.new(:n(10), :p(0.2)), 10); 
 ```
 
 ```perl6
