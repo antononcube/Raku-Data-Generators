@@ -64,6 +64,7 @@ multi random-variate(**@args, *%args) {
 
 #===========================================================
 constant \BernoulliDistribution := Data::Generators::RandomVariate::BernoulliDistribution;
+constant \BinomialDistribution := Data::Generators::RandomVariate::BinomialDistribution;
 constant \NormalDistribution := Data::Generators::RandomVariate::NormalDistribution;
 constant \UniformDistribution := Data::Generators::RandomVariate::UniformDistribution;
 
