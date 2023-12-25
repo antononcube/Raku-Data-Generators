@@ -1,7 +1,7 @@
 unit module Data::Generators::Utilities;
 
 #------------------------------------------------------------
-sub rnorm(Numeric $µ, Numeric $σ) is export {
+sub normal-dist(Numeric $µ, Numeric $σ) is export {
     sqrt(-2 * log(rand)) * cos(2 * π * rand) * $σ + $µ;
 }
 
@@ -96,6 +96,16 @@ multi sub find-interval(@data where @data.all ~~ Numeric,
     }
 
     return (@indices <<+>> -1).Array;
+}
+
+#------------------------------------------------------------
+sub binomial-dist(Int $n, Numeric $p, Int :$size = 1) is export {
+
+    my @vec = (0 .. $n).map(-> $x { binomial($n, $x) * $p ** $x * (1 - $p) ** ($n - $x) });
+
+    @vec = [\+] [0, |@vec];
+
+    return find-interval(rand xx $size, @vec);
 }
 
 
