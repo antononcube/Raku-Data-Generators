@@ -8,23 +8,39 @@ use Data::Generators::Utilities;
 
 #| Bernoulli distribution class
 class BernoulliDistribution is export {
-    has Numeric $.p = 0.5; #= Get value 1 with probability p
+    has Numeric $.p = 0.5;
+    #= Get value 1 with probability p
 }
 #= Bernoulli distribution objects are specified with probability parameter.
 
+#| Binomial distribution class
+class BinomialDistribution is export {
+    has Numeric $.n = 2;
+    #= Number of trials
+    has Numeric $.p = 0.5;
+    #= Success probability p
+}
+#= Binomial distribution objects are specified with number of trials and success probability.
+
 #| Normal distribution class
 class NormalDistribution is export {
-    has Numeric $.mean = 0; #= Mean of the Normal distribution
-    has Numeric $.sd = 1; #= Standard Deviation of the Normal distribution
-    submethod BUILD(:µ(:$!mean) = 0, :σ(:$!sd) = 1) { }
-    multi method new($mean, $sd) { self.bless(:$mean, :$sd) }
+    has Numeric $.mean = 0;
+    #= Mean of the Normal distribution
+    has Numeric $.sd = 1;
+    #= Standard Deviation of the Normal distribution
+    submethod BUILD(:µ(:$!mean) = 0, :σ(:$!sd) = 1) {}
+    multi method new($mean, $sd) {
+        self.bless(:$mean, :$sd)
+    }
 }
 #= Normal distribution objects are specified with mean and standard deviation.
 
 #| Uniform distribution class
 class UniformDistribution is export {
-    has Numeric $.min = 0; #= Min boundary of the Uniform distribution
-    has Numeric $.max = 1; #= Max boundary of the Uniform distribution
+    has Numeric $.min = 0;
+    #= Min boundary of the Uniform distribution
+    has Numeric $.max = 1;
+    #= Max boundary of the Uniform distribution
 }
 #= Uniform distribution objects are specified with min and max boundaries.
 
@@ -33,7 +49,7 @@ class UniformDistribution is export {
 #============================================================
 
 #| Gives a pseudorandom variate from the distribution $dist.
-our proto RandomVariate( $dist, | ) is export {*}
+our proto RandomVariate($dist, |) is export {*}
 
 #------------------------------------------------------------
 multi RandomVariate($dist) {
@@ -41,8 +57,8 @@ multi RandomVariate($dist) {
 }
 
 multi RandomVariate($dist ,
-                    @size where { $_.all ~~ Numeric and [and]($_.map({ $_ > 0 })) and $_.elems == 2}) {
-    my @res = RandomVariate( $dist, [*] @size).List;
+                    @size where { $_.all ~~ Numeric and [and]($_.map({ $_ > 0 })) and $_.elems == 2 }) {
+    my @res = RandomVariate($dist, [*] @size).List;
     my @res2[@size[0];@size[1]] = @res.rotor(@size[1]);
     @res2
 }
@@ -51,10 +67,13 @@ multi RandomVariate($dist ,
 multi RandomVariate($dist, UInt $size --> List) {
     given $dist {
         when BernoulliDistribution {
-            (rand xx $size).map({ $_ ≤ $dist.p ?? 1 !! 0}).List
+            (rand xx $size).map({ $_ ≤ $dist.p ?? 1 !! 0 }).List
+        }
+        when BinomialDistribution {
+            binomial-dist($dist.n, $dist.p, :$size).List
         }
         when NormalDistribution {
-            (rnorm($_.mean, $_.sd) xx $size).List
+            (normal-dist($_.mean, $_.sd) xx $size).List
         }
         when UniformDistribution {
             (($_.min .. $_.max).rand xx $size).List
