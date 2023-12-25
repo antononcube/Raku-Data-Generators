@@ -1,0 +1,28 @@
+use Test;
+
+use lib '.';
+use lib './lib';
+
+use Data::Generators::Utilities;
+
+plan *;
+
+## 1
+my @data1 = 2...10;
+my @vec1 = (3, 6, 9);
+my @result1 = find-interval(@data1, @vec1);
+my @res1 = ((2, -1), (3, 0), (4, 0), (5, 0), (6, 1), (7, 1), (8, 1), (9, 2), (10, 2));
+is (@data1 Z @result1), @res1;
+
+## 2
+my @result2 = find-interval(@data1, @vec1, :all-inside);
+my @res2 = ((2, 0), (3, 0), (4, 0), (5, 0), (6, 1), (7, 1), (8, 1), (9, 1), (10, 1));
+is (@data1 Z @result2), @res2;
+
+## 3
+my @result3 = find-interval(@data1, @vec1, :left-open);
+my @res3 = ((2, -1), (3, -1), (4, 0), (5, 0), (6, 0), (7, 1), (8, 1), (9, 1), (10, 2));
+is (@data1 Z @result3), @res3;
+
+
+done-testing;
