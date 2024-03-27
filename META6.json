@@ -1,7 +1,7 @@
 {
   "name": "Data::Generators",
   "description": "Random data generation functions: strings, words, numbers, pet names, job titles, vectors, arrays, and tabular datasets.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "perl": "6.d",
   "authors": [
     "Anton Antonov"
