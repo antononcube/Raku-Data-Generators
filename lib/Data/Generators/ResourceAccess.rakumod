@@ -47,7 +47,7 @@ class Data::Generators::ResourceAccess {
         #say "Number of calls to .make $numberOfMakeCalls";
 
         #-----------------------------------------------------------
-        my $fileName = %?RESOURCES<dfEnglishWords.csv>;
+        my $fileName = %?RESOURCES<dfEnglishWords.csv>.open;
 
         my $text = slurp $fileName;
         @englishWords = $text.split("\n").map({ $_.split(',') });
@@ -70,7 +70,7 @@ class Data::Generators::ResourceAccess {
 
         #-----------------------------------------------------------
         # Species Name Count
-        $fileName = %?RESOURCES<dfPetNameCounts.csv>;
+        $fileName = %?RESOURCES<dfPetNameCounts.csv>.open;
 
         $text = slurp $fileName;
         my @petNames = $text.split("\n").map({ $_.split('",').List });
