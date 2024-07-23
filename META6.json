@@ -1,13 +1,15 @@
 {
   "name": "Data::Generators",
   "description": "Random data generation functions: strings, words, numbers, pet names, job titles, vectors, arrays, and tabular datasets.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "perl": "6.d",
   "authors": [
     "Anton Antonov"
   ],
   "auth": "zef:antononcube",
-  "depends": [],
+  "depends": [
+    "Math::SpecialFunctions:ver<0.1.0+>"
+  ],
   "build-depends": [],
   "test-depends": [],
   "provides": {
