@@ -12,9 +12,7 @@ class BetaDistribution is export {
     #= Shape parameter left.
     has Numeric $.b is required;
     #= Shape parameter right.
-    multi method new($a, $b) {
-        self.bless(:$a, :$b)
-    }
+    multi method new($a, $b) { self.bless(:$a, :$b) }
 }
 #= Beta distribution objects are specified with shape parameters.
 
@@ -22,6 +20,7 @@ class BetaDistribution is export {
 class BernoulliDistribution is export {
     has Numeric $.p = 0.5;
     #= Get value 1 with probability p
+    multi method new($p) { self.bless(:$p) }
 }
 #= Bernoulli distribution objects are specified with probability parameter.
 
@@ -31,6 +30,7 @@ class BinomialDistribution is export {
     #= Number of trials
     has Numeric $.p = 0.5;
     #= Success probability p
+    multi method new($n, $p) { self.bless(:$n, :$p) }
 }
 #= Binomial distribution objects are specified with number of trials and success probability.
 
@@ -38,9 +38,7 @@ class BinomialDistribution is export {
 class ExponentialDistribution is export {
     has Numeric $.lambda = 0.5;
     #= Scale parameter
-    multi method new($lambda) {
-        self.bless(:$lambda)
-    }
+    multi method new($lambda) { self.bless(:$lambda) }
 }
 #= Exponential distribution objects are specified with scale inversely proportional to the lambda parameter.
 
@@ -48,9 +46,7 @@ class ExponentialDistribution is export {
 class GammaDistribution is export {
     has Numeric $.a = 0.5;
     has Numeric $.b = 0.5;
-    multi method new($a, $b) {
-        self.bless(:$a, :$b)
-    }
+    multi method new($a, $b) { self.bless(:$a, :$b) }
 }
 #= Gamma distribution objects are specified shape parameter a and inverse scale parameter b.
 
@@ -61,9 +57,7 @@ class NormalDistribution is export {
     has Numeric $.sd = 1;
     #= Standard Deviation of the Normal distribution
     submethod BUILD(:µ(:$!mean) = 0, :σ(:$!sd) = 1) {}
-    multi method new($mean, $sd) {
-        self.bless(:$mean, :$sd)
-    }
+    multi method new($mean, $sd) { self.bless(:$mean, :$sd) }
 }
 #= Normal distribution objects are specified with mean and standard deviation.
 
@@ -73,9 +67,7 @@ class UniformDistribution is export {
     #= Min boundary of the Uniform distribution
     has Numeric $.max = 1;
     #= Max boundary of the Uniform distribution
-    multi method new($min, $max) {
-        self.bless(:$min, :$max)
-    }
+    multi method new($min, $max) { self.bless(:$min, :$max) }
 }
 #= Uniform distribution objects are specified with min and max boundaries.
 
