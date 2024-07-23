@@ -1,47 +1,12 @@
 unit module Data::Generators::Utilities;
 
+use Math::SpecialFunctions;
+
 #------------------------------------------------------------
 sub normal-dist(Numeric $µ, Numeric $σ) is export {
     sqrt(-2 * log(rand)) * cos(2 * π * rand) * $σ + $µ;
 }
 
-#------------------------------------------------------------
-proto sub factorial(Int $n) is export {*}
-
-multi sub factorial(Int $n where $n ≤ 1) {
-    return 1;
-}
-
-multi sub factorial(Int $n where !($n %% 2)) {
-    return $n * factorial($n - 1);
-}
-
-multi sub factorial(Int $n is copy where $n %% 2) {
-
-    my $f = $n;
-
-    my $d = $n - 2;
-    my $m = $n + $d;
-
-    while $d > 0 {
-        $f *= $m;
-        $d -= 2;
-        $m += $d;
-    }
-
-    return $f;
-}
-
-#------------------------------------------------------------
-proto sub binomial(Int $n, Int $k) is export {*}
-
-multi sub binomial(Int $n, Int $k) {
-    if $n < $k || $n < 0 || $k < 0 {
-        return 0;
-    } else {
-        return factorial($n) / (factorial($k) * factorial($n - $k));
-    }
-}
 
 #------------------------------------------------------------
 #| Given a vector of non-decreasing breakpoints in vec, find the interval containing each element of data;
@@ -108,4 +73,64 @@ sub binomial-dist(Int $n, Numeric $p, Int :$size = 1) is export {
     return find-interval(rand xx $size, @vec);
 }
 
+#------------------------------------------------------------
+sub exponential-dist(Numeric:D $lambda, Int :$size = 1) is export {
+    my @u = rand xx $size;
+    return @u.map({ - log($_) / $lambda });
+}
 
+#------------------------------------------------------------
+# Using:
+# George Marsaglia and Wai Wan Tsang. 2000. "A simple method for generating gamma variables."
+# ACM Trans. Math. Softw. 26, 3 (Sept. 2000), 363–372.
+# https://doi.org/10.1145/358407.358414
+sub gamma-dist-marsaglia(Numeric:D $a) is export {
+    if $a < 1 {
+        die 'The first argument is expected to be larger or equal to 1.';
+    }
+
+    loop {
+        my $x = normal-dist(0, 1);
+        my $u = rand;
+        my $d = $a - 1 / 3;
+        my $c = 1 / sqrt(9 * $d);
+        my $v = (1 + $c * $x) ** 3;
+        if $v > 0 && log($u) < $x ** 2 / 2 + $d - $d * $v + $d * log($v) {
+            return $d * $v
+        }
+    }
+}
+
+# Using Wikipedia's version of the Ahrens-Dieter acceptance–rejection method given here:
+# https://en.wikipedia.org/wiki/Gamma_distribution#Random_variate_generation
+sub gamma-dist(Numeric:D $a, Numeric:D $b) is export {
+    my $delta = $a - $a.floor;
+    my $xi;
+    loop {
+        my $u = rand;
+        my $v = rand;
+        my $w = rand;
+        my $eta;
+        # In general e can be used instead of exp(0), but highlighting gets confused.
+        if $u ≤ exp(0) / ($delta + exp(0)) {
+            $xi = $v ** (1 / $delta);
+            $eta = $w * $xi ** ($delta - 1);
+        } else {
+            $xi = 1 - log($v);
+            $eta = $w * exp(-$xi);
+        }
+
+        last if $eta ≤ $xi ** ($delta - 1) * exp(-$xi);
+    }
+
+    my $k = $a.floor;
+    my $usum = (rand xx $k).grep({ $_ > 0 })».log.sum;
+    return $b * ($xi - $usum);
+}
+
+#------------------------------------------------------------
+sub beta-dist(Numeric:D $a, Numeric $b) is export {
+    my $x = gamma-dist($a, 1);
+    my $y = gamma-dist($b, 1);;
+    return $x / ($x + $y);
+}
