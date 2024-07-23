@@ -1,7 +1,6 @@
 use Test;
 
-use lib '.';
-use lib './lib';
+use lib <. lib>;
 
 use Data::Generators;
 
@@ -71,5 +70,11 @@ isa-ok random-variate(BernoulliDistribution.new(:p(0.1))), Numeric,
 ## 12
 my @sample12 = random-variate(BernoulliDistribution.new(:p(0.4)), 10**4);
 is-approx mean(@sample12), 0.4, 0.01;
+
+## 13
+is random-variate(UniformDistribution.new(3, 5), 100).all ~~ Numeric:D, True;
+
+## 14
+is random-variate(BetaDistribution.new(4, 4), 100).all ~~ Numeric:D, True;
 
 done-testing;
