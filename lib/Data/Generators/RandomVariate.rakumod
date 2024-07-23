@@ -6,6 +6,18 @@ use Data::Generators::Utilities;
 # Distributions
 #============================================================
 
+#| Beta distribution class
+class BetaDistribution is export {
+    has Numeric $.a is required;
+    #= Shape parameter left.
+    has Numeric $.b is required;
+    #= Shape parameter right.
+    multi method new($a, $b) {
+        self.bless(:$a, :$b)
+    }
+}
+#= Beta distribution objects are specified with shape parameters.
+
 #| Bernoulli distribution class
 class BernoulliDistribution is export {
     has Numeric $.p = 0.5;
@@ -21,6 +33,26 @@ class BinomialDistribution is export {
     #= Success probability p
 }
 #= Binomial distribution objects are specified with number of trials and success probability.
+
+#| Exponential distribution class
+class ExponentialDistribution is export {
+    has Numeric $.lambda = 0.5;
+    #= Scale parameter
+    multi method new($lambda) {
+        self.bless(:$lambda)
+    }
+}
+#= Exponential distribution objects are specified with scale inversely proportional to the lambda parameter.
+
+#| Gamma distribution class
+class GammaDistribution is export {
+    has Numeric $.a = 0.5;
+    has Numeric $.b = 0.5;
+    multi method new($a, $b) {
+        self.bless(:$a, :$b)
+    }
+}
+#= Gamma distribution objects are specified shape parameter a and inverse scale parameter b.
 
 #| Normal distribution class
 class NormalDistribution is export {
@@ -41,6 +73,9 @@ class UniformDistribution is export {
     #= Min boundary of the Uniform distribution
     has Numeric $.max = 1;
     #= Max boundary of the Uniform distribution
+    multi method new($min, $max) {
+        self.bless(:$min, :$max)
+    }
 }
 #= Uniform distribution objects are specified with min and max boundaries.
 
@@ -66,11 +101,20 @@ multi RandomVariate($dist ,
 #------------------------------------------------------------
 multi RandomVariate($dist, UInt $size --> List) {
     given $dist {
+        when BetaDistribution {
+            (beta-dist($_.a, $_.b) xx $size).List
+        }
         when BernoulliDistribution {
             (rand xx $size).map({ $_ ≤ $dist.p ?? 1 !! 0 }).List
         }
         when BinomialDistribution {
             binomial-dist($dist.n, $dist.p, :$size).List
+        }
+        when ExponentialDistribution {
+            exponential-dist($dist.lambda, :$size).List
+        }
+        when GammaDistribution {
+            (gamma-dist($dist.a, $dist.b) xx $size).List
         }
         when NormalDistribution {
             (normal-dist($_.mean, $_.sd) xx $size).List
