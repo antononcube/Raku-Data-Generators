@@ -1,9 +1,7 @@
 use Test;
 
-use lib '.';
-use lib './lib';
-
-use Data::Generators::Utilities;
+use lib <. lib>;
+use Data::Generators;
 
 plan *;
 
