@@ -16,11 +16,26 @@ random words, pretentious job titles.
 
 =end pod
 
-use Data::Generators::RandomFunctions;
-use Data::Generators::RandomVariate;
-use Data::Generators::RandomTabularDataset;
+sub EXPORT {
+    use Statistics::Distributions;
+    Map.new:
+            '&random-real' => &Statistics::Distributions::random-real,
+            '&random-variate' => &Statistics::Distributions::random-variate,
+            'BernoulliDistribution' => BernoulliDistribution,
+            'BetaDistribution' => BetaDistribution,
+            'BinomialDistribution' => BinomialDistribution,
+            'ExponentialDistribution' => ExponentialDistribution,
+            'GammaDistribution' => GammaDistribution,
+            'NormalDistribution' => NormalDistribution,
+            'UniformDistribution' => UniformDistribution,
+}
 
 unit module Data::Generators;
+
+use Data::Generators::RandomFunctions;
+use Data::Generators::RandomTabularDataset;
+use Statistics::Distributions;
+
 
 #===========================================================
 #| Generate random strings.
@@ -55,57 +70,22 @@ multi random-pretentious-job-title(**@args, *%args) {
 }
 
 #===========================================================
+# Already defined in Statistics::Distribution
+#our proto random-variate(|) is export {*}
+
 #| Gives a pseudorandom variate from the distribution specification.
-our proto random-variate(|) is export {*}
-
-multi random-variate(**@args, *%args) {
-    Data::Generators::RandomVariate::RandomVariate(|@args, |%args)
-}
+#multi sub random-variate(**@args, *%args) is export {
+#    Statistics::Distributions::random-variate(|@args, |%args)
+#}
 
 #===========================================================
-constant \BetaDistribution := Data::Generators::RandomVariate::BetaDistribution;
-constant \BernoulliDistribution := Data::Generators::RandomVariate::BernoulliDistribution;
-constant \BinomialDistribution := Data::Generators::RandomVariate::BinomialDistribution;
-constant \ExponentialDistribution := Data::Generators::RandomVariate::ExponentialDistribution;
-constant \GammaDistribution := Data::Generators::RandomVariate::GammaDistribution;
-constant \NormalDistribution := Data::Generators::RandomVariate::NormalDistribution;
-constant \UniformDistribution := Data::Generators::RandomVariate::UniformDistribution;
+# Already defined in Statistics::Distribution
+#our proto random-real(|) is export {*}
 
-#===========================================================
 #| Gives a pseudorandom variate from the uniform distribution with specified range.
-our proto random-real(|) is export {*}
-
-multi random-real(Numeric $max = 1) {
-    return random-real((0, $max), 1)[0]
-}
-
-multi random-real(Numeric $max, UInt $size) {
-    return random-real((0, $max), $size)
-}
-
-multi random-real(Numeric $max, @size) {
-    return random-real((0, $max), @size)
-}
-
-multi random-real((Numeric $min, Numeric $max)) {
-    return random-real(($min, $max), 1)[0];
-}
-
-multi random-real((Numeric $min, Numeric $max), UInt $size) {
-    return Data::Generators::RandomVariate::RandomVariate(UniformDistribution.new(:$min, :$max), $size);
-}
-
-multi random-real((Numeric $min, Numeric $max), @size) {
-    return Data::Generators::RandomVariate::RandomVariate(UniformDistribution.new(:$min, :$max), @size);
-}
-
-multi random-real(Numeric :$min = 0, Numeric :$max = 1) {
-    return random-real(($min, $max));
-}
-
-multi random-real(Numeric :$min = 0, Numeric :$max = 1, :$size = 1) {
-    return random-real(($min, $max), $size);
-}
+#multi sub random-real(**@args, *%args) is export {
+#    Statistics::Distributions::random-real(|@args, |%args)
+#}
 
 #===========================================================
 #| Generates a random date-time or a list of random date-times.
@@ -149,5 +129,5 @@ multi random-date-time(DateTime :$min = $minDateTime, DateTime :$max = $maxDateT
 our proto random-tabular-dataset(|) is export {*}
 
 multi random-tabular-dataset(**@args, *%args) {
-    Data::Generators::RandomTabularDataset::RandomTabularDataset(|@args, |%args)
+    Data::Generators::RandomTabularDataset::Generate(|@args, |%args)
 }

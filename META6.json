@@ -1,14 +1,15 @@
 {
   "name": "Data::Generators",
   "description": "Random data generation functions: strings, words, numbers, pet names, job titles, vectors, arrays, and tabular datasets.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "perl": "6.d",
   "authors": [
     "Anton Antonov"
   ],
   "auth": "zef:antononcube",
   "depends": [
-    "Math::SpecialFunctions:ver<0.1.0+>"
+    "Math::SpecialFunctions:ver<0.1.0+>",
+    "Statistics::Distributions:ver<0.1.0+>"
   ],
   "build-depends": [],
   "test-depends": [],
@@ -16,9 +17,7 @@
     "Data::Generators": "lib/Data/Generators.rakumod",
     "Data::Generators::RandomFunctions": "lib/Data/Generators/RandomFunctions.rakumod",
     "Data::Generators::RandomTabularDataset": "lib/Data/Generators/RandomTabularDataset.rakumod",
-    "Data::Generators::RandomVariate": "lib/Data/Generators/RandomVariate.rakumod",
-    "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod",
-    "Data::Generators::Utilities": "lib/Data/Generators/Utilities.rakumod"
+    "Data::Generators::ResourceAccess": "lib/Data/Generators/ResourceAccess.rakumod"
   },
   "resources": [
     "dfEnglishWords.csv",

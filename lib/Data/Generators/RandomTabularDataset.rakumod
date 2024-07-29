@@ -1,7 +1,8 @@
-use Data::Generators::RandomVariate;
-use Data::Generators::RandomFunctions;
 
 unit module Data::Generators::RandomTabularDataset;
+
+use Statistics::Distributions;
+use Data::Generators::RandomFunctions;
 
 #============================================================
 sub is-positional-of-strings($vec) {
@@ -13,28 +14,28 @@ sub convert-to-hash-of-hashes(@tbl --> Hash) {
 }
 
 #============================================================
-our proto RandomTabularDataset(|) is export {*}
+our proto Generate(|) is export {*}
 
-multi RandomTabularDataset(*%args) {
-    RandomTabularDataset(Whatever, Whatever, |%args)
+multi Generate(*%args) {
+    Generate(Whatever, Whatever, |%args)
 }
 
-multi RandomTabularDataset($nrow, *%args) {
-    RandomTabularDataset($nrow, Whatever, |%args)
+multi Generate($nrow, *%args) {
+    Generate($nrow, Whatever, |%args)
 }
 
-multi RandomTabularDataset($nrow is copy,
-                           $colSpec is copy = Whatever,
-                           :&column-names-generator is copy = WhateverCode,
-                           :$form is copy = "wide",
-                           :$generators is copy = Whatever,
-                           :$min-number-of-values is copy = Whatever,
-                           :$max-number-of-values is copy = Whatever,
-                           Bool :$row-names = False --> Array) {
+multi Generate($nrow is copy,
+               $colSpec is copy = Whatever,
+               :&column-names-generator is copy = WhateverCode,
+               :$form is copy = "wide",
+               :$generators is copy = Whatever,
+               :$min-number-of-values is copy = Whatever,
+               :$max-number-of-values is copy = Whatever,
+               Bool :$row-names = False --> Array) {
 
     # Process number of rows
     if $nrow.isa(Whatever) {
-        $nrow = RandomVariate(NormalDistribution.new(mean => 12, sd => 10), 1)[0].Int;
+        $nrow = random-variate(NormalDistribution.new(mean => 12, sd => 10), 1)[0].Int;
         $nrow = $nrow <= 0 ?? 1 - $nrow !! $nrow;
     }
     if $nrow ~~ Numeric { $nrow .= Int }
@@ -46,7 +47,7 @@ multi RandomTabularDataset($nrow is copy,
     my $ncol = Whatever;
     my $localColumnNames = Whatever;
     if $colSpec.isa(Whatever) {
-        $ncol = RandomVariate(NormalDistribution.new(mean => 6, sd => 10), 1)[0].Int;
+        $ncol = random-variate(NormalDistribution.new(mean => 6, sd => 10), 1)[0].Int;
         $ncol = $ncol <= 0 ?? 1 - $ncol !! $ncol;
     } elsif is-positional-of-strings($colSpec) {
         $localColumnNames = $colSpec;
@@ -76,9 +77,9 @@ multi RandomTabularDataset($nrow is copy,
         } elsif $r < 0.5 {
             %defaultGenerators{$cn} = &RandomString
         } elsif $r < 0.8 {
-            %defaultGenerators{$cn} = -> $x { RandomVariate(NormalDistribution.new(mean => 12, sd => 10), $x) }
+            %defaultGenerators{$cn} = -> $x { random-variate(NormalDistribution.new(mean => 12, sd => 10), $x) }
         } else {
-            %defaultGenerators{$cn} = -> $x { RandomVariate(UniformDistribution.new(min => 0, max => 100), $x) }
+            %defaultGenerators{$cn} = -> $x { random-variate(UniformDistribution.new(min => 0, max => 100), $x) }
         }
     }
 
