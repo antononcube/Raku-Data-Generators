@@ -21,6 +21,7 @@ sub EXPORT {
     Map.new:
             '&random-real' => &Statistics::Distributions::random-real,
             '&random-variate' => &Statistics::Distributions::random-variate,
+            '&find-interval' => &Statistics::Distributions::Utilities::find-interval,
             'BernoulliDistribution' => BernoulliDistribution,
             'BetaDistribution' => BetaDistribution,
             'BinomialDistribution' => BinomialDistribution,
