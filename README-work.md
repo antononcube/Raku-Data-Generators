@@ -4,7 +4,6 @@
 [![Actions Status](https://github.com/antononcube/Raku-Data-Generators/actions/workflows/macos.yml/badge.svg)](https://github.com/antononcube/Raku-Data-Generators/actions) 
 [![Actions Status](https://github.com/antononcube/Raku-Data-Generators/actions/workflows/windows.yml/badge.svg)](https://github.com/antononcube/Raku-Data-Generators/actions)
 
-[![SparkyCI](https://ci.sparrowhub.io:/project/gh-antononcube-Raku-Data-Generators/badge)](https://ci.sparrowhub.io)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
 This Raku package has functions for generating random strings, words, pet names, vectors, arrays, and
