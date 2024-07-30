@@ -25,9 +25,12 @@ sub EXPORT {
             'BernoulliDistribution' => BernoulliDistribution,
             'BetaDistribution' => BetaDistribution,
             'BinomialDistribution' => BinomialDistribution,
+            'DiscreteUniformDistribution' => DiscreteUniformDistribution,
             'ExponentialDistribution' => ExponentialDistribution,
             'GammaDistribution' => GammaDistribution,
+            'MixtureDistribution' => MixtureDistribution,
             'NormalDistribution' => NormalDistribution,
+            'ProductDistribution' => ProductDistribution,
             'UniformDistribution' => UniformDistribution,
 }
 
