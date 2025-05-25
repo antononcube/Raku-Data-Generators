@@ -2,7 +2,6 @@
 use v6.d;
 
 use Data::Generators;
-use Data::Generators::Utilities;
 use Stats;
 use Text::Plot;
 
