@@ -15,7 +15,7 @@ use lib '.';
 ##===========================================================
 
 #`(
-my $fileName = "/Volumes/Macintosh HD/Users/antonov/Raku-Data-Generators/resources/dfPetNameCounts.csv";
+my $fileName = $*CWD ~ '/resources/dfPetNameCounts.csv';
 
 my $text = slurp $fileName.Str;
 my @petNames = $text.split("\n").map({ $_.split('",').List });
@@ -43,27 +43,28 @@ say %specieToPetNames<Cat>.keys.pick(4).List;
 
 ##===========================================================
 
-use Data::Generators::RandomVariate;
-#use Stats;
 
-my $size = 1000;
-my @res = RandomVariate(NormalDistribution.new(mean => 0, sd => 1), $size);
+my $fileName = $*CWD ~ '/resources/dfEnglishWords.csv';
 
-my $µ = [+](@res) / $size;
-say (:$µ);
+my $text = slurp $fileName.Str;
+my @englishWords = $text.split("\n").map({ $_.split(',') });
+@englishWords = @englishWords[1..*-1];
 
-my $σ = sqrt [+](@res X** 2) / $size - $µ**2;
-say (:$σ);
+# Convert the logical fields into Booleans.
+my $k = 0;
+@englishWords = do for @englishWords -> $row {
+    ( $row[0], $row[1] eq 'True', $row[2] eq 'True', $row[3] eq 'True', $k++)
+}
 
-#------------------------------------------------------------
+say @englishWords.pick(3);
 
-$size = 1000;
-@res = RandomVariate(UniformDistribution.new(min => -3, max => 4), $size);
+# Make word data dictionary
+my %englishWords = @englishWords.map({ $_[0] => $_ });
 
-say @res;
+# Create word type indexes
+my %typeToIndexes =
+        known => @englishWords.grep({ $_[1] }).map({ $_[4] }),
+        common => @englishWords.grep({ $_[2]}).map({ $_[4] }),
+        stopword => @englishWords.grep({ $_[3] }).map({ $_[4] });
 
-$µ = [+](@res) / $size;
-say (:$µ);
-
-$σ = sqrt [+](@res X** 2) / $size - $µ**2;
-say (:$σ);
+say %typeToIndexes.map({ $_.key => $_.value.elems })
