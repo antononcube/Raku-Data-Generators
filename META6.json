@@ -9,7 +9,7 @@
   "auth": "zef:antononcube",
   "depends": [
     "Math::SpecialFunctions:ver<0.1.0+>",
-    "Statistics::Distributions:ver<0.1.0+>"
+    "Statistics::Distributions:ver<0.1.4+>"
   ],
   "build-depends": [],
   "test-depends": [],
